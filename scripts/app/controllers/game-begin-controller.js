@@ -6,6 +6,18 @@ define(function(require, exports, module){
 	GameBeginController.prototype = {
 		_initGameBeginController: function(options){
 			
+		},
+		
+		run: function(){
+			this.view.render();
+		},
+		
+		setView: function(view){
+			this.view = view;
+		},
+		
+		setRequest: function(request){
+			this.request = request;
 		}
 	};
 

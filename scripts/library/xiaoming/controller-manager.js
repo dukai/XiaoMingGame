@@ -17,6 +17,12 @@ define(function(require, exports, module){
 
 		camel2Dash: function(value){
 			return value.replace(/([^^])([A-Z])/g, '$1-$2').toLowerCase();
+		},
+		
+		getController: function(controllerName, callback){
+			require.async('app/controllers/' + this.camel2Dash(controllerName) , function(c) {
+				callback(c);
+			});
 		}
 	};
 	
