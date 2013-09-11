@@ -1,7 +1,8 @@
 define(function(require, exports, module){
-	var ViewManager = require('xiaoming/view-manager');
-	var EventManager = require('xiaoming/event-manager');
 	var GameBeginView = require('app/views/game-begin-view');
+	var AbstractController = require('xiaoming/abstract-controller');
+	var oo = require('xiaoming/oo');
+	var GameMainController = require('app/controllers/game-main-controller');
 	
 	
 	var GameBeginController = function(options){
@@ -10,10 +11,7 @@ define(function(require, exports, module){
 	
 	GameBeginController.prototype = {
 		_initGameBeginController: function(options){
-			this.viewManager = new ViewManager();
-			this.eventManager = new EventManager();
-			
-			this.initEvents();
+			AbstractController.call(this, options);
 		},
 		
 		initEvents: function(){
@@ -21,44 +19,17 @@ define(function(require, exports, module){
 			this.eventManager.add(GameBeginView.EVENT_SUBMIT, this.onSubmitClick, this);
 		},
 		
-		run: function(){
-			var self = this;
-			this.viewManager.getView(this.controllerName, function(viewRef){
-				var v = new viewRef();
-				v.setRequest(self.request);
-				v.setEventManager(self.eventManager);
-				self.setView(v);
-				self.getView().render();
-				
-			});
-			
-		},
-		
-		setView: function(view){
-			this.view = view;
-		},
-		
-		getView: function(){
-			return this.view;
-		},
-		
-		setRequest: function(request){
-			this.request = request;
-		},
-		setControllerName: function(controllerName){
-			this.controllerName = controllerName;
-		},
 
 		login: function(){
 			
 		},
 		
 		onSubmitClick: function(event){
-			console.log(event.username.value);
-			console.log(event.password.value);
+			console.log(event);
+			console.log(new GameMainController());
 		}
 		
 	};
-
+	oo.extend(GameBeginController, AbstractController);
 	module.exports = GameBeginController;
 });
