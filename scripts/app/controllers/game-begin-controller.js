@@ -18,6 +18,10 @@ define(function(require, exports, module){
 		
 		setRequest: function(request){
 			this.request = request;
+		},
+
+		login: function(){
+
 		}
 	};
 
