@@ -1,6 +1,6 @@
 define(function(require, exports, module){
 	var ControllerManager = require('./controller-manager');
-	var ViewManager = require('./view-manager');
+	
 	var Application = function(options){
 		this._initApplication(options);
 	};
@@ -9,7 +9,6 @@ define(function(require, exports, module){
 		_initApplication: function(options){
 			this.options = options;
 			this.controllerManager = new ControllerManager();
-			this.viewManager = new ViewManager();
 			this.canvas = document.getElementById(this.options.canvas);
 			this.divcontainer = document.getElementById(this.options.div);
 			this.request = {
@@ -24,14 +23,8 @@ define(function(require, exports, module){
 				this.controllerManager.getController(this.options.defaultController, function(controllerRef){
 					var ctrl = new controllerRef();
 					ctrl.setRequest(self.request);
-					self.viewManager.getView(self.options.defaultController, function(viewRef){
-						var v = new viewRef();
-						v.setRequest(self.request);
-						ctrl.setView(v);
-						
-						ctrl.run();
-					});
-					
+					ctrl.setControllerName(self.options.defaultController);
+					ctrl.run();
 				});
 			}
 		}

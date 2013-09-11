@@ -10,18 +10,22 @@ define(function(require, exports, module){
 		},
 		
 		_initUI: function(){
+			var self = this;
 			var usernameDom = $c('input');
 			usernameDom.type = 'text';
 			usernameDom.placeholder = 'Username';
 			var passwordDom = $c('input');
-			passwordDom.type = 'text';
+			passwordDom.type = 'password';
 			passwordDom.placeholder = 'Password';
 			var submitDom = $c('button');
 			submitDom.type = 'button';
 			submitDom.innerHTML = '提交';
 			
 			submitDom.onclick = function(){
-				
+				self.getEventManager().trigger(GameBeginView.EVENT_SUBMIT, {
+					username: usernameDom,
+					password: passwordDom
+				});
 			};
 
 			this.request.divcontainer.appendChild(usernameDom);
@@ -35,8 +39,18 @@ define(function(require, exports, module){
 		
 		setRequest: function(request){
 			this.request = request;
+		},
+		
+		setEventManager: function(eventManager){
+			this._eventManager = eventManager;
+		},
+		
+		getEventManager: function(){
+			return this._eventManager;
 		}
 	};
+	
+	GameBeginView.EVENT_SUBMIT = 'game_begin_view_submit';
 	
 	module.exports = GameBeginView;
 });
