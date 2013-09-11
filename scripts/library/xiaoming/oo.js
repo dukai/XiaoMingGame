@@ -17,7 +17,10 @@ define(function(require, exports, module){
 		};
 
 		for(var method in baseClass.prototype){
-			subClass.prototype[method] = parent[method] = baseClass.prototype[method];
+			if(! (method in subClass.prototype)){
+				subClass.prototype[method] = parent[method] = baseClass.prototype[method];
+			}
+			
 		}
 	};
 
