@@ -22,8 +22,8 @@ define(function(require, exports, module){
 			if(this.options.defaultController){
 				this.controllerManager.getController(this.options.defaultController, function(controllerRef){
 					var ctrl = new controllerRef();
-					ctrl.setRequest(self.request);
-					ctrl.setControllerName(self.options.defaultController);
+					ctrl.set('request', self.request);
+					ctrl.set('controllerName', self.options.defaultController);
 					ctrl.run();
 				});
 			}
