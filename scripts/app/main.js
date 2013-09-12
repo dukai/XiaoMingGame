@@ -3,7 +3,7 @@ define(function(require){
 	var app = new Application({
 		defaultController: 'GameBeginController',
 		canvas: 'canvas',
-		div: 'box'
+		div: 'container'
 	});
 	app.run();
 });

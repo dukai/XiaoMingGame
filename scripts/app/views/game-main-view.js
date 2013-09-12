@@ -1,35 +1,18 @@
 define(function(require, exports, module){
 	var $c = require('xiaoming/elements');
-	var GameBeginView = function(options){
+	var GameMainView = function(options){
 		this._initGameBeginView(options);
 	};
 	
-	GameBeginView.prototype = {
+	GameMainView.prototype = {
 		_initGameBeginView: function(options){
 			
 		},
 		
 		_initUI: function(){
-			var self = this;
-			var usernameDom = $c('input');
-			usernameDom.type = 'text';
-			usernameDom.placeholder = 'Username';
-			var passwordDom = $c('input');
-			passwordDom.type = 'password';
-			passwordDom.placeholder = 'Password';
-			var submitDom = $c('button');
-			submitDom.type = 'button';
-			submitDom.className = 'btn_start';
-			submitDom.innerHTML = '开始游戏';
-			
-			submitDom.onclick = function(){
-				self.getEventManager().trigger(GameBeginView.EVENT_SUBMIT, {
-				});
-			};
-
-			//this.request.divcontainer.appendChild(usernameDom);
-			//this.request.divcontainer.appendChild(passwordDom);
-			this.request.divcontainer.appendChild(submitDom);
+			var container = this.container = $c('div', null, 'sence');
+			container.appendChild($c('input'));
+			this.request.container.appendChild(container);
 		},
 		
 		render: function(){
@@ -49,7 +32,7 @@ define(function(require, exports, module){
 		}
 	};
 	
-	GameBeginView.EVENT_SUBMIT = 'game_begin_view_submit';
+	GameMainView.EVENT_SUBMIT = 'game_main_view_submit';
 	
-	module.exports = GameBeginView;
+	module.exports = GameMainView;
 });

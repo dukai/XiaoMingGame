@@ -11,6 +11,8 @@ define(function(require, exports, module){
 		
 		_initUI: function(){
 			var self = this;
+			var container = this.container = $c('div', 'box');
+			
 			var usernameDom = $c('input');
 			usernameDom.type = 'text';
 			usernameDom.placeholder = 'Username';
@@ -26,10 +28,8 @@ define(function(require, exports, module){
 				self.getEventManager().trigger(GameBeginView.EVENT_SUBMIT, {
 				});
 			};
-
-			//this.request.divcontainer.appendChild(usernameDom);
-			//this.request.divcontainer.appendChild(passwordDom);
-			this.request.divcontainer.appendChild(submitDom);
+			container.appendChild(submitDom);
+			this.request.container.appendChild(container);
 		},
 		
 		render: function(){
@@ -46,6 +46,10 @@ define(function(require, exports, module){
 		
 		getEventManager: function(){
 			return this._eventManager;
+		},
+		
+		distroy: function(){
+			this.container.style.display = 'none';
 		}
 	};
 	
