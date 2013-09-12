@@ -105,20 +105,13 @@ button.btn_start:active {
 }
 #container {
   width: 960px;
+  height: 640px;
   margin: 0 auto;
   position: relative;
-}
-#box,
-#canvas {
-  left: 0;
-  top: 0;
+  border: 1px solid #000;
 }
 #box {
   position: absolute;
-  width: 0;
-  height: 0;
-}
-#canvas {
   width: 960px;
   height: 640px;
   border: 1px solid #ccc;
