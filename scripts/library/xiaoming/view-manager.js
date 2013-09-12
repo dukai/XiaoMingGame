@@ -19,10 +19,14 @@ define(function(require, exports, module){
 			return value.replace(/([^^])([A-Z])/g, '$1-$2').toLowerCase();
 		},
 		
-		getView: function(viewName, callback){
-			require.async('app/views/' + this.camel2Dash(viewName).replace('controller', 'view') , function(v) {
+		getView: function(controllerName, callback){
+			require.async('app/views/' +  this.getViewNameByControllerName(controllerName), function(v) {
 				callback(v);
 			});
+		},
+		
+		getViewNameByControllerName: function(controllerName){
+			return this.camel2Dash(controllerName).replace('controller', 'view')
 		}
 	};
 	
