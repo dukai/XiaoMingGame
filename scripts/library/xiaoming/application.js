@@ -1,6 +1,7 @@
 define(function(require, exports, module){
 	var ControllerManager = require('./controller-manager');
-	
+	var EventManager = require('xiaoming/event-manager');
+	var Router = require('xiaoming/router');
 	var Application = function(options){
 		this._initApplication(options);
 	};
@@ -11,21 +12,28 @@ define(function(require, exports, module){
 			this.controllerManager = new ControllerManager();
 			this.canvas = document.getElementById(this.options.canvas);
 			this.divcontainer = document.getElementById(this.options.div);
+			this.eventManager = new EventManager();
 			this.request = {
-				canvas: this.canvas,
-				divcontainer: this.divcontainer
-			}
+				container: this.divcontainer
+			};
+			
+			this.router = new Router();
 		},
 
 		run: function(){
 			var self = this;
 			if(this.options.defaultController){
-				this.controllerManager.getController(this.options.defaultController, function(controllerRef){
-					var ctrl = new controllerRef();
-					ctrl.set('request', self.request);
-					ctrl.set('controllerName', self.options.defaultController);
-					ctrl.run();
-				});
+				
+				var intent = {
+					request: self.request,
+					controllerManager: self.controllerManager,
+					controllerName: this.options.defaultController,
+					eventManager: self.eventManager,
+					router: self.router
+				};
+				
+				this.router.dispatch(intent);
+				
 			}
 		}
 	};
