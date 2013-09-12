@@ -35,12 +35,15 @@ define(function(require, exports, module){
 		//执行controller
 		run: function(){
 			var self = this;
-			this.initEvents();
+			self.initEvents();
+			var viewName = this._viewManager.getViewNameByControllerName(this.get('controllerName'));
 			this._viewManager.getView(this.get('controllerName'), function(viewRef){
 				var v = new viewRef();
+				v.set('viewName', viewName);
 				v.setRequest(self.get('request'));
 				v.setEventManager(self.get('eventManager'));
 				self.set('view', v);
+				
 				self.get('view').render();
 			});
 			
@@ -55,6 +58,14 @@ define(function(require, exports, module){
 		
 		distroy: function(){
 			this._view.distroy();
+		},
+		
+		setEventManager: function(eventManager){
+			this._eventManager
+		},
+		
+		getEventManager: function(eventManager){
+			
 		},
 		
 		get: function(key){

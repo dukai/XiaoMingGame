@@ -2,7 +2,7 @@ define(function(require, exports, module){
 	var GameBeginView = require('app/views/game-main-view');
 	var AbstractController = require('xiaoming/abstract-controller');
 	var oo = require('xiaoming/oo');
-	
+	var resourceLoader = require('xiaoming/resource-loader');
 	
 	
 	var GameMainController = function(options){
@@ -15,15 +15,6 @@ define(function(require, exports, module){
 		},
 		
 		initEvents: function(){
-		},
-		
-
-		login: function(){
-			
-		},
-		
-		onSubmitClick: function(event){
-			console.log(event);
 			
 		}
 		

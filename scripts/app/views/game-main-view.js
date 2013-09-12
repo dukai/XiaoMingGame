@@ -1,38 +1,28 @@
 define(function(require, exports, module){
 	var $c = require('xiaoming/elements');
+	var oo = require('xiaoming/oo');
+	var Kinetic = require('kinetic');
+	var AbstractView = require('xiaoming/abstract-view');
+	
 	var GameMainView = function(options){
-		this._initGameBeginView(options);
+		this._initGameMainView(options);
 	};
 	
 	GameMainView.prototype = {
-		_initGameBeginView: function(options){
-			
+		_initGameMainView: function(options){
+			AbstractView.call(this, options);
 		},
 		
-		_initUI: function(){
-			var container = this.container = $c('div', null, 'sence');
-			container.appendChild($c('input'));
-			this.request.container.appendChild(container);
-		},
-		
-		render: function(){
-			this._initUI();
-		},
-		
-		setRequest: function(request){
-			this.request = request;
-		},
-		
-		setEventManager: function(eventManager){
-			this._eventManager = eventManager;
-		},
-		
-		getEventManager: function(){
-			return this._eventManager;
+		initUI: function(){
+			var canvas = $c('canvas', 'main-game-canvas');
+			canvas.width = 960;
+			canvas.height = 640;
+			this.container.appendChild(canvas);
 		}
 	};
 	
-	GameMainView.EVENT_SUBMIT = 'game_main_view_submit';
+	GameMainView.EVENT_SUBMIT = 'game-main-view-submit';
+	oo.extend(GameMainView, AbstractView);
 	
 	module.exports = GameMainView;
 });
