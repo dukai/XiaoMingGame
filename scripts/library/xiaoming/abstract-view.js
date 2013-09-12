@@ -1,5 +1,6 @@
 define(function(require, exports, module){
 	var $c = require('xiaoming/elements');
+	var $ = require('jquery');
 	var AbstractView = function(options){
 		this._initAbstractView(options);
 	};
@@ -7,6 +8,7 @@ define(function(require, exports, module){
 	AbstractView.prototype = {
 		_initAbstractView: function(options){
 			this.container = $c('div', null, 'sence');
+			this._viewName = null;
 			this.initUI();
 		},
 		
@@ -15,7 +17,10 @@ define(function(require, exports, module){
 		},
 		
 		render: function(){
-			this.request.container.appendChild(container);
+			$(this.container).addClass(this.get('viewName'));
+			this.request.container.appendChild(this.container);
+			
+			this.getEventManager().trigger(this.get('viewName') + '-render', {});
 		},
 		
 		setRequest: function(request){
