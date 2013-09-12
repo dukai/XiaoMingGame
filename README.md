@@ -1,3 +1,3 @@
 XiaoMingGame
 ============
-A Simple MVC Game Framework
+A Simple SLG Game, it's name is XiaoMing
