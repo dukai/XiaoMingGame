@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="2" height="2" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="metatiles32x32" tilewidth="32" tileheight="32">
+  <image source="images/metatiles32x32.png" width="160" height="32"/>
+ </tileset>
+ <tileset firstgid="6" name="newworld" tilewidth="32" tileheight="32">
+  <image source="images/newworld.png" width="256" height="576"/>
+ </tileset>
+ <layer name="bg" width="2" height="2">
+  <data>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="9"/>
+  </data>
+ </layer>
+ <layer name="fg" width="2" height="2">
+  <data>
+   <tile gid="72"/>
+   <tile gid="53"/>
+   <tile gid="12"/>
+   <tile gid="106"/>
+  </data>
+ </layer>
+ <layer name="collision" width="2" height="2">
+  <data>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+  </data>
+ </layer>
+</map>

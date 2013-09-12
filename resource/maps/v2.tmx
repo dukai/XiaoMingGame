@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="30" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="v2" tilewidth="32" tileheight="32">
+  <image source="v2.png" width="320" height="320"/>
+  <terraintypes>
+   <terrain name="grass" tile="70"/>
+   <terrain name="water" tile="1"/>
+   <terrain name="sand" tile="4"/>
+   <terrain name="forest" tile="17"/>
+  </terraintypes>
+  <tile id="0" terrain="0,0,0,1"/>
+  <tile id="1" terrain="0,0,1,1"/>
+  <tile id="2" terrain="0,0,1,0"/>
+  <tile id="3" terrain="0,0,0,2"/>
+  <tile id="4" terrain="0,0,2,2"/>
+  <tile id="5" terrain="0,0,2,0"/>
+  <tile id="6" terrain="0,0,0,3"/>
+  <tile id="7" terrain="0,0,3,3"/>
+  <tile id="8" terrain="0,0,3,0"/>
+  <tile id="10" terrain="0,1,0,1"/>
+  <tile id="11" terrain="1,1,1,1"/>
+  <tile id="12" terrain="1,0,1,0"/>
+  <tile id="13" terrain="0,2,0,2"/>
+  <tile id="14" terrain="2,2,2,2"/>
+  <tile id="15" terrain="2,0,2,0"/>
+  <tile id="16" terrain="0,3,0,3"/>
+  <tile id="17" terrain="3,3,3,3"/>
+  <tile id="18" terrain="3,0,3,0"/>
+  <tile id="20" terrain="0,1,0,0"/>
+  <tile id="21" terrain="1,1,0,0"/>
+  <tile id="22" terrain="1,0,0,0"/>
+  <tile id="23" terrain="0,2,0,0"/>
+  <tile id="24" terrain="2,2,0,0"/>
+  <tile id="25" terrain="2,0,0,0"/>
+  <tile id="26" terrain="0,3,0,0"/>
+  <tile id="27" terrain="3,3,0,0"/>
+  <tile id="28" terrain="3,0,0,0"/>
+  <tile id="30" terrain="0,1,1,1"/>
+  <tile id="31" terrain="1,0,1,1"/>
+  <tile id="32" terrain="0,2,2,2"/>
+  <tile id="33" terrain="2,0,2,2"/>
+  <tile id="34" terrain="0,3,3,3"/>
+  <tile id="35" terrain="3,0,3,3"/>
+  <tile id="40" terrain="1,1,0,1"/>
+  <tile id="41" terrain="1,1,1,0"/>
+  <tile id="42" terrain="2,2,0,2"/>
+  <tile id="43" terrain="2,2,2,0"/>
+  <tile id="44" terrain="3,3,0,3"/>
+  <tile id="45" terrain="3,3,3,0"/>
+  <tile id="50" terrain="0,0,0,1"/>
+  <tile id="51" terrain="0,0,1,0"/>
+  <tile id="52" terrain="0,0,0,2"/>
+  <tile id="53" terrain="0,0,2,0"/>
+  <tile id="60" terrain="0,1,0,0"/>
+  <tile id="61" terrain="1,0,0,0"/>
+  <tile id="62" terrain="0,2,0,0"/>
+  <tile id="63" terrain="2,0,0,0"/>
+  <tile id="70" terrain="0,0,0,0"/>
+ </tileset>
+ <tileset firstgid="101" name="hit" tilewidth="32" tileheight="32">
+  <image source="images/metatiles32x32.png" width="160" height="32"/>
+ </tileset>
+ <tileset firstgid="106" name="lotus" tilewidth="32" tileheight="32">
+  <image source="lotus.png" width="258" height="198"/>
+ </tileset>
+ <layer name="bg" width="40" height="30">
+  <data encoding="base64" compression="zlib">
+   eJytl8lSmzEQhMUSO5QJm4tATCjMcsEQLnFyM3DL+78RUkVdbrdntBgf+mL/v/R5ZtQtz0II3x09Rh2KZoXnt620/7eof47ODc7S89vWqHG/c2KcRu2S5lHDqK8NOojakfeT9j7Jl7Rw+p7ev4r6KfoVdSYaOz2ZOowW35+oL6KBw/oo9ZzTM8wM1rHTE29umA9ct1HHojuHVfdgVq7HVWZ8kF6POviOhOk56kfUU4V1Eexzrqw6A9edfG+ZBVyT/Pmlw5l04tSxxMq6MZ7huuv8vRGXyuJELUt17FHy1tcCH2R5AObf4xw01LGFbT/qb4Vv5KzBPbgURvS6p46cRRfh/xm9pbVqfJpl7NGJETOLGuJ3tzDOMpPlHa186Ttkg/qBxXhCa5QYmW0/rHtaD99pWHqr7ol30WuuoWYOi88AfA2+kfS+Ad9DruFC9hnmz7EPfnstkw+Ej2tfO78WH+cT732fP0efUUP4sZXDvNY2+ZBP985e3Gf4onV3QH7w7G3K59XhRfZKnrkXVnOSs9AS2NLsTcLqWWzhm4Zl3lj5yT5+k9dKffby0Mp3nIch9QX9GGUGvhdpnk6Df49UH8ezc+L09B5WZ5lnZhzW+9iSIcyq+d5yH7Du2zrLL7k3NT7vvtybqep9yZf5zOk8g63Gp/3u+Y9XutPxnHlcJb5WXy1lBM+uzjbXjntpyeKzas+CByonMn4Qyvdi9oES26Z8fMZ+h+XMcw7U7u2tsvjwX0Y92Povxu/DTyZh/Z6jPS7NEPfFOx/ogVV//o59vOQ7pR5bucd8fBfr0Y7B0XOOW9fX396qVraaX9fW/wCN55bM
+  </data>
+ </layer>
+ <layer name="dianzhui" width="40" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztl8EKwCAMQ/1evW3/D3oswrBWTSbkgTcxWtOIKfnIbRTnXAZPGy97E+I6UL6O6qB8rf7B0PuAlatfur0Por5YPddpP+5cH3mHES1kbytHhLiDmSxhvFM2S0b67Nzx6usfJcQY9ckctl5/rJ2t187aVchaG6E=
+  </data>
+ </layer>
+ <layer name="hitmap" width="40" height="30" visible="0" opacity="0.51">
+  <properties>
+   <property name="layer_type" value="hitmap"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzl1NENgCAMhGGWZf8VXEC5a/sXSbiEJxE+tGWOMebh4yvR+XTc/bLni6xV8Skj4XtbJ/u/CGunz3Fm6ob2OUanvjp9EWP0LOR9sdOXrakTfMpJuAgfZVzF8al9K0aVTp8yOon61DM6JxhWucnXcR73flHvd33vSJ9W5tE+tXd13OCjrJWQ9dJh3NF3f/rcvs5ml49eP/P+n/1L2ty9Ou83cjzLtsuV
+  </data>
+ </layer>
+</map>
