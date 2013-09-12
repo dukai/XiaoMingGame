@@ -1,4 +1,5 @@
 define(function(require, exports, module){
+	var util = require('xiaoming/util');
 	//资源载入器
 	var resourceLoader = {
 		totalCount: 0,
