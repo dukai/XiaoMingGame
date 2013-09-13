@@ -2,34 +2,28 @@
 /*game begin sence*/
 
 button.btn_start {
-  display:inline-block;
-  width:300px;
-  position:relative;
-  left:330px;
-  top:320px;
-  background: #4162a8;
-  border-top: 1px solid #38538c;
-  border-right: 1px solid #1f2d4d;
-  border-bottom: 1px solid #151e33;
-  border-left: 1px solid #1f2d4d;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 10px 1px #5c8bee, 0px 1px 0 #1d2c4d, 0 6px 0px #1f3053, 0 8px 4px 1px #111111;
-  box-shadow: inset 0 1px 10px 1px #5c8bee, 0px 1px 0 #1d2c4d, 0 6px 0px #1f3053, 0 8px 4px 1px #111111;
-  color: #fff;
-  font: bold 20px/1 "helvetica neue", helvetica, arial, sans-serif;
-  margin-bottom: 10px;
-  padding: 10px 0 12px 0;
-  text-align: center;
-  text-shadow: 0px -1px 1px #1e2d4d;
-  -webkit-background-clip: padding-box; }
-  button.btn_start:hover {
-    -webkit-box-shadow: inset 0 0px 20px 1px #87adff, 0px 1px 0 #1d2c4d, 0 6px 0px #1f3053, 0 8px 4px 1px #111111;
-    box-shadow: inset 0 0px 20px 1px #87adff, 0px 1px 0 #1d2c4d, 0 6px 0px #1f3053, 0 8px 4px 1px #111111;
-    cursor: pointer; }
-  button.btn_start:active {
-    -webkit-box-shadow: inset 0 1px 10px 1px #5c8bee, 0 1px 0 #1d2c4d, 0 2px 0 #1f3053, 0 4px 3px 0 #111111;
-    box-shadow: inset 0 1px 10px 1px #5c8bee, 0 1px 0 #1d2c4d, 0 2px 0 #1f3053, 0 4px 3px 0 #111111;
-    margin-top: 6px; }
+  border-radius:6px;
+  background:#d16464;
+  border:none;
+  line-height:48px;
+  padding:0 30px;
+  font-size:18px;
+  color:#fff;
+  font-weight:bold;
+  box-shadow:0 3px 0px #a73e3e;
+  display:block;
+  margin:0 auto;
+  margin-top:300px;
+  cursor:pointer;
+  &:hover{
+    background:#e16d6d;
+  }
+  &:active{
+    background:#a73e3e;
+    margin-top:303px;
+    box-shadow:none;
+  }
+}
 #container{
   width:960px;
   height:640px;
@@ -53,10 +47,9 @@ button.btn_start {
   background:#ccc;
   position:relative;
   top:260px;
-  left:50%;
-  margin-left:-200px;
   background:rgba(255, 255, 255, .5);
   border-radius:4px;
+  margin:0 auto;
 }
 .progressbar .bar{
   width:100%;
