@@ -64,12 +64,12 @@ define(function(require, exports, module){
 			var self = this;
 			resourceLoader.onComplete = function(){
 				//alert('complete');
-				self.get('view').submit.style.display = 'inline-block';
+				self.get('view').submit.style.display = 'block';
 			};
 			resourceLoader.onProgress = function(event){
 				var percentage = parseInt((event.loadedCount / event.totalCount) * 100) + '%';
 				self.get('view').bar.style.width = percentage;
-			}
+			};
 			
 			resourceLoader.load(this.resources);
 		}
