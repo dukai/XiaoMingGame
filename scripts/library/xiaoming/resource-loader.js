@@ -62,12 +62,12 @@ define(function(require, exports, module){
 		loadXML: function(resource){
 			var self = this;
 			
-			var request = new util.Request({
+			$.ajax({
 				url: resource.src,
 				dataType: 'xml',
 				success: function(rep, statusText, xhr){
 					++self.loadedCount;
-					self.resources[this.dataName] = rep;
+					self.resources[resource.name] = rep;
 					self.onProgress({loadedCount: self.loadedCount, totalCount: self.totalCount});
 	
 					if(self.totalCount === self.loadedCount){
@@ -78,20 +78,18 @@ define(function(require, exports, module){
 					console.log('Error on: ' + statusText);
 				}
 			});
-			request.dataName = resource.name;
 	
-	
-			request.send();
 		},
 		
 		loadJSON: function(resource){
 			var self = this;
-			var request = new util.Request({
+			
+			$.ajax({
 				url: resource.src,
 				dataType: 'json',
 				success: function(rep, statusText, xhr){
 					++self.loadedCount;
-					self.resources[this.dataName] = rep;
+					self.resources[resource.name] = rep;
 					self.onProgress({loadedCount: self.loadedCount, totalCount: self.totalCount});
 	
 					if(self.totalCount === self.loadedCount){
@@ -102,8 +100,6 @@ define(function(require, exports, module){
 					console.log('Error on: ' + statusText);
 				}
 			});
-			request.dataName = resource.name;
-			request.send();
 		},
 	
 		loadAudio: function(){
