@@ -12,6 +12,8 @@ define(function(require, exports, module){
 	GameMainController.prototype = {
 		_initGameMainController: function(options){
 			AbstractController.call(this, options);
+			
+			
 		},
 		
 		initEvents: function(){
