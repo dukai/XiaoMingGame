@@ -260,5 +260,19 @@ define(function(require, exports, module){
 	util.addGetterSetter = addGetterSetter;
 	var win = window;
 	util.JSON = window.JSON;
+	
+	var dash2Camel = function(value){
+		return value.replace(/(-|^)([a-z])/g, function(g){
+			console.log(arguments);
+			return arguments[2].toUpperCase();
+		});
+	};
+
+	var camel2Dash = function(value){
+		return value.replace(/([^^])([A-Z])/g, '$1-$2').toLowerCase();
+	};
+	
+	util.dash2Camel = dash2Camel;
+	util.camel2Dash = camel2Dash;
 	module.exports = util;
 });
