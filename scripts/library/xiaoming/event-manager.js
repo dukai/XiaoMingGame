@@ -7,12 +7,12 @@ define(function(require, exports, module){
 		_initEventManager: function(){
 			this.events = {};
 		},
-		add: function(eventName, foo, target){
+		addEventListener: function(eventName, foo, target){
 			this._addEventObject(eventName, foo, target);
 		},
 		
 		
-		remove: function(eventName, foo){
+		removeEventListener: function(eventName, foo){
 			this._removeEventObject(eventName);
 		},
 		
@@ -24,7 +24,7 @@ define(function(require, exports, module){
 					if(e.target){
 						e.foo.call(e.target, event);
 					}else{
-						e.foo(event);
+						e.foo.call(this, event);
 					}
 				}
 			}
