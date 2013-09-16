@@ -1,6 +1,6 @@
 define(function(require, exports, module){
 	var ViewManager = require('xiaoming/view-manager');
-	
+	var util = require('xiaoming/util');
 	
 	
 	var AbstractController = function(options){
@@ -26,16 +26,30 @@ define(function(require, exports, module){
 		},
 		//视图管理器
 		_viewManager : new ViewManager(),
+		
+		_initEvents: function(){
+			this.initEvents();
+		},
 		/**
 		 * Abstract method 
 		 */
 		initEvents: function(){
-			
+			//TODO: override
+		},
+		/**
+		 * Abstract method onRender 
+		 */
+		onRender: function(event){
+			//TODO: override
+		},
+		
+		addDefaultEvents: function(){
+			this.get('eventManager').addEventListener(this.getRenderEventName(), this.onRender, this);
 		},
 		//执行controller
 		run: function(){
 			var self = this;
-			self.initEvents();
+			self._initEvents();
 			var viewName = this._viewManager.getViewNameByControllerName(this.get('controllerName'));
 			this._viewManager.getView(this.get('controllerName'), function(viewRef){
 				var v = new viewRef();
@@ -43,7 +57,7 @@ define(function(require, exports, module){
 				v.setRequest(self.get('request'));
 				v.setEventManager(self.get('eventManager'));
 				self.set('view', v);
-				
+				self.addDefaultEvents();
 				self.get('view').render();
 			});
 			
@@ -59,13 +73,15 @@ define(function(require, exports, module){
 		distroy: function(){
 			this._view.distroy();
 		},
-		
+		getRenderEventName: function(){
+			return util.camel2Dash(this._controllerName).replace('-controller', '-render');
+		},
 		setEventManager: function(eventManager){
-			this._eventManager
+			this._eventManager = eventManager;
 		},
 		
 		getEventManager: function(eventManager){
-			
+			return this._eventManager;
 		},
 		
 		get: function(key){

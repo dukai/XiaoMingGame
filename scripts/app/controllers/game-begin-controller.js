@@ -36,9 +36,8 @@ define(function(require, exports, module){
 		
 		initEvents: function(){
 			
-			this.get('eventManager').add(GameBeginView.EVENT_SUBMIT, this.onSubmitClick, this);
+			this.get('eventManager').addEventListener(GameBeginView.EVENT_SUBMIT, this.onSubmitClick, this);
 			
-			this.get('eventManager').add(GameBeginView.EVENT_RENDER, this.onRender, this);
 		},
 		
 

@@ -1,6 +1,9 @@
 define(function(require, exports, module){
 	var $c = require('xiaoming/elements');
 	var $ = require('jquery');
+	var util = require('xiaoming/util');
+	
+	
 	var AbstractView = function(options){
 		this._initAbstractView(options);
 	};
@@ -20,7 +23,7 @@ define(function(require, exports, module){
 			$(this.container).addClass(this.get('viewName'));
 			this.request.container.appendChild(this.container);
 			
-			this.getEventManager().trigger(this.get('viewName') + '-render', {});
+			this.getEventManager().trigger(this.getRenderEventName(), {});
 		},
 		
 		setRequest: function(request){
@@ -38,7 +41,9 @@ define(function(require, exports, module){
 		distroy: function(){
 			this.container.style.display = 'none';
 		},
-		
+		getRenderEventName: function(){
+			return util.camel2Dash(this._viewName).replace('-view', '-render');
+		},
 		get: function(key){
 			if(this['_' + key]){
 				return this['_' + key];
