@@ -83,15 +83,16 @@ button.btn_start {
   box-shadow: 0 3px 0px #a73e3e;
   display: block;
   margin: 0 auto;
-  margin-top: 300px;
   cursor: pointer;
+  position: relative;
+  top: 100px;
 }
 button.btn_start:hover {
   background: #e16d6d;
 }
 button.btn_start:active {
   background: #a73e3e;
-  margin-top: 303px;
+  margin-top: 3px;
   box-shadow: none;
 }
 #container {
@@ -105,13 +106,19 @@ button.btn_start:active {
   background: url(../images/bg.png);
   height: 640px;
 }
+#gamename {
+  text-align: center;
+  color: #fff;
+  padding-top: 100px;
+  font-size: 72px;
+}
 .progressbar {
-  height: 6px;
+  height: 4px;
   padding: 2px;
-  width: 400px;
+  width: 300px;
   background: #ccc;
   position: relative;
-  top: 260px;
+  top: 20px;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 4px;
   margin: 0 auto;

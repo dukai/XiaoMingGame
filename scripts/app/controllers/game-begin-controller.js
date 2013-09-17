@@ -3,7 +3,7 @@ define(function(require, exports, module){
 	var AbstractController = require('xiaoming/abstract-controller');
 	var oo = require('xiaoming/oo');
 	var resourceLoader = require('xiaoming/resource-loader');
-	
+	var $ = require('jquery');
 	var GameBeginController = function(options){
 		this._initGameBeginController(options);
 	};
@@ -64,6 +64,10 @@ define(function(require, exports, module){
 			resourceLoader.onComplete = function(){
 				//alert('complete');
 				self.get('view').submit.style.display = 'block';
+				$(self.get('view').processbar).animate({
+					top: '-=20px',
+					opacity: 0
+				});
 			};
 			resourceLoader.onProgress = function(event){
 				var percentage = parseInt((event.loadedCount / event.totalCount) * 100) + '%';

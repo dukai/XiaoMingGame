@@ -17,7 +17,7 @@ define(function(require, exports, module){
 			$(this.container).addClass('game-begin');
 			var container = this.container;
 			
-			var progressbar = $c('div', null, 'progressbar');
+			var progressbar = this.processbar = $c('div', null, 'progressbar');
 			var bar = this.bar = $c('div', null, 'bar');
 			progressbar.appendChild(bar);
 			
@@ -30,6 +30,9 @@ define(function(require, exports, module){
 				self.getEventManager().trigger(GameBeginView.EVENT_SUBMIT, {
 				});
 			};
+			var gamename = $c('h1', 'gamename');
+			gamename.innerHTML = '小明的游戏';
+			container.appendChild(gamename);
 			container.appendChild(progressbar);
 			container.appendChild(submitDom);
 		}
