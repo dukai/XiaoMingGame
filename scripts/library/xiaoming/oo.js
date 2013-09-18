@@ -25,6 +25,11 @@ define(function(require, exports, module){
 	};
 
 	exports.extend = extend;
+	/**
+	 * mix js object 
+	 * @param {Object} base
+	 * @param {Object} child
+	 */
 	var mix = function(base, child){
 		var o = new Object();
 		for(var key in base){
