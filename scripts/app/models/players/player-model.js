@@ -1,123 +1,190 @@
 define(function(require, exports, module){
+	var oo = require('xiaoming/oo');
+	var util = require('xiaoming/util');
+	
+	/**
+	 *经验管理器 
+	 */
+	var Experience = function(){
+		this.levelExpList = [];
+		this.levelExp = -1;
+		this.currentLevelExp = 0;
+		this.level = -1;
+	};
+	
+	Experience.prototype = {
+		/**
+		 *经验计算偏移量 
+		 */
+		expOffset: 40,
+		/**
+		 *根据等级获取当前等级升级需要的总经验 
+		 * @param {Int} 等级
+		 * @param {bool} 是否设为当前等级
+		 * @param {bool} 是否加入到经验列表
+		 */
+		getLevelExp: function(level, isCurrentLevel, addToList){
+			var totalExp = Math.ceil((Math.pow(level - 1,3) + this.expOffset ) / 10 * ((level  - 1) * 2 + this.expOffset));
+			if(isCurrentLevel){
+				this.level = level;
+				this.levelExp = totalExp;
+			}
+			if(addToList){
+				this.levelExpList[level] = totalExp;
+			}
+			
+			return totalExp;
+		},
+		/**
+		 *获取战斗经验 
+		 * @param {Int} 攻击者等级
+		 * @param {Int} 被攻击者等级
+		 */
+		getFightExp: function(positiveLevel, negativeLevel){
+			var diff = negativeLevel - positiveLevel;
+			if(diff > 5){
+				diff = 5;
+			}
+			
+			if(diff < -5){
+				return 0;
+			}
+			var t = Math.pow((positiveLevel - 1) , 2);
+			return Math.ceil(t + (this.expOffset / 2) + (t * diff / 40));
+		},
+		/**
+		 *是否为当前等级 
+	 	 * @param {Int} level
+		 */
+		isCurrentLevel: function(level){
+			return level === this.level;
+		},
+		updateExp: function(exp, level){
+			if(!this.isCurrentLevel(level)){
+				this.getLevelExp(level, true);
+				this.currentLevelExp = 0;
+			}
+			
+			this.currentLevelExp += exp;
+			if(this.currentLevelExp >= this.levelExp){
+				this.currentLevelExp -= this.levelExp;
+				
+				this.level++;
+				this.getLevelExp(this.level, true);
+				return true;
+			}
+			
+			return false;
+		}
+	};
+	
+	var PlayerProperties = function(){
+		//生命值
+		this.hitPoint = 0;
+		//体能值
+		this.stamina = 0;
+		//攻击力
+		this.attackPower = 0;
+		//加血能力
+		this.healPower = 0;
+		//物理防御
+		this.physicalArmor = 0;
+		//魔法防御
+		this.magicArmor = 0;
+		//躲闪几率
+		this.dodge = 0;
+		//格挡
+		this.block = 0;
+		//暴击
+		this.criticalStrike = 0;
+		//暴击伤害倍率
+		this.criticalStrikeDamage = 2;
+		//幸运值
+		this.luck = 0;
+		//移动能力
+		this.mobility = 1;
+		//攻击范围
+		this.attackRange = {min: 0, max: 0};
+		//怒气值
+		this.rage = 0;
+		//消耗
+		this.consume;
+	};
 	/**
 	 *人物角色.
 	 * @param {string} 人物名字
 	 * @param {bool} 性别，男性为true， 女性为false
 	 */
 	var PlayerModel = function(options){
-		
 		this._initPlayerModel(options);
-		if(gender == undefined){
-			gender = true;
-		}
-		if(name){
-			this.name = name;
-		}else{
-			this.name = util.getName(gender);
-		}
-		
-		this.gender = gender;
-		//等级
-		this.level = 1;
-		//经验
-		this.exp = new Experience();
-		this.exp.getLevelExp(this.level, true);
-		/**
-		 *角色固有属性 
-		 */
-		this.p = {
-			//生命值
-			hitPoint : 0,
-			//体能值
-			stamina : 0,
-			//攻击力
-			attackPower : 0,
-			//加血能力
-			healPower : 0,
-			//物理防御
-			physicalArmor : 0,
-			//魔法防御
-			magicArmor : 0,
-			//躲闪几率
-			dodge : 0,
-			//格挡
-			block : 0,
-			//暴击
-			criticalStrike : 0,
-			//暴击伤害比例
-			criticalStrikeDamage : 2,
-			//幸运值
-			lucky : 0
-			
-		};
-		this.a = {
-			hitPoint : 0,
-			stamina : 0,
-			attackPower : 0,
-			healPower : 0,
-			physicalArmor : 0,
-			magicArmor : 0,
-			dodge : 0,
-			block : 0,
-			criticalStrike : 0,
-			criticalStrikeDamage : 2,
-			lucky : 0
-		};
-		this.hitPointActual = 0;
-		//移动能力
-		this.mobility;
-		this.mobilityActual;
-		//攻击范围
-		this.attackRange = {min: 0, max: 0};
-		//怒气值
-		this.rage = 0;
-		//必杀技
-		this.mustKill;
-		//消耗
-		this.consume;
-		//兵种
-		this.units;
-		/**
-		 *防御装备类型 
-		 */
-		this.armorType;
-		/**
-		 *武器装备类型 
-		 */
-		this.weaponType;
-		//装备管理器
-		this.equipmentsManager = new EquipmentsManager(this);
-		//装备属性列表
-		this.equipmentsProperties = {};
-		//动作列表
-		this.actionList = {
-			attack: {
-				name : '攻击',
-				code: 'attack'
-			},
-			mustKill: {
-				name: '必杀',
-				code: 'mustKill'
-			},
-			goods: {
-				name: '物品',
-				code: 'goods'
-			},
-			search: {
-				name: '搜索',
-				code: 'serach'
-			},
-			await: {
-				name: '待机',
-				code: 'await'
-			}
-		};
-		
 	};
 	
 	PlayerModel.prototype = {
 		_initPlayerModel: function(options){
+			this.options = oo.mix(this.options, {
+				gender: true,
+				name: ''
+			});
 			
+			for(var key in options){
+				this.options[key] = options[key];
+			}
+			
+			if(!this.options.name){
+				this.options.name = util.getName(this.options.gender);
+			}
+			//性别
+			this.gender = this.options.gender;
+			//固有属性
+			this.inherentProperties = new PlayerProperties();
+			//实际属性
+			this.actualProperties = new PlayerProperties();
+			//等级
+			this.level = 1;
+			//经验
+			this.exp = new Experience();
+			this.exp.getLevelExp(this.level, true);
+
+			this.hitPointActual = 0;
+			//必杀技
+			this.mustKill;
+			//兵种
+			this.units;
+			/**
+			 *防御装备类型 
+			 */
+			this.armorType;
+			/**
+			 *武器装备类型 
+			 */
+			this.weaponType;
+			//装备管理器
+			this.equipmentsManager = new EquipmentsManager(this);
+			//装备属性列表
+			this.equipmentsProperties = {};
+			//动作列表
+			this.actionList = {
+				attack: {
+					name : '攻击',
+					code: 'attack'
+				},
+				mustKill: {
+					name: '必杀',
+					code: 'mustKill'
+				},
+				goods: {
+					name: '物品',
+					code: 'goods'
+				},
+				search: {
+					name: '搜索',
+					code: 'serach'
+				},
+				await: {
+					name: '待机',
+					code: 'await'
+				}
+			};
 		},
 		/**
 		 *攻击方法
@@ -133,7 +200,7 @@ define(function(require, exports, module){
 				debug && console.log("鞭尸不是好习惯，道德点减10");
 				return;
 			}
-			var attackMsg = !!attackBack ? '发动了回击：' : '发动了攻击：' 
+			var attackMsg = !!attackBack ? '发动了回击：' : '发动了攻击：';
 			debug && console.log(this.units + this.name + '对' + otherPerson.units + otherPerson.name + attackMsg);
 			var damagePercent = 1;
 			var dodgeTurn = Math.ceil(Math.random() * 100);
@@ -249,5 +316,5 @@ define(function(require, exports, module){
 		
 	};
 	
-	
+	module.exports = PlayerModel;
 });
