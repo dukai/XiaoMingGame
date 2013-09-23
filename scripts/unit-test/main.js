@@ -1,6 +1,6 @@
 define(function(require, exports, module){
 	var oo = require('xiaoming/oo');
-	
+	var Equipment = require('app/models/equipments/equipment');
 	var ClassA = function(options){
 		this._initClassA(options);
 	};
@@ -43,7 +43,7 @@ define(function(require, exports, module){
 	var pm = new PlayerModel();
 	console.log(pm);
 	
-	var Helmet = require('app/models/equipments/helmet');
-	var h = new Helmet();
+	var HelmetFactory = require('app/models/equipments/helmet');
+	var h = HelmetFactory.create(Equipment.armorType.cloth);
 	console.log(h);
 });

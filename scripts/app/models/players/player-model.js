@@ -36,7 +36,7 @@ define(function(require, exports, module){
 			return totalExp;
 		},
 		/**
-		 *获取战斗经验 
+		 *获取战斗经验
 		 * @param {Int} 攻击者等级
 		 * @param {Int} 被攻击者等级
 		 */
@@ -178,7 +178,7 @@ define(function(require, exports, module){
 				},
 				search: {
 					name: '搜索',
-					code: 'serach'
+					code: 'search'
 				},
 				await: {
 					name: '待机',
