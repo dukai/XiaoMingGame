@@ -164,4 +164,5 @@ define(function(require, exports, module){
 		 */
 		book: 5
 	};
+	module.exports = Equipment;
 });

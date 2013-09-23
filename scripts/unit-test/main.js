@@ -42,4 +42,8 @@ define(function(require, exports, module){
 	
 	var pm = new PlayerModel();
 	console.log(pm);
+	
+	var Helmet = require('app/models/equipments/helmet');
+	var h = new Helmet();
+	console.log(h);
 });

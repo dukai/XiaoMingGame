@@ -11,5 +11,5 @@ define(function(require, exports, module){
 		this.activePropertyList.push('hitPoint');
 	};
 	oo.extend(Helmet, Equipment);
-	
+	module.exports = Helmet;
 });
