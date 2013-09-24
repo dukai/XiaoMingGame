@@ -112,6 +112,8 @@ define(function(require, exports, module){
 		this.rage = 0;
 		//消耗
 		this.consume = 0;
+
+
 	};
 
 	PlayerProperties.prototype = {
@@ -125,7 +127,14 @@ define(function(require, exports, module){
 					this[key] = options[key];
 				}
 			}
-		}
+		},
+		propertyNamesList : [
+			'hitPoint', 'stamina', 'attackPower',
+			'healPower', 'physicalArmor', 'magicArmor',
+			'dodge', 'block', 'criticalStrike',
+			'criticalStrikeDamage', 'luck', 'mobility',
+			'attackRange', 'rage', 'consume'
+		]
 	};
 	/**
 	 *人物角色.
@@ -202,6 +211,7 @@ define(function(require, exports, module){
 					code: 'await'
 				}
 			};
+			this.updateActualProperties();
 		},
 		/**
 		 * 攻击
@@ -223,14 +233,14 @@ define(function(require, exports, module){
 			var dodgeTurn = Math.ceil(Math.random() * 100);
 			var criticalStrikeTurn = Math.ceil(Math.random() * 100);
 			//是否暴击
-			if(criticalStrikeTurn <= this.a.criticalStrike * (1 + this.a.lucky) * 100){
-				damagePercent = this.a.criticalStrikeDamage;
+			if(criticalStrikeTurn <= this.actualProperties.criticalStrike * (1 + this.a.lucky) * 100){
+				damagePercent = this.actualProperties.criticalStrikeDamage;
 				debug && console.log(this.units + this.name + '暴击了');
 			}
 			//计算实际伤害
-			var actualDamage = Math.ceil(((this.a.attackPower * damagePercent) - otherPerson.a.physicalArmor) * (((this.a.hitPoint - this.hitPointActual) / this.a.hitPoint) + 1));
+			var actualDamage = Math.ceil(((this.actualProperties.attackPower * damagePercent) - otherPerson.actualProperties.physicalArmor) * (((this.actualProperties.hitPoint - this.hitPointActual) / this.actualProperties.hitPoint) + 1));
 			//是否躲避
-			if(dodgeTurn <= otherPerson.a.dodge * 100){
+			if(dodgeTurn <= otherPerson.actualProperties.dodge * 100){
 				actualDamage = 0;
 				debug && console.log(otherPerson.name + '躲闪了此次攻击');
 			}
@@ -261,7 +271,7 @@ define(function(require, exports, module){
 			//格挡几率
 			var blockTurn = Math.ceil(Math.random() * 100);
 			//格挡成功，发动回击
-			if(!attackBack && otherPerson.hitPointActual > 0 && blockTurn <= otherPerson.a.block * 100){
+			if(!attackBack && otherPerson.hitPointActual > 0 && blockTurn <= otherPerson.actualProperties.block * 100){
 				
 				otherPerson.attack(this, true);
 			}
@@ -307,27 +317,27 @@ define(function(require, exports, module){
 		levelUpgrade : function(){
 			this.level++;
 			
-			this.p.hitPoint = Math.ceil(this.p.hitPoint * 1.1);
-			this.p.attackPower = Math.ceil(this.p.attackPower * 1.1);
-			this.p.physicalArmor = Math.ceil(this.p.physicalArmor * 1.1);
-			this.p.magicArmor = Math.ceil(this.p.magicArmor * 1.1);
-			this.p.healPower = Math.ceil(this.p.healPower * 1.1);
+			this.inherentProperties.hitPoint = Math.ceil(this.inherentProperties.hitPoint * 1.1);
+			this.inherentProperties.attackPower = Math.ceil(this.inherentProperties.attackPower * 1.1);
+			this.inherentProperties.physicalArmor = Math.ceil(this.inherentProperties.physicalArmor * 1.1);
+			this.inherentProperties.magicArmor = Math.ceil(this.inherentProperties.magicArmor * 1.1);
+			this.inherentProperties.healPower = Math.ceil(this.inherentProperties.healPower * 1.1);
 			
 			this.updateActualProperties();
 		},
 		
 		updateActualProperties: function(){
-			for(var key in this.p){
-				var hpDiff = this.a.hitPoint - this.hitPointActual;
+			for(var i = 0, len = this.inherentProperties.propertyNamesList.length; i < len; i++){
+				var key = this.inherentProperties.propertyNamesList[i];
+				var hpDiff = this.actualProperties.hitPoint - this.hitPointActual;
 				var ep = this.equipmentsProperties[key];
 				if(!ep){
 					ep = 0;
 				}
-				this.a[key] = this.p[key] + ep;
+				this.actualProperties[key] = this.inherentProperties[key] + ep;
 				if(key == 'hitPoint'){
-					this.hitPointActual = this.a.hitPoint - hpDiff;
+					this.hitPointActual = this.actualProperties.hitPoint - hpDiff;
 				}
-				
 			}
 		}
 		
