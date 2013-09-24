@@ -5,6 +5,7 @@ define(function(require, exports, module){
 	var resourceLoader = require('xiaoming/resource-loader');
 	var GameModel = require('app/models/game-model');
     var CharFactory = require('app/models/chars/char-factory');
+    var CPTCharFactory = require('app/components/chars/char-factory');
 	
 	var GameMainController = function(options){
 		this._initGameMainController(options);
@@ -15,7 +16,7 @@ define(function(require, exports, module){
 			AbstractController.call(this, options);
 			this.gameModel = new GameModel();
 
-            var character = CharFactory.createCharacter(CharFactory.charType.swordman);
+            this.player1 = CharFactory.createCharacter(CharFactory.charType.swordman);
 		},
 		
 		initEvents: function(){
@@ -23,6 +24,7 @@ define(function(require, exports, module){
 		},
 
 		onRender: function(){
+            /*
             var image = new Kinetic.Image({
                 x: 0,
                 y: 0,
@@ -31,6 +33,9 @@ define(function(require, exports, module){
                 height: 512
             });
             this.get('view').layer.add(image);
+            */
+            var cptPlayer1 = CPTCharFactory.createCharacter(player1.charType);
+            this.get('view').layer.add(cptPlayer1);
 		},
 
         onLayerClick: function(e){

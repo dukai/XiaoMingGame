@@ -2,6 +2,7 @@ define(function(require, exports, module){
 	var oo = require('xiaoming/oo');
 	var util = require('xiaoming/util');
 	var EquipmentsManager = require('../equipments/equipment-manager');
+
 	/**
 	 *经验管理器 
 	 */
@@ -177,8 +178,10 @@ define(function(require, exports, module){
 			this.hitPointActual = 0;
 			//必杀技
 			this.mustKill;
-			//兵种
+			//兵种名称
 			this.units;
+            //角色类型
+            this.charType;
 			/**
 			 *防御装备类型 
 			 */
