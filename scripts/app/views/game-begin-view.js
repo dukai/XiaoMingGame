@@ -26,10 +26,10 @@ define(function(require, exports, module){
 			submitDom.className = 'btn_start';
 			submitDom.innerHTML = '开始游戏';
 			submitDom.style.display = "none";
-			submitDom.onclick = function(){
-				self.getEventManager().trigger(GameBeginView.EVENT_SUBMIT, {
-				});
-			};
+			$(submitDom).click(function(){
+				console.log('Submit clicked');
+				self.getEventManager().trigger(GameBeginView.EVENT_SUBMIT, {});
+			});
 			var gamename = $c('h1', 'gamename');
 			gamename.innerHTML = '小明的游戏';
 			container.appendChild(gamename);
