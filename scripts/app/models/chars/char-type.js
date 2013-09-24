@@ -1,0 +1,3 @@
+define({
+    swordman: 1
+});

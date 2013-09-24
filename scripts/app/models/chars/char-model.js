@@ -2,7 +2,7 @@ define(function(require, exports, module){
 	var oo = require('xiaoming/oo');
 	var util = require('xiaoming/util');
 	var EquipmentsManager = require('../equipments/equipment-manager');
-
+    var CharFactory = require('./char-factory');
 	/**
 	 *经验管理器 
 	 */

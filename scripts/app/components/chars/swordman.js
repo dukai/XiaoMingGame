@@ -13,4 +13,6 @@ define(function(require, exports, module){
 
     Kinetic.Global.extend(Swordman, Kinetic.Group);
     Kinetic.Node.addGetterSetter(Swordman, 'image');
+
+    module.exports = Swordman;
 });

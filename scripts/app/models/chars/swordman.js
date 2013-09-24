@@ -2,8 +2,7 @@ define(function(require, exports, module){
 	var PlayerModel = require('./char-model');
 	var oo = require('xiaoming/oo');
 	var Equipment = require('../equipments/equipment');
-    var CharFactory = require('./char-factory');
-
+    var CharType = require('./char-type');
 	var Swordman = function(options){
 		this._initSwordman(options);
 	};
@@ -30,7 +29,7 @@ define(function(require, exports, module){
 			this.armorType = Equipment.armorType.chain;
 			this.weaponType = Equipment.weaponType.sword;
 			this.units = '剑士';
-            this.charType = CharFactory.charType.swordman;
+            this.charType = CharType.swordman;
 		}
 	};
 

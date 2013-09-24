@@ -4,6 +4,7 @@ define(function(require, exports, module){
 	var oo = require('xiaoming/oo');
 	var resourceLoader = require('xiaoming/resource-loader');
 	var GameModel = require('app/models/game-model');
+    var CharType = require('app/models/chars/char-type');
     var CharFactory = require('app/models/chars/char-factory');
     var CPTCharFactory = require('app/components/chars/char-factory');
 	
@@ -16,7 +17,7 @@ define(function(require, exports, module){
 			AbstractController.call(this, options);
 			this.gameModel = new GameModel();
 
-            this.player1 = CharFactory.createCharacter(CharFactory.charType.swordman);
+            this.player1 = CharFactory.createCharacter(CharType.swordman);
 		},
 		
 		initEvents: function(){
@@ -34,7 +35,7 @@ define(function(require, exports, module){
             });
             this.get('view').layer.add(image);
             */
-            var cptPlayer1 = CPTCharFactory.createCharacter(player1.charType);
+            var cptPlayer1 = CPTCharFactory.createCharacter(this.player1.charType);
             this.get('view').layer.add(cptPlayer1);
 		},
 
