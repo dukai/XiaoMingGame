@@ -38,12 +38,19 @@ define(function(require, exports, module){
 		o2: 'o2'
 	});
 	
-	var PlayerModel = require('app/models/players/player-model');
-	
-	var pm = new PlayerModel();
-	console.log(pm);
-	
+	var Swordman = require('app/models/players/swordman');
 	var HelmetFactory = require('app/models/equipments/helmet');
+	var WeaponFactory = require('app/models/equipments/weapon');
 	var h = HelmetFactory.create(Equipment.armorType.cloth);
-	console.log(h);
+	var sword = WeaponFactory.create(Equipment.weaponType.sword);
+	var pm = new Swordman();
+	var pm2 = new Swordman();
+	console.log(pm.name);
+	console.log(pm2.name);
+
+	pm.equip(Equipment.type.head, h);
+	pm.equip(Equipment.type.weaponMain, sword);
+	pm.attack(pm2);
+
+	console.log(pm);
 });
