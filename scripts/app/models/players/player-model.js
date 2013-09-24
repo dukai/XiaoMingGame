@@ -77,8 +77,11 @@ define(function(require, exports, module){
 			return false;
 		}
 	};
-	
-	var PlayerProperties = function(){
+	/**
+	 * 用户属性信息
+	 * @constructor
+	 */
+	var PlayerProperties = function(options){
 		//生命值
 		this.hitPoint = 0;
 		//体能值
@@ -108,7 +111,21 @@ define(function(require, exports, module){
 		//怒气值
 		this.rage = 0;
 		//消耗
-		this.consume;
+		this.consume = 0;
+	};
+
+	PlayerProperties.prototype = {
+		_initPlayerProperties: function(options){
+			this.setProperties(options);
+		},
+
+		setProperties: function(options){
+			for(var key in options){
+				if(this[key] !== undefined){
+					this[key] = options[key];
+				}
+			}
+		}
 	};
 	/**
 	 *人物角色.
@@ -187,9 +204,9 @@ define(function(require, exports, module){
 			};
 		},
 		/**
-		 *攻击方法
-		 * @param {Person} otherPerson 攻击目标 
-		 * @param {bool, optional} 是否是回击
+		 * 攻击
+		 * @param otherPerson : PlayerModel
+		 * @param attackBack : bool
 		 */
 		attack : function(otherPerson, attackBack){
 			if(this.hitPointActual === 0){
