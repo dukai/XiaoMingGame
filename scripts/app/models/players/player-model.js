@@ -113,7 +113,7 @@ define(function(require, exports, module){
 		//消耗
 		this.consume = 0;
 
-
+		this._initPlayerProperties(options);
 	};
 
 	PlayerProperties.prototype = {
@@ -127,15 +127,16 @@ define(function(require, exports, module){
 					this[key] = options[key];
 				}
 			}
-		},
-		propertyNamesList : [
-			'hitPoint', 'stamina', 'attackPower',
-			'healPower', 'physicalArmor', 'magicArmor',
-			'dodge', 'block', 'criticalStrike',
-			'criticalStrikeDamage', 'luck', 'mobility',
-			'attackRange', 'rage', 'consume'
-		]
+		}
 	};
+
+	PlayerProperties.filedsNameList = [
+		'hitPoint', 'stamina', 'attackPower',
+		'healPower', 'physicalArmor', 'magicArmor',
+		'dodge', 'block', 'criticalStrike',
+		'criticalStrikeDamage', 'luck', 'mobility',
+		'attackRange', 'rage', 'consume'
+	]
 	/**
 	 *人物角色.
 	 * @param {string} 人物名字
@@ -147,10 +148,11 @@ define(function(require, exports, module){
 	
 	PlayerModel.prototype = {
 		_initPlayerModel: function(options){
-			this.options = oo.mix(this.options, {
+			this.options = oo.mix({
 				gender: true,
-				name: ''
-			});
+				name: '',
+				iPropertiesData: {}
+			}, this.options);
 			
 			for(var key in options){
 				this.options[key] = options[key];
@@ -159,10 +161,11 @@ define(function(require, exports, module){
 			if(!this.options.name){
 				this.options.name = util.getName(this.options.gender);
 			}
+			this.name = this.options.name;
 			//性别
 			this.gender = this.options.gender;
 			//固有属性
-			this.inherentProperties = new PlayerProperties();
+			this.inherentProperties = new PlayerProperties(this.options.iPropertiesData);
 			//实际属性
 			this.actualProperties = new PlayerProperties();
 			//等级
@@ -233,7 +236,7 @@ define(function(require, exports, module){
 			var dodgeTurn = Math.ceil(Math.random() * 100);
 			var criticalStrikeTurn = Math.ceil(Math.random() * 100);
 			//是否暴击
-			if(criticalStrikeTurn <= this.actualProperties.criticalStrike * (1 + this.a.lucky) * 100){
+			if(criticalStrikeTurn <= this.actualProperties.criticalStrike * (1 + this.actualProperties.lucky) * 100){
 				damagePercent = this.actualProperties.criticalStrikeDamage;
 				debug && console.log(this.units + this.name + '暴击了');
 			}
@@ -304,7 +307,10 @@ define(function(require, exports, module){
 			debug && console.log(otherPerson.units + otherPerson.name + '当前生命为' + otherPerson.hitPointActual);
 		},
 		/**
-		 *装备武器 
+		 * 装备装备
+		 * @param type
+		 * @param equipment
+		 * @param position
 		 */
 		equip: function(type, equipment, position){
 			this.equipmentsManager.equip(type, equipment, position);
@@ -327,8 +333,8 @@ define(function(require, exports, module){
 		},
 		
 		updateActualProperties: function(){
-			for(var i = 0, len = this.inherentProperties.propertyNamesList.length; i < len; i++){
-				var key = this.inherentProperties.propertyNamesList[i];
+			for(var i = 0, len = PlayerProperties.filedsNameList.length; i < len; i++){
+				var key = PlayerProperties.filedsNameList[i];
 				var hpDiff = this.actualProperties.hitPoint - this.hitPointActual;
 				var ep = this.equipmentsProperties[key];
 				if(!ep){
