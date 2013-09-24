@@ -3,7 +3,7 @@ define(function(require, exports, module){
 	var AbstractController = require('xiaoming/abstract-controller');
 	var oo = require('xiaoming/oo');
 	var resourceLoader = require('xiaoming/resource-loader');
-	
+	var GameModel = require('app/models/game-model');
 	
 	var GameMainController = function(options){
 		this._initGameMainController(options);
@@ -12,12 +12,15 @@ define(function(require, exports, module){
 	GameMainController.prototype = {
 		_initGameMainController: function(options){
 			AbstractController.call(this, options);
-			
-			
+			this.gameModel = new GameModel();
 		},
 		
 		initEvents: function(){
 			
+		},
+
+		onRender: function(){
+
 		}
 		
 	};

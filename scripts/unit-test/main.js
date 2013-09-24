@@ -38,7 +38,7 @@ define(function(require, exports, module){
 		o2: 'o2'
 	});
 	
-	var Swordman = require('app/models/players/swordman');
+	var Swordman = require('app/models/chars/swordman');
 	var HelmetFactory = require('app/models/equipments/helmet');
 	var WeaponFactory = require('app/models/equipments/weapon');
 	var h = HelmetFactory.create(Equipment.armorType.cloth);

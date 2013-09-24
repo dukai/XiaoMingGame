@@ -52,10 +52,36 @@ define(function(require, exports, module){
 			
 			this.layer.add(map);
 			stage.add(this.layer);
+
+			this._initEvents();
+		},
+
+		_initEvents: function(){
+			var self = this;
+			this.layer.on('click', function(e){
+				var offsetX = this.getX();
+				var offsetY = this.getY();
+				var mpos = {x: e.layerX, y: e.layerY};
+				self.getEventManager().trigger(GameMainView.EVENT_LAYER_CLICK, {});
+			});
+		},
+
+		getCoordinate: function(x, y, offsetX, offsetY){
+			var posInLayer = {
+				x: x - offsetX,
+				y: y - offsetY
+			}
+			var coordinate = {
+				x: ~~(posInLayer.x / 32),
+				y: ~~(posInLayer.y / 32)
+			};
+
+			return coordinate;
 		}
 	};
 	
 	GameMainView.EVENT_SUBMIT = 'game-main-view-submit';
+	GameMainView.EVENT_LAYER_CLICK = 'game-main-view-layer-click';
 	oo.extend(GameMainView, AbstractView);
 	
 	module.exports = GameMainView;
