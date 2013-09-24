@@ -20,8 +20,9 @@ define(function(require, exports, module){
 		},
 		
 		render: function(){
-			$(this.container).addClass(this.get('viewName'));
+			$(this.container).addClass(this.get('viewName')).css('display', 'none');
 			this.request.container.appendChild(this.container);
+			$(this.container).fadeIn();
 			
 			this.getEventManager().trigger(this.getRenderEventName(), {});
 		},
@@ -39,7 +40,8 @@ define(function(require, exports, module){
 		},
 		
 		distroy: function(){
-			this.container.style.display = 'none';
+			//this.container.style.display = 'none';
+			$(this.container).fadeOut();
 		},
 		getRenderEventName: function(){
 			return util.camel2Dash(this._viewName).replace('-view', '-render');

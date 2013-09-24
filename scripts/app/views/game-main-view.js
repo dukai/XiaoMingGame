@@ -16,10 +16,6 @@ define(function(require, exports, module){
 		},
 		
 		initUI: function(){
-			var canvas = $c('canvas', 'main-game-canvas');
-			canvas.width = 960;
-			canvas.height = 640;
-			
 			var stage = this.stage = new Kinetic.Stage({
 			    container: this.container,
 				width: 960,
@@ -52,11 +48,10 @@ define(function(require, exports, module){
 				width: 512,
 				height: 512
 		  	});
-			this.layer.add(image);
+			//this.layer.add(image);
 			
 			this.layer.add(map);
 			stage.add(this.layer);
-			//this.container.appendChild(canvas);
 		}
 	};
 	
