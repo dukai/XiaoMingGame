@@ -62,7 +62,9 @@ define(function(require, exports, module){
 				var offsetX = this.getX();
 				var offsetY = this.getY();
 				var mpos = {x: e.layerX, y: e.layerY};
-				self.getEventManager().trigger(GameMainView.EVENT_LAYER_CLICK, {});
+				self.getEventManager().trigger(GameMainView.EVENT_LAYER_CLICK, {
+                    coordinate : self.getCoordinate(mpos.x, mpos.y, offsetX, offsetY)
+                });
 			});
 		},
 
