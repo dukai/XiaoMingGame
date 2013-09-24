@@ -70,8 +70,8 @@ define(function(require, exports, module){
 			this.get('router').dispatch(intent);
 		},
 		
-		distroy: function(){
-			this._view.distroy();
+		destroy: function(){
+			this._view.destroy();
 		},
 		getRenderEventName: function(){
 			return util.camel2Dash(this._controllerName).replace('-controller', '-render');

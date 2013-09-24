@@ -39,7 +39,7 @@ define(function(require, exports, module){
 			return this._eventManager;
 		},
 		
-		distroy: function(){
+		destroy: function(){
 			//this.container.style.display = 'none';
 			$(this.container).fadeOut();
 		},

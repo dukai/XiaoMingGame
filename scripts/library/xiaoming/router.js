@@ -20,7 +20,7 @@ define(function(require, exports, module){
 				ctrl.set('router', intent.router);
 				self.controllerStack.push(ctrl);
 				if(self.activeController){
-					self.activeController.distroy();
+					self.activeController.destroy();
 				}
 				
 				self.activeController = ctrl;
