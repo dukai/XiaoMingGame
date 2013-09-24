@@ -1,5 +1,5 @@
 define(function(require, exports, module){
-	var PlayerModel = require('./player-model');
+	var PlayerModel = require('./char-model');
 	var oo = require('xiaoming/oo');
 	var Equipment = require('../equipments/equipment');
 
