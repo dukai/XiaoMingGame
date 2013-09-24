@@ -13,6 +13,7 @@ define(function(require, exports, module){
 			AbstractController.call(this, options);
 			
 			this.resources = [
+				{'name': 'comres', type: 'image', src: 'resource/images/bg.png'},
 				{'name': 'newworld', type: 'image', src: 'resource/images/newworld.png'},
 				{'name': 'hit', type: 'image', src: 'resource/images/metatiles32x32.png'},
 				{'name': 'map1', type: 'tmx', 'src': 'resource/maps/map1.tmx'},
