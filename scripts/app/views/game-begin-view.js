@@ -26,8 +26,14 @@ define(function(require, exports, module){
 			submitDom.className = 'btn_start';
 			submitDom.innerHTML = '开始游戏';
 			submitDom.style.display = "none";
+			var isLoading = false;
 			$(submitDom).click(function(){
+				if(isLoading){
+					return;
+				}
+				isLoading = true;
 				console.log('Submit clicked');
+				$(this).html("载入中…");
 				self.getEventManager().trigger(GameBeginView.EVENT_SUBMIT, {});
 			});
 			var gamename = $c('h1', 'gamename');
