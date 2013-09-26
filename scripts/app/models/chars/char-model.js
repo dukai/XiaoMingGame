@@ -2,82 +2,12 @@ define(function(require, exports, module){
 	var oo = require('xiaoming/oo');
 	var util = require('xiaoming/util');
 	var EquipmentsManager = require('../equipments/equipment-manager');
-    var CharFactory = require('./char-factory');
-	/**
-	 *经验管理器 
-	 */
-	var Experience = function(){
-		this.levelExpList = [];
-		this.levelExp = -1;
-		this.currentLevelExp = 0;
-		this.level = -1;
-	};
-	
-	Experience.prototype = {
-		/**
-		 *经验计算偏移量 
-		 */
-		expOffset: 40,
-		/**
-		 *根据等级获取当前等级升级需要的总经验 
-		 * @param {Int} 等级
-		 * @param {bool} 是否设为当前等级
-		 * @param {bool} 是否加入到经验列表
-		 */
-		getLevelExp: function(level, isCurrentLevel, addToList){
-			var totalExp = Math.ceil((Math.pow(level - 1,3) + this.expOffset ) / 10 * ((level  - 1) * 2 + this.expOffset));
-			if(isCurrentLevel){
-				this.level = level;
-				this.levelExp = totalExp;
-			}
-			if(addToList){
-				this.levelExpList[level] = totalExp;
-			}
-			
-			return totalExp;
-		},
-		/**
-		 *获取战斗经验
-		 * @param {Int} 攻击者等级
-		 * @param {Int} 被攻击者等级
-		 */
-		getFightExp: function(positiveLevel, negativeLevel){
-			var diff = negativeLevel - positiveLevel;
-			if(diff > 5){
-				diff = 5;
-			}
-			
-			if(diff < -5){
-				return 0;
-			}
-			var t = Math.pow((positiveLevel - 1) , 2);
-			return Math.ceil(t + (this.expOffset / 2) + (t * diff / 40));
-		},
-		/**
-		 *是否为当前等级 
-	 	 * @param {Int} level
-		 */
-		isCurrentLevel: function(level){
-			return level === this.level;
-		},
-		updateExp: function(exp, level){
-			if(!this.isCurrentLevel(level)){
-				this.getLevelExp(level, true);
-				this.currentLevelExp = 0;
-			}
-			
-			this.currentLevelExp += exp;
-			if(this.currentLevelExp >= this.levelExp){
-				this.currentLevelExp -= this.levelExp;
-				
-				this.level++;
-				this.getLevelExp(this.level, true);
-				return true;
-			}
-			
-			return false;
-		}
-	};
+    var Experience = require('app/models/chars/experience');
+    var CharType = require('app/models/chars/char-type');
+    var EventManager = require('xiaoming/event-manager');
+    var CharEvent = require('app/models/chars/char-event');
+    var CharStatus = require('app/models/chars/char-status');
+
 	/**
 	 * 用户属性信息
 	 * @constructor
@@ -155,9 +85,7 @@ define(function(require, exports, module){
 				iPropertiesData: {}
 			}, this.options);
 			
-			for(var key in options){
-				this.options[key] = options[key];
-			}
+			this.options = oo.mix(this.options, options);
 			
 			if(!this.options.name){
 				this.options.name = util.getName(this.options.gender);
@@ -169,6 +97,13 @@ define(function(require, exports, module){
 			this.inherentProperties = new PlayerProperties(this.options.iPropertiesData);
 			//实际属性
 			this.actualProperties = new PlayerProperties();
+            //坐标
+            this.cx = 0;
+            this.cy = 0;
+            //颜色标识
+            this.idColor = CharType.idColorType.blue;
+            //char status
+            this.status = CharStatus.NORMAL;
 			//等级
 			this.level = 1;
 			//经验
@@ -218,6 +153,7 @@ define(function(require, exports, module){
 				}
 			};
 			this.updateActualProperties();
+            this.eventManager = new EventManager();
 		},
 		/**
 		 * 攻击
@@ -348,9 +284,33 @@ define(function(require, exports, module){
 					this.hitPointActual = this.actualProperties.hitPoint - hpDiff;
 				}
 			}
-		}
-		
+		},
+
+        getCx: function(){
+            return this.cx;
+        },
+
+        setCx: function(value){
+            this.cx = value;
+        },
+
+        getCy: function(){
+            return this.cy;
+        },
+
+        setCy: function(value){
+            this.cy = value;
+        },
+
+        setCoordinate: function(x, y){
+            this.cx = x;
+            this.cy = y;
+
+            this.eventManager.trigger(CharEvent.COORDINATE_CHANGE, {
+                cx: x,
+                cy: y
+            })
+        }
 	};
-	
 	module.exports = PlayerModel;
 });

@@ -17,7 +17,7 @@ define(function(require, exports, module){
         }
     };
 
-    CharFactory.registClass(CharType.swordman, Swordman);
+    CharFactory.registClass(CharType.roleType.swordman, Swordman);
 
 
 

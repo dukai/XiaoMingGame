@@ -2,7 +2,7 @@ define(function(require, exports, module){
 	var Kinetic = require('kinetic');
 	var oo = require('xiaoming/oo');
 	var resourceLoader = require('xiaoming/resource-loader');
-
+    var CharType = require('app/models/chars/char-type');
 	var Swordman = function(options){
 		this._initSwordman(options);
 	};
@@ -75,8 +75,19 @@ define(function(require, exports, module){
 			return c * 32 + offset;
 		},
 
-		change2Red: function(){
-			this.body.setImage(resourceLoader.get('solider_red'));
+		changeIdColor: function(idColorType){
+            switch (idColorType){
+                case CharType.idColorType.blue:
+                    this.body.setImage(resourceLoader.get('solider'));
+                    break;
+                case CharType.idColorType.red:
+                    this.body.setImage(resourceLoader.get('solider_red'));
+                    break;
+                default :
+                    this.body.setImage(resourceLoader.get('solider'));
+                    break;
+            }
+
 		},
 		//开始动画
 		start: function(){
@@ -114,7 +125,11 @@ define(function(require, exports, module){
 				this.body.setScale(-1, 1);
 				this.body.setOffset(48, 0);
 			}
-		}
+		},
+
+        onCoordinateChange: function(event){
+            this.setCoordinate(event.cx, event.cy);
+        }
 	};
 
     Kinetic.Util.extend(Swordman, Kinetic.Group);

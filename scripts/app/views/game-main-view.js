@@ -20,7 +20,7 @@ define(function(require, exports, module){
 			var stage = this.stage = new Kinetic.Stage({
 			    container: this.container,
 				width: 960,
-				height: 640,
+				height: 640
 			});
 			var map = new TiledMap({
 				x:0,

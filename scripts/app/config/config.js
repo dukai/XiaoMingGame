@@ -15,5 +15,7 @@ seajs.config({
 	paths: {
 		'app': '/scripts/app',
 		'xiaoming': '/scripts/library/xiaoming'
-	}
+	},
+
+    debug : true
 });

@@ -29,7 +29,7 @@ define(function(require, exports, module){
 			this.armorType = Equipment.armorType.chain;
 			this.weaponType = Equipment.weaponType.sword;
 			this.units = '剑士';
-            this.charType = CharType.swordman;
+            this.charType = CharType.roleType.swordman;
 		}
 	};
 
