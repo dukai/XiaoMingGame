@@ -22,6 +22,7 @@ define(function(require, exports, module){
 		
 		initEvents: function(){
 			this.get('eventManager').addEventListener(GameMainView.EVENT_LAYER_CLICK, this.onLayerClick, this);
+			this.get('eventManager').addEventListener(GameMainView.EVENT_ATK_CLICK, this.onAtkClick, this);
 		},
 
 		onRender: function(){
@@ -35,16 +36,20 @@ define(function(require, exports, module){
             });
             this.get('view').layer.add(image);
             */
-            var cptPlayer1 = CPTCharFactory.createCharacter(this.player1.charType);
+            var cptPlayer1 = this.cptPlayer1 = CPTCharFactory.createCharacter(this.player1.charType);
             this.get('view').layer.add(cptPlayer1);
-			console.log(cptPlayer1.body.getX());
+			cptPlayer1.change2Red();
 			cptPlayer1.start();
-			cptPlayer1.setCoordinate(16, 8);
+			cptPlayer1.setCoordinate(10, 8);
 		},
 
         onLayerClick: function(e){
             //console.log(e);
-        }
+        },
+
+		onAtkClick: function(e){
+			this.cptPlayer1.attack();
+		}
 		
 	};
 	oo.extend(GameMainController, AbstractController);

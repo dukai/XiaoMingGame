@@ -16,6 +16,7 @@ define(function(require, exports, module){
 		},
 		
 		initUI: function(){
+			var self = this;
 			var stage = this.stage = new Kinetic.Stage({
 			    container: this.container,
 				width: 960,
@@ -52,6 +53,13 @@ define(function(require, exports, module){
 			
 			this.layer.add(map);
 			stage.add(this.layer);
+			var btnAtk = $c('div', null, 'atk');
+			btnAtk.innerHTML = '攻击';
+			this.container.appendChild(btnAtk);
+			$(btnAtk).click(function(){
+				self.getEventManager().trigger(GameMainView.EVENT_ATK_CLICK, {
+				});
+			});
 
 			this._initEvents();
 		},
@@ -84,6 +92,7 @@ define(function(require, exports, module){
 	
 	GameMainView.EVENT_SUBMIT = 'game-main-view-submit';
 	GameMainView.EVENT_LAYER_CLICK = 'game-main-view-layer-click';
+	GameMainView.EVENT_ATK_CLICK = 'game-main-view-atk-click';
 	oo.extend(GameMainView, AbstractView);
 	
 	module.exports = GameMainView;

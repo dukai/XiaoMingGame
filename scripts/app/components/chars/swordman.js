@@ -11,8 +11,8 @@ define(function(require, exports, module){
 		_initSwordman: function(options){
 			options = oo.mix({
 				image: resourceLoader.get('solider'),
-				offsetX: -8,
-				offsetY: -16,
+				fixX: -8,
+				fixY: -16,
 				defalutAnimation: 'idle',
 				frameRate: 8,
 				index: 0,
@@ -45,25 +45,26 @@ define(function(require, exports, module){
 						{x: 128, y: 192, width:80, height:64},
 						{x: 128, y: 256, width:80, height:64},
 						{x: 128, y: 320, width:80, height:64}
+					],
+					disable: [
+						{x: 208, y: 0, width: 48, height: 48}
 					]
 				}
 			}, options);
             Kinetic.Group.call(this, options);
-
 			this.body = new Kinetic.Sprite({
-				x: this.getRealPos(this.getCx(), this.getOffsetX()),
-				y: this.getRealPos(this.getCy(), this.getOffsetY()),
+				x: this.getFixX(),
+				y: this.getFixY(),
 				image: this.getImage(),
 				animation: this.getDefalutAnimation(),
 				animations: this.getAnimation(),
 				frameRate: this.getFrameRate(),
 				index: this.getIndex(),
-				drawHitFunc: function(canvas){
-					var context = canvas.getContext();
+				drawHitFunc: function(context){
 					context.beginPath();
 					context.rect(8, 16, 32, 32);
 					context.closePath();
-					canvas.fillStroke(this);
+					context.fillStrokeShape(this);
 				}
 			});
 
@@ -74,36 +75,58 @@ define(function(require, exports, module){
 			return c * 32 + offset;
 		},
 
+		change2Red: function(){
+			this.body.setImage(resourceLoader.get('solider_red'));
+		},
+		//开始动画
 		start: function(){
 			this.body.start();
 		},
-
-		setCx: function(value){
-			this.attrs.cx = value;
-			this.body && this.body.setX(this.getRealPos(value, this.getOffsetX()));
-		},
-
-		setCy: function(value){
-			this.attrs.cy = value;
-			this.body && this.body.setY(this.getRealPos(value, this.getOffsetY()));
-		},
-
+		//设置坐标值，游戏格子坐标
 		setCoordinate: function(x, y){
 			this.setCx(x);
 			this.setCy(y);
+
+			this.setX(this.getRealPos(x, 0));
+			this.setY(this.getRealPos(y, 0));
+		},
+		/**
+		 * 攻击动作
+		 */
+		attack: function(){
+			var self = this;
+			this.body.setAnimation('atk');
+			this.body.afterFrame(6, function() {
+				self.body.setAnimation('disable');
+			});
+		},
+		/**
+		 * 翻转
+		 * @param value
+		 */
+		flip: function(value){
+			if(value == 'right'){
+				this.body.setScale(1, 1);
+				this.body.setOffset(0, 0);
+			}
+
+			if(value == 'left'){
+				this.body.setScale(-1, 1);
+				this.body.setOffset(48, 0);
+			}
 		}
 	};
 
-    Kinetic.Global.extend(Swordman, Kinetic.Group);
-    Kinetic.Node.addGetterSetter(Swordman, 'image');
-	Kinetic.Node.addGetterSetter(Swordman, 'offsetX');
-	Kinetic.Node.addGetterSetter(Swordman, 'offsetY');
-	Kinetic.Node.addGetter(Swordman, 'cx');
-	Kinetic.Node.addGetter(Swordman, 'cy');
-	Kinetic.Node.addGetterSetter(Swordman, 'defalutAnimation');
-	Kinetic.Node.addGetterSetter(Swordman, 'frameRate');
-	Kinetic.Node.addGetterSetter(Swordman, 'index');
-	Kinetic.Node.addGetterSetter(Swordman, 'animation');
+    Kinetic.Util.extend(Swordman, Kinetic.Group);
+    Kinetic.Factory.addGetterSetter(Swordman, 'image');
+	Kinetic.Factory.addGetterSetter(Swordman, 'fixX');
+	Kinetic.Factory.addGetterSetter(Swordman, 'fixY');
+	Kinetic.Factory.addGetterSetter(Swordman, 'cx');
+	Kinetic.Factory.addGetterSetter(Swordman, 'cy');
+	Kinetic.Factory.addGetterSetter(Swordman, 'defalutAnimation');
+	Kinetic.Factory.addGetterSetter(Swordman, 'frameRate');
+	Kinetic.Factory.addGetterSetter(Swordman, 'index');
+	Kinetic.Factory.addGetterSetter(Swordman, 'animation');
 
     module.exports = Swordman;
 });
