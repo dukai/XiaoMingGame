@@ -37,10 +37,13 @@ define(function(require, exports, module){
             */
             var cptPlayer1 = CPTCharFactory.createCharacter(this.player1.charType);
             this.get('view').layer.add(cptPlayer1);
+			console.log(cptPlayer1.body.getX());
+			cptPlayer1.start();
+			cptPlayer1.setCoordinate(16, 8);
 		},
 
         onLayerClick: function(e){
-            console.log(e);
+            //console.log(e);
         }
 		
 	};

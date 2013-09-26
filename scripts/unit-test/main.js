@@ -53,4 +53,7 @@ define(function(require, exports, module){
 	pm.attack(pm2);
 
 	console.log(pm);
+
+	var cptSwordman = require('app/components/chars/swordman');
+	console.log(new cptSwordman());
 });
