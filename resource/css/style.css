@@ -136,3 +136,15 @@ button.btn_start:active {
   background: #fff;
   border-radius: 3px;
 }
+.game-main-view .atk {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 120px;
+  height: 30px;
+  background: #e16d6d;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+}
