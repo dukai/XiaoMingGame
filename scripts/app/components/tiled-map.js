@@ -139,7 +139,6 @@ define(function(require, exports, module){
 
 	TiledMap.prototype = {
 		_initTiledMap: function(config){
-			this.createAttrs();
             Kinetic.Shape.call(this, config);
             this.hitMap = [];
             this.shapeType = 'TiledMap';
@@ -148,28 +147,19 @@ define(function(require, exports, module){
 			this.initMapInfo();
             this._setDrawFuncs();
 		},
-		drawFunc: function(canvas){
-			
-			var context = canvas.getContext();
-			
-			//context.beginPath();
-          	//context.rect(0, 0, this.mapInfo.width, this.mapInfo.height);
-            //context.closePath();
-            //canvas.fillStroke(this);
-            
+		drawFunc: function(context){
 			for(var i = 0, len = this.tiledLayers.length; i < len; i++){
 				this.tiledLayers[i] && context.drawImage(this.tiledLayers[i].canvas.canvas, this.getX(), this.getY());
 			}
 		},
-		drawHitFunc: function(canvas) {
+		drawHitFunc: function(context) {
             var width = this.getWidth(), 
-                height = this.getHeight(), 
-                context = canvas.getContext();
+                height = this.getHeight();
 
             context.beginPath();
             context.rect(0, 0, width, height);
             context.closePath();
-            canvas.fillStroke(this);
+			context.fillStrokeShape(this);
         },
 		
 		/**
@@ -307,9 +297,9 @@ define(function(require, exports, module){
 		
 	};
 
-	Kinetic.Global.extend(TiledMap, Kinetic.Shape);
-	Kinetic.Node.addGetterSetter(TiledMap, 'tmx');
-	Kinetic.Node.addGetterSetter(TiledMap, 'resourceLoader');
+	Kinetic.Util.extend(TiledMap, Kinetic.Shape);
+	Kinetic.Factory.addGetterSetter(TiledMap, 'tmx');
+	Kinetic.Factory.addGetterSetter(TiledMap, 'resourceLoader');
 	/**
 	 * TiledMap object types enum
 	 * @type {Enum}
