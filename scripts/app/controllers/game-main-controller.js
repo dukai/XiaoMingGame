@@ -65,8 +65,13 @@ define(function(require, exports, module){
                     this.gameModel.activedChar = this.gameModel.chars[hashKey];
                 }
             }else{
-                if(this.gameModel.activedChar.cx == e.coordinate.x && this.gameModel.activedChar.cy == e.coordinate.y){
-
+	            var activedChar = this.gameModel.activedChar;
+                if(activedChar.cx == e.coordinate.x && activedChar.cy == e.coordinate.y){
+	                if(activedChar.status == CharStatus.ACTIVE){
+		                //TODO: show operation menu and remove move range
+	                }else if(activedChar.status != CharStatus.NORMAL){
+		                return;
+	                }
                 }
             }
         },
