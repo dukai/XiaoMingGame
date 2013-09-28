@@ -59,19 +59,35 @@ define(function(require, exports, module){
 
         onLayerClick: function(e){
             //console.log(e);
+            //如果不存在activedChar判断点击位置
             if(!this.gameModel.activedChar){
                 var hashKey = e.coordinate.x.toString() + e.coordinate.y.toString();
                 if(this.gameModel.chars[hashKey] && this.gameModel.chars[hashKey].status != CharStatus.WAITING){
                     this.gameModel.activedChar = this.gameModel.chars[hashKey];
+                }else{
+                    //如果点击为空白位置，退出
+                    return;
                 }
-            }else{
+            }
+            //如果存在activedChar
+            if(this.gameModel.activedChar){
 	            var activedChar = this.gameModel.activedChar;
-                if(activedChar.cx == e.coordinate.x && activedChar.cy == e.coordinate.y){
-	                if(activedChar.status == CharStatus.ACTIVE){
+                //正常状态
+                if(activedChar.status == CharStatus.NORMAL){
+                    //TODO: 激活当前对象，显示可移动范围
+
+                }else if(activedChar.status == CharStatus.ACTIVE){
+                    if(activedChar.cx == e.coordinate.x && activedChar.cy == e.coordinate.y){
 		                //TODO: show operation menu and remove move range
-	                }else if(activedChar.status != CharStatus.NORMAL){
-		                return;
 	                }
+                }else if(activedChar.status == CharStatus.MOVED){
+                    //TODO: 移动后的状态，
+                }else if(activedChar.status == CharStatus.ATTACK){
+                    //TODO：攻击状态，点击发动攻击
+                }else if(activedChar.status == CharStatus.WAITING){
+                    //TODO: 无任何反应
+                }else{
+                    //TODO: 返回原来的位置， 将激活对象设置为null
                 }
             }
         },
