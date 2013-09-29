@@ -77,13 +77,22 @@ define(function(require, exports, module){
                     //TODO: 激活当前对象，显示可移动范围
 
                 }else if(activedChar.status == CharStatus.ACTIVE){
+                    //点击了角色本身，显示菜单
                     if(activedChar.cx == e.coordinate.x && activedChar.cy == e.coordinate.y){
 		                //TODO: show operation menu and remove move range
 	                }
+
+                    //TODO: 点击了可移动区域，移动
+
+                    //TODO: 点击其他区域取消区域显示并将激活对象设置为null
+
                 }else if(activedChar.status == CharStatus.MOVED){
-                    //TODO: 移动后的状态，
+                    //TODO: 移动后的状态，显示菜单，如果选择取消则返回Normal状态并返回初始位置
+                    //选择攻击显示攻击范围
+
+
                 }else if(activedChar.status == CharStatus.ATTACK){
-                    //TODO：攻击状态，点击发动攻击
+                    //TODO：攻击状态，点击发动攻击，点击其他位置返回状态
                 }else if(activedChar.status == CharStatus.WAITING){
                     //TODO: 无任何反应
                 }else{
