@@ -6,6 +6,9 @@ define(function(require, exports, module){
 	var resourceLoader = require('xiaoming/resource-loader');
 	
 	var TiledMap = require('app/components/tiled-map');
+    var RangeGrid = require('app/components/range-grid');
+
+
 	var GameMainView = function(options){
 		this._initGameMainView(options);
 	};
@@ -50,8 +53,17 @@ define(function(require, exports, module){
 				height: 512
 		  	});
 			//this.layer.add(image);
-			
+
+            this.moveRange = new RangeGrid({
+                x: 0,
+                y: 0,
+                width:100,
+                height:100,
+                rangeList: [{x: 2, y: 2}, {x: 2, y: 3}, {x: 3, y: 3}],
+                fill: RangeGrid.colorType.red
+            });
 			this.layer.add(map);
+            this.layer.add(this.moveRange);
 			stage.add(this.layer);
 			var btnAtk = $c('div', null, 'atk');
 			btnAtk.innerHTML = '攻击';
