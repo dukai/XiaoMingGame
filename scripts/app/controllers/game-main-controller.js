@@ -62,8 +62,8 @@ define(function(require, exports, module){
             //如果不存在activedChar判断点击位置
             if(!this.gameModel.activedChar){
                 var hashKey = e.coordinate.x.toString() + e.coordinate.y.toString();
-                if(this.gameModel.chars[hashKey] && this.gameModel.chars[hashKey].status != CharStatus.WAITING){
-                    this.gameModel.activedChar = this.gameModel.chars[hashKey];
+                if(this.gameModel.charsHashMap[hashKey] && this.gameModel.charsHashMap[hashKey].status != CharStatus.WAITING){
+                    this.gameModel.activedChar = this.gameModel.charsHashMap[hashKey];
                 }else{
                     //如果点击为空白位置，退出
                     return;
@@ -75,16 +75,29 @@ define(function(require, exports, module){
                 //正常状态
                 if(activedChar.status == CharStatus.NORMAL){
                     //TODO: 激活当前对象，显示可移动范围
-
+                    activedChar.status = CharStatus.ACTIVE;
+                    //activedChar.getMoveRange();
+                    this.get('view').showMoveRange(activedChar.getMoveRange());
                 }else if(activedChar.status == CharStatus.ACTIVE){
                     //点击了角色本身，显示菜单
                     if(activedChar.cx == e.coordinate.x && activedChar.cy == e.coordinate.y){
 		                //TODO: show operation menu and remove move range
+                        activedChar.status = CharStatus.MOVED;
+                        this.get('view').hideMoveRange();
+                        return;
 	                }
 
                     //TODO: 点击了可移动区域，移动
-
+                    if(activedChar.isInMoveRange(e.coordinate.x, e.coordinate.y)){
+                        activedChar.status = CharStatus.MOVED;
+                        activedChar.setCoordinate(e.coordinate.x, e.coordinate.y);
+                        this.get('view').hideMoveRange();
+                        return;
+                    }
                     //TODO: 点击其他区域取消区域显示并将激活对象设置为null
+                    this.get('view').hideMoveRange();
+                    activedChar.status = CharStatus.NORMAL;
+                    this.gameModel.activedChar = null;
 
                 }else if(activedChar.status == CharStatus.MOVED){
                     //TODO: 移动后的状态，显示菜单，如果选择取消则返回Normal状态并返回初始位置
@@ -103,8 +116,13 @@ define(function(require, exports, module){
 
 		onAtkClick: function(e){
 			//this.cptPlayer1.attack();
+            delete this.gameModel.charsHashMap[this.gameModel.chars[0].getHashCode()];
+            delete this.gameModel.charsHashMap[this.gameModel.chars[1].getHashCode()];
             this.gameModel.chars[0].setCoordinate(14, 8);
             this.gameModel.chars[1].setCoordinate(13, 6);
+
+            this.gameModel.charsHashMap[this.gameModel.chars[0].getHashCode()] = this.gameModel.chars[0];
+            this.gameModel.charsHashMap[this.gameModel.chars[1].getHashCode()] = this.gameModel.chars[1];
 		}
 		
 	};

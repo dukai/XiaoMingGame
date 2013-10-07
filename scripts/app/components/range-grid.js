@@ -25,7 +25,6 @@ define(function(require, exports, module){
             for(var i = 0, len = rangeList.length; i < len; i++){
                 //n = {x: x, y: y}
                 var n = rangeList[i];
-
                 context.rect(n.x * 32, n.y * 32, this.tiledWidth, this.tiledHeight);
             }
             context.closePath();

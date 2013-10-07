@@ -59,7 +59,7 @@ define(function(require, exports, module){
                 y: 0,
                 width:100,
                 height:100,
-                rangeList: [{x: 2, y: 2}, {x: 2, y: 3}, {x: 3, y: 3}],
+                rangeList: [],
                 fill: RangeGrid.colorType.red
             });
 			this.layer.add(map);
@@ -99,7 +99,14 @@ define(function(require, exports, module){
 			};
 
 			return coordinate;
-		}
+		},
+
+        showMoveRange: function(rangeList){
+            this.moveRange.setRangeList(rangeList);
+        },
+        hideMoveRange: function(){
+            this.moveRange.setRangeList([]);
+        }
 	};
 	
 	GameMainView.EVENT_SUBMIT = 'game-main-view-submit';
