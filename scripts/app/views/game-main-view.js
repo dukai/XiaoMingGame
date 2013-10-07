@@ -60,7 +60,7 @@ define(function(require, exports, module){
                 width:100,
                 height:100,
                 rangeList: [],
-                fill: RangeGrid.colorType.red
+                fill: RangeGrid.colorType.green
             });
 			this.layer.add(map);
             this.layer.add(this.moveRange);
