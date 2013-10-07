@@ -154,6 +154,8 @@ define(function(require, exports, module){
 			};
 			this.updateActualProperties();
             this.eventManager = new EventManager();
+            //可移动范围,只有在active状态有效
+            this.moveRange = [];
 		},
 		/**
 		 * 攻击
@@ -310,6 +312,49 @@ define(function(require, exports, module){
                 cx: x,
                 cy: y
             })
+        },
+
+        getHashCode: function(){
+            return this.cx.toString() + this.cy.toString();
+        },
+        /**
+         * 获取可移动范围
+         * @returns {Array}
+         */
+        getMoveRange: function(){
+            var range = this.actualProperties.mobility;
+            var preColumn = this.cx - range;
+            var nextColumn = this.cx + range;
+            var preRow = this.cy - range;
+            var nextRow = this.cy + range;
+            var list = [];
+            for(var x = preColumn; x <= nextColumn; x++){
+                for(var y = preRow; y <= nextRow; y++){
+                    var dx = Math.abs(x - this.cx);
+                    var dy = Math.abs(y - this.cy);
+
+                    if(dx + dy <= range){
+
+                        if(x !== this.cx || y !== this.cy){
+                            //if(hitmap.getPassable(x, y) && !enemyCoordinates[x.toString() + y.toString()]){
+                            list.push({x: x, y: y});
+                            //}
+                        }
+                    }
+                }
+            }
+            this.moveRange = list;
+            return list;
+        },
+
+        isInMoveRange: function(x, y){
+            for(var i = 0, len = this.moveRange.length; i < len; i++){
+                if(this.moveRange[i].x == x && this.moveRange[i].y == y){
+                    return true;
+                }
+            }
+
+            return false;
         }
 	};
 	module.exports = PlayerModel;
