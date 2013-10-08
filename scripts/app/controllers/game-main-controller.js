@@ -1,5 +1,6 @@
 define(function(require, exports, module){
 	var GameMainView = require('app/views/game-main-view');
+	var Util = require('xiaoming/util');
 	var AbstractController = require('xiaoming/abstract-controller');
 	var oo = require('xiaoming/oo');
 	var resourceLoader = require('xiaoming/resource-loader');
@@ -61,7 +62,7 @@ define(function(require, exports, module){
             //console.log(e);
             //如果不存在activedChar判断点击位置
             if(!this.gameModel.activedChar){
-                var hashKey = e.coordinate.x.toString() + e.coordinate.y.toString();
+                var hashKey = Util.posHashCode(e.coordinate.x, e.coordinate.y);
                 if(this.gameModel.charsHashMap[hashKey] && this.gameModel.charsHashMap[hashKey].status != CharStatus.WAITING){
                     this.gameModel.activedChar = this.gameModel.charsHashMap[hashKey];
                 }else{

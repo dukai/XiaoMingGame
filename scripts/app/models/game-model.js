@@ -19,7 +19,7 @@ define(function(require, exports, module){
 
         addChar: function(char){
             this.chars.push(char);
-            this.charsHashMap[char.getCx().toString() + char.getCy().toString()] = char;
+            this.charsHashMap[char.getHashCode()] = char;
         },
 
         addEnemies: function(char){

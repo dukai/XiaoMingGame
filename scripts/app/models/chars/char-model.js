@@ -315,7 +315,7 @@ define(function(require, exports, module){
         },
 
         getHashCode: function(){
-            return this.cx.toString() + this.cy.toString();
+	        return util.posHashCode(this.cx, this.cy);
         },
         /**
          * 获取可移动范围

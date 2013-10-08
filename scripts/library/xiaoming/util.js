@@ -274,5 +274,9 @@ define(function(require, exports, module){
 	
 	util.dash2Camel = dash2Camel;
 	util.camel2Dash = camel2Dash;
+
+	util.posHashCode = function(x, y){
+		return '{x:' + x + ',y:' + y + '}';
+	}
 	module.exports = util;
 });
