@@ -58,7 +58,7 @@ StatusActive.prototype = {
 		}
 		
 		if(target.isInMoveRange(event.coordinate.x, event.coordinate.y)){
-			activedChar.setCoordinate(event.coordinate.x, event.coordinate.y);
+			target.setCoordinate(event.coordinate.x, event.coordinate.y);
 			target.changeStatus(new StatusMoved);
 		}
 		
@@ -82,11 +82,24 @@ StatusMoved.prototype = {
 		//TODO:显示菜单
 	},
 	execute: function(target, event){
+        switch (event.action){
+            case "attack":
+                target.changeStatus(new StatusAttack);
+                break;
+            case "waiting":
+                target.changeStatus(new StatusWaiting());
+                break;
+            case "cancel":
+                target.changeStatus(new StatusNormal());
+                break;
+        }
 		//攻击，进入攻击状态
 		//待机，进入待机状态
 		//取消，进入正常状态
 	},
-	exit: function(target){}
+	exit: function(target){
+        //TODO:隐藏菜单
+    }
 };
 
 oo.extends(StatusMoved, Status);
@@ -99,6 +112,8 @@ StatusAttack.prototype = {
 	enter: function(target){
 	},
 	execute: function(target, event){
+        target.attack(event.otherChar);
+        target.changeStatus(new StatusWaiting);
 	},
 	exit: function(target){}
 };
