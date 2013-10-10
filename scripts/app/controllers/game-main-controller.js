@@ -10,6 +10,7 @@ define(function(require, exports, module){
     var CPTCharFactory = require('app/components/chars/char-factory');
     var CharEvent = require('app/models/chars/char-event');
     var CharStatus = require('app/models/chars/char-status');
+    var TmxMapParser = require('xiaoming/tmx-map-parser');
 	
 	var GameMainController = function(options){
 		this._initGameMainController(options);
@@ -28,6 +29,12 @@ define(function(require, exports, module){
             this.gameModel.addChar(this.player1);
             this.gameModel.addChar(this.player2);
             this.gameModel.addEnemies(this.player2);
+
+            this.addViewData({
+                tmxMapParser: new TmxMapParser({
+                    mapData: resourceLoader.get('v2_map')
+                })
+            })
 		},
 		
 		initEvents: function(){

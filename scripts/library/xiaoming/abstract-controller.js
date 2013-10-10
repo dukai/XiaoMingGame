@@ -26,7 +26,7 @@ define(function(require, exports, module){
 		},
 
         addViewData: function(mixData){
-            oo.mix(this._viewData, mixData);
+            this._viewData = oo.mix(this._viewData, mixData);
         },
 		//视图管理器
 		_viewManager : new ViewManager(),

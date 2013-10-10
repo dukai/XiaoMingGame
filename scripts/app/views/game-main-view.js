@@ -28,7 +28,7 @@ define(function(require, exports, module){
 			var map = new TiledMap({
 				x:0,
 				y:0,
-				tmx: resourceLoader.get('v2_map'),
+                tmxMapParser: this.options.data.tmxMapParser,
 				resourceLoade: resourceLoader
 			});
 			this.layer = new  Kinetic.Layer({

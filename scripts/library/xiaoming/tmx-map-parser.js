@@ -18,7 +18,7 @@ define(function(require, exports, module){
                 columns: mapData.width,
                 rows: mapData.height,
                 tileWidth: mapData.tilewidth,
-                tileHeight: mapData.tilehiehgt,
+                tileHeight: mapData.tileheight,
                 width: mapData.width * mapData.tilewidth,
                 height: mapData.height * mapData.tileheight
             };
