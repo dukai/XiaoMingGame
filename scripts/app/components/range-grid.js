@@ -6,13 +6,17 @@
 
 define(function(require, exports, module){
     var Kinetic = require('kinetic');
-
+    var oo = require('xiaoming/oo');
     var RangeGrid = function(options){
         this._initRangeView(options);
     };
 
     RangeGrid.prototype = {
         _initRangeView: function(options){
+            options = oo.mix({
+                stroke: 'rgba(255, 255, 255, .5)',
+                strokeWidth:.5
+            }, options);
             Kinetic.Shape.call(this, options);
             this.shapeType = 'RangeView';
             this.tiledWidth = 32;
