@@ -2,7 +2,7 @@ define(function(require, exports, module){
 	var $c = require('xiaoming/elements');
 	var $ = require('jquery');
 	var util = require('xiaoming/util');
-	
+	var oo = require('xiaoming/oo');
 	
 	var AbstractView = function(options){
 		this._initAbstractView(options);
@@ -10,6 +10,8 @@ define(function(require, exports, module){
 	
 	AbstractView.prototype = {
 		_initAbstractView: function(options){
+            this.options = oo.mix({}, this.options);
+            this.options = oo.mix(this.options, options);
 			this.container = $c('div', null, 'sence');
 			this._viewName = null;
 			this.initUI();

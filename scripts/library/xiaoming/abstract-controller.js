@@ -1,7 +1,7 @@
 define(function(require, exports, module){
 	var ViewManager = require('xiaoming/view-manager');
 	var util = require('xiaoming/util');
-	
+	var oo = require('xiaoming/oo');
 	
 	var AbstractController = function(options){
 		this._initAbstractController(options);
@@ -15,7 +15,7 @@ define(function(require, exports, module){
 				this.options[key] = options;
 			}
 			
-			
+			this._viewData = {};
 			this._view = null;
 			this._request = null;
 			this._controllerName = null;
@@ -24,6 +24,10 @@ define(function(require, exports, module){
 			this._router = null;
 			
 		},
+
+        addViewData: function(mixData){
+            oo.mix(this._viewData, mixData);
+        },
 		//视图管理器
 		_viewManager : new ViewManager(),
 		
@@ -52,7 +56,9 @@ define(function(require, exports, module){
 			self._initEvents();
 			var viewName = this._viewManager.getViewNameByControllerName(this.get('controllerName'));
 			this._viewManager.getView(this.get('controllerName'), function(viewRef){
-				var v = new viewRef();
+				var v = new viewRef({
+                    data: self._viewData
+                });
 				v.set('viewName', viewName);
 				v.setRequest(self.get('request'));
 				v.setEventManager(self.get('eventManager'));
