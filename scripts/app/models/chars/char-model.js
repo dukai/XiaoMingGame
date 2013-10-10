@@ -6,7 +6,7 @@ define(function(require, exports, module){
     var CharType = require('app/models/chars/char-type');
     var EventManager = require('xiaoming/event-manager');
     var CharEvent = require('app/models/chars/char-event');
-    var CharStatus = require('app/models/chars/char-status');
+    var CharStatus = require('app/models/chars/char-statuses');
 
 	/**
 	 * 用户属性信息
@@ -103,7 +103,7 @@ define(function(require, exports, module){
             //颜色标识
             this.idColor = CharType.idColorType.blue;
             //char status
-            this.status = CharStatus.NORMAL;
+            this.status = new CharStatus.StatusNormal;
 			//等级
 			this.level = 1;
 			//经验
@@ -287,7 +287,9 @@ define(function(require, exports, module){
 				}
 			}
 		},
-
+		getEventManager: function(){
+			return this.eventManager;
+		},
         getCx: function(){
             return this.cx;
         },
@@ -355,7 +357,31 @@ define(function(require, exports, module){
             }
 
             return false;
-        }
+        },
+		//显示移动范围
+		showMoveRange: function(){
+			this.getEventManager().trigger(CharEvent.SHOW_MOVE_RANGE, {
+				rangeList: this.getMoveRange()
+			});
+		},
+		//因此移动范围
+		hideMoveRange: function(){
+			this.getEventManager().trigger(CharEvent.HIDE_MOVE_RANGE, {});
+		},
+		//显示菜单
+		showMenu: function(){
+
+		},
+		//隐藏菜单
+		hideMenu: function(){
+
+		},
+
+		changeStatus: function(status){
+			this.status.exit(this);
+			this.status = status;
+			this.status.enter(this);
+		}
 	};
 	module.exports = PlayerModel;
 });

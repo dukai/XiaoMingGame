@@ -106,7 +106,15 @@ define(function(require, exports, module){
         },
         hideMoveRange: function(){
             this.moveRange.setRangeList([]);
-        }
+        },
+
+		onShowMoveRange: function(event){
+			this.showMoveRange(event.rangeList);
+		},
+
+		onHideMoveRange: function(event){
+			this.hideMoveRange();
+		}
 	};
 	
 	GameMainView.EVENT_SUBMIT = 'game-main-view-submit';

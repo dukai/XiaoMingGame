@@ -13,7 +13,7 @@ define(function(require, exports, module){
 				image: resourceLoader.get('solider'),
 				fixX: -8,
 				fixY: -16,
-				defalutAnimation: 'idle',
+				defaultAnimation: 'idle',
 				frameRate: 8,
 				index: 0,
 				cx: 0,
@@ -56,7 +56,7 @@ define(function(require, exports, module){
 				x: this.getFixX(),
 				y: this.getFixY(),
 				image: this.getImage(),
-				animation: this.getDefalutAnimation(),
+				animation: this.getDefaultAnimation(),
 				animations: this.getAnimation(),
 				frameRate: this.getFrameRate(),
 				index: this.getIndex(),
@@ -129,7 +129,11 @@ define(function(require, exports, module){
 
         onCoordinateChange: function(event){
             this.setCoordinate(event.cx, event.cy);
-        }
+        },
+
+		onWaiting: function(event){
+
+		}
 	};
 
     Kinetic.Util.extend(Swordman, Kinetic.Group);
@@ -138,7 +142,7 @@ define(function(require, exports, module){
 	Kinetic.Factory.addGetterSetter(Swordman, 'fixY');
 	Kinetic.Factory.addGetterSetter(Swordman, 'cx');
 	Kinetic.Factory.addGetterSetter(Swordman, 'cy');
-	Kinetic.Factory.addGetterSetter(Swordman, 'defalutAnimation');
+	Kinetic.Factory.addGetterSetter(Swordman, 'defaultAnimation');
 	Kinetic.Factory.addGetterSetter(Swordman, 'frameRate');
 	Kinetic.Factory.addGetterSetter(Swordman, 'index');
 	Kinetic.Factory.addGetterSetter(Swordman, 'animation');
