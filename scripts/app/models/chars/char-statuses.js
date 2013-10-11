@@ -60,16 +60,17 @@ define(function(require, exports, module){
 			//进入移动模式
 			if(event.coordinate.x == target.cx && event.coordinate.y == target.cy){
 				target.changeStatus(new StatusMoved);
+				return;
 			}
 
 			if(target.isInMoveRange(event.coordinate.x, event.coordinate.y)){
 				target.setCoordinate(event.coordinate.x, event.coordinate.y);
 				target.changeStatus(new StatusMoved);
+				return;
 			}
 
 			target.changeStatus(new StatusNormal());
 			return true;
-
 		},
 		exit: function(target){
 			//hide move range
@@ -106,6 +107,7 @@ define(function(require, exports, module){
 					return true;
 					break;
 			}
+
 		},
 		exit: function(target){
 			//TODO:隐藏菜单
