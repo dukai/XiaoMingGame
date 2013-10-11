@@ -100,6 +100,7 @@ define(function(require, exports, module){
             //坐标
             this.cx = 0;
             this.cy = 0;
+            this.origCoordinate = null;
             //颜色标识
             this.idColor = CharType.idColorType.blue;
             //char status
@@ -305,8 +306,21 @@ define(function(require, exports, module){
         setCy: function(value){
             this.cy = value;
         },
-
-        setCoordinate: function(x, y){
+        /**
+         * 设置当前坐标
+         * @param x
+         * @param y
+         * @param backup 是否保存原始坐标
+         */
+        setCoordinate: function(x, y, backup){
+            if(backup){
+                this.origCoordinate = {
+                    x : this.cx,
+                    y: this.cy
+                }
+            }else{
+                this.origCoordinate = null;
+            }
             this.cx = x;
             this.cy = y;
 
@@ -314,6 +328,12 @@ define(function(require, exports, module){
                 cx: x,
                 cy: y
             })
+        },
+
+        restoreCoordinate: function(){
+            if(this.origCoordinate != null){
+                this.setCoordinate(this.origCoordinate.x, this.origCoordinate.y, false);
+            }
         },
 
         getHashCode: function(){

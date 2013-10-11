@@ -34,7 +34,9 @@ define(function(require, exports, module){
 	};
 	StatusNormal.prototype = {
 		_initStatusNormal: function(){},
-		enter: function(target){},
+		enter: function(target){
+            target.restoreCoordinate();
+        },
 		execute: function(target, event){
 			if(event.coordinate.x == target.cx && event.coordinate.y == target.cy){
 				target.changeStatus(new StatusActive());
@@ -64,7 +66,7 @@ define(function(require, exports, module){
 			}
 
 			if(target.isInMoveRange(event.coordinate.x, event.coordinate.y)){
-				target.setCoordinate(event.coordinate.x, event.coordinate.y);
+				target.setCoordinate(event.coordinate.x, event.coordinate.y, true);
 				target.changeStatus(new StatusMoved);
 				return;
 			}
