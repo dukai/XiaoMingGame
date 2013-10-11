@@ -61,9 +61,14 @@ define(function(require, exports, module){
                 ctpPlayer.start();
                 ctpPlayer.setCoordinate(char.cx, char.cy);
                 char.eventManager.addEventListener(CharEvent.COORDINATE_CHANGE, ctpPlayer.onCoordinateChange, ctpPlayer);
+                char.eventManager.addEventListener(CharEvent.COORDINATE_CHANGE, this.onCoordinateChange, this);
 	            char.eventManager.addEventListener(CharEvent.STATUS_WAITING, ctpPlayer.onWaiting, ctpPlayer);
+                char.eventManager.addEventListener(CharEvent.STATUS_NORMAL, ctpPlayer.onNormal, ctpPlayer);
+                char.eventManager.addEventListener(CharEvent.ATTACK_OTHER_CHAR, ctpPlayer.onAttack, ctpPlayer);
 	            char.eventManager.addEventListener(CharEvent.SHOW_MOVE_RANGE, this.get('view').onShowMoveRange, this.get('view'));
 	            char.eventManager.addEventListener(CharEvent.HIDE_MOVE_RANGE, this.get('view').onHideMoveRange, this.get('view'));
+                char.eventManager.addEventListener(CharEvent.SHOW_ATTACK_RANGE, this.get('view').onShowAttackRange, this.get('view'));
+                char.eventManager.addEventListener(CharEvent.HIDE_ATTACK_RANGE, this.get('view').onHideAttackRange, this.get('view'));
 	            char.eventManager.addEventListener(CharEvent.SHOW_MENU, this.get('view').onShowMenu, this.get('view'));
 	            char.eventManager.addEventListener(CharEvent.HIDE_MENU, this.get('view').onHideMenu, this.get('view'));
             }
@@ -100,7 +105,12 @@ define(function(require, exports, module){
 
             this.gameModel.charsHashMap[this.gameModel.chars[0].getHashCode()] = this.gameModel.chars[0];
             this.gameModel.charsHashMap[this.gameModel.chars[1].getHashCode()] = this.gameModel.chars[1];
-		}
+		},
+        //有角色的位置发生了改变
+        onCoordinateChange: function(event){
+            delete this.gameModel.charsHashMap[Util.posHashCode(event.ocx, event.ocy)];
+            this.gameModel.charsHashMap[event.target.getHashCode()] = event.target;
+        }
 		
 	};
 	oo.extend(GameMainController, AbstractController);

@@ -36,6 +36,7 @@ define(function(require, exports, module){
 		_initStatusNormal: function(){},
 		enter: function(target){
             target.restoreCoordinate();
+            target.eventManager.trigger(CharEvent.STATUS_NORMAL, {});
         },
 		execute: function(target, event){
 			if(event.coordinate.x == target.cx && event.coordinate.y == target.cy){
@@ -121,35 +122,51 @@ define(function(require, exports, module){
 	exports.StatusMoved = StatusMoved;
 
 	var StatusAttack = function(){
-		this._initStatusMoved();
+		this._initStatusAttack();
 	};
 	StatusAttack.prototype = {
 		_initStatusAttack: function(){},
 		enter: function(target){
+            target.showAttackRange();
 		},
 		execute: function(target, event){
-			target.attack(event.otherChar);
-			target.changeStatus(new StatusWaiting);
-			return true;
+            if(event.coordinate.x == target.cx && event.coordinate.y == target.cy){
+                target.changeStatus(new StatusNormal());
+                return true;
+            }
+
+            if(target.isInAttackRange(event.coordinate.x, event.coordinate.y)){
+                target.getEventManager().trigger(CharEvent.ATTACK_OTHER_CHAR, {coordinate: event.coordinate});
+                setTimeout(function(){
+                    target.changeStatus(new StatusWaiting);
+                }, 1000);
+                return;
+            }
+
+            target.changeStatus(new StatusNormal());
+            return true;
 		},
-		exit: function(target){}
+		exit: function(target){
+            target.hideAttackRange();
+        }
 	};
 
 	oo.extend(StatusAttack, Status);
 	exports.StatusAttack = StatusAttack;
 
 	var StatusWaiting = function(){
-		this._initStatusMoved();
+		this._initStatusWaiting();
 	};
 	StatusWaiting.prototype = {
 		_initStatusWaiting: function(){},
 		enter: function(target){
+            console.log('waiting');
 			//TODO: 进入等待状态
 			target.eventManager.trigger(CharEvent.STATUS_WAITING, {});
 		},
 		execute: function(target, event){
 			//切换到正常状态
-			target.changeStatus(new StatusNormal());
+			//target.changeStatus(new StatusNormal());
 			return true;
 		},
 		exit: function(target){}

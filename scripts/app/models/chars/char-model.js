@@ -58,7 +58,18 @@ define(function(require, exports, module){
 					this[key] = options[key];
 				}
 			}
-		}
+		},
+
+        add: function(key, playerProperties, extra){
+            if(key !== 'attackRange'){
+                extra || (extra = 0);
+                this[key] = playerProperties[key] + extra;
+            }else{
+                extra || (extra = {min: 0, max: 0});
+                this[key].max = playerProperties[key].max + extra.max;
+                this[key].min = playerProperties[key].min + extra.min;
+            }
+        }
 	};
 
 	PlayerProperties.filedsNameList = [
@@ -157,6 +168,7 @@ define(function(require, exports, module){
             this.eventManager = new EventManager();
             //可移动范围,只有在active状态有效
             this.moveRange = [];
+            this.attackRange = [];
 		},
 		/**
 		 * 攻击
@@ -279,10 +291,8 @@ define(function(require, exports, module){
 				var key = PlayerProperties.filedsNameList[i];
 				var hpDiff = this.actualProperties.hitPoint - this.hitPointActual;
 				var ep = this.equipmentsProperties[key];
-				if(!ep){
-					ep = 0;
-				}
-				this.actualProperties[key] = this.inherentProperties[key] + ep;
+				//this.actualProperties[key] = this.inherentProperties[key] + ep;
+                this.actualProperties.add(key, this.inherentProperties, ep);
 				if(key == 'hitPoint'){
 					this.hitPointActual = this.actualProperties.hitPoint - hpDiff;
 				}
@@ -313,11 +323,12 @@ define(function(require, exports, module){
          * @param backup 是否保存原始坐标
          */
         setCoordinate: function(x, y, backup){
+            var oc = {
+                x : this.cx,
+                y: this.cy
+            };
             if(backup){
-                this.origCoordinate = {
-                    x : this.cx,
-                    y: this.cy
-                }
+                this.origCoordinate = oc;
             }else{
                 this.origCoordinate = null;
             }
@@ -326,7 +337,10 @@ define(function(require, exports, module){
 
             this.eventManager.trigger(CharEvent.COORDINATE_CHANGE, {
                 cx: x,
-                cy: y
+                cy: y,
+                ocx: oc.x,
+                ocy: oc.y,
+                target: this
             })
         },
 
@@ -339,6 +353,17 @@ define(function(require, exports, module){
         getHashCode: function(){
 	        return util.posHashCode(this.cx, this.cy);
         },
+
+        isInRange: function(x, y, range){
+            for(var i = 0, len = range.length; i < len; i++){
+                if(range[i].x == x && range[i].y == y){
+                    return true;
+                }
+            }
+
+            return false;
+        },
+
         /**
          * 获取可移动范围
          * @returns {Array}
@@ -370,13 +395,7 @@ define(function(require, exports, module){
         },
 
         isInMoveRange: function(x, y){
-            for(var i = 0, len = this.moveRange.length; i < len; i++){
-                if(this.moveRange[i].x == x && this.moveRange[i].y == y){
-                    return true;
-                }
-            }
-
-            return false;
+            return this.isInRange(x, y, this.moveRange);
         },
 		//显示移动范围
 		showMoveRange: function(){
@@ -397,20 +416,29 @@ define(function(require, exports, module){
 					{
 						text: '攻击',
 						callback: function(){
-							console.log("POP MENU CLICKED ATTACK");
-						}
+							this.status.execute(this, {
+                                action: 'attack'
+                            });
+						},
+                        target: this
 					},
 					{
 						text: '待机',
 						callback: function(){
-							console.log("POP MENU CLICKED WAITING");
-						}
+                            this.status.execute(this, {
+                                action: 'waiting'
+                            });
+						},
+                        target: this
 					},
 					{
 						text: '取消',
 						callback: function(){
-							console.log("POP MENU CLICKED CANCEL");
-						}
+                            this.status.execute(this, {
+                                action: 'cancel'
+                            });
+						},
+                        target: this
 					}]
 			});
 		},
@@ -418,6 +446,47 @@ define(function(require, exports, module){
 		hideMenu: function(){
 			this.getEventManager().trigger(CharEvent.HIDE_MENU, {});
 		},
+
+        getAttackRange: function(){
+            var range = this.actualProperties.attackRange.max;
+            var preColumn = this.cx - range;
+            var nextColumn = this.cx + range;
+            var preRow = this.cy - range;
+            var nextRow = this.cy + range;
+            var list = [];
+            for(var x = preColumn; x <= nextColumn; x++){
+                for(var y = preRow; y <= nextRow; y++){
+                    var dx = Math.abs(x - this.cx);
+                    var dy = Math.abs(y - this.cy);
+
+                    if(dx + dy <= range){
+
+                        if(x !== this.cx || y !== this.cy){
+                            //if(hitmap.getPassable(x, y) && enemyCoordinates[x.toString() + y.toString()]){
+                                list.push({x: x, y: y});
+                            //}
+                        }
+                    }
+                }
+            }
+            this.attackRange = list;
+            return list;
+        },
+
+        isInAttackRange: function(x, y){
+            return this.isInRange(x, y, this.attackRange);
+        },
+
+        showAttackRange: function(){
+            this.getEventManager().trigger(CharEvent.SHOW_ATTACK_RANGE, {
+                rangeList: this.getAttackRange()
+            });
+        },
+
+        hideAttackRange: function(){
+            this.getEventManager().trigger(CharEvent.HIDE_ATTACK_RANGE, {
+            });
+        },
 
 		changeStatus: function(status){
 			this.status.exit(this);

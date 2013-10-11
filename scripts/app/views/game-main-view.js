@@ -46,14 +46,6 @@ define(function(require, exports, module){
 					return {x: x,y: y};
 				}
 			});
-			var image = new Kinetic.Image({
-				x: 0,
-				y: 0,
-				image: resourceLoader.get('forest'),
-				width: 512,
-				height: 512
-		  	});
-			//this.layer.add(image);
 
             this.moveRange = new RangeGrid({
                 x: 0,
@@ -63,31 +55,22 @@ define(function(require, exports, module){
                 rangeList: [],
                 fill: RangeGrid.colorType.green
             });
+            this.attackRange = new RangeGrid({
+                x: 0,
+                y: 0,
+                width:100,
+                height:100,
+                rangeList: [],
+                fill: RangeGrid.colorType.red
+            });
+
 			this.layer.add(map);
             this.layer.add(this.moveRange);
+            this.layer.add(this.attackRange);
 			this.popMenu = new PopMenu({
 				x: 32,
 				y: 32,
-				itemsList: [
-					{
-						text: '攻击',
-						callback: function(){
-							console.log("POP MENU CLICKED ATTACK");
-						}
-					},
-					{
-						text: '待机',
-						callback: function(){
-							console.log("POP MENU CLICKED WAITING");
-						}
-					},
-					{
-						text: '取消',
-						callback: function(){
-							console.log("POP MENU CLICKED CANCEL");
-						}
-					}
-				]
+				itemsList: []
 			});
 			//this.popMenu.hide();
 			this.layer.add(this.popMenu);
@@ -95,7 +78,7 @@ define(function(require, exports, module){
 			stage.add(this.layer);
 			var btnAtk = $c('div', null, 'atk');
 			btnAtk.innerHTML = '攻击';
-			this.container.appendChild(btnAtk);
+			//this.container.appendChild(btnAtk);
 			$(btnAtk).click(function(){
 				self.getEventManager().trigger(GameMainView.EVENT_ATK_CLICK, {	});
 			});
@@ -143,6 +126,18 @@ define(function(require, exports, module){
 		onHideMoveRange: function(event){
 			this.hideMoveRange();
 		},
+
+        //显示攻击范围事件
+        onShowAttackRange: function(event){
+            this.attackRange.setRangeList(event.rangeList);
+            this.attackRange.show();
+        },
+        //隐藏攻击范围事件
+        onHideAttackRange: function(event){
+            this.attackRange.setRangeList([]);
+            this.attackRange.hide();
+        },
+
 
 		onShowMenu:function(event){
 			this.popMenu.setX(event.x * 32);

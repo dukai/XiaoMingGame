@@ -132,8 +132,16 @@ define(function(require, exports, module){
         },
 
 		onWaiting: function(event){
+            this.body.setAnimation('disable');
+		},
 
-		}
+        onNormal: function(event){
+            this.body.setAnimation('idle');
+        },
+
+        onAttack: function(event){
+            this.attack();
+        }
 	};
 
     Kinetic.Util.extend(Swordman, Kinetic.Group);

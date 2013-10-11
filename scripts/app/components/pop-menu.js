@@ -39,7 +39,8 @@ define(function(require, exports, module){
 				menuBg.menuIndex = i;
 				menuBg.on('click', function(e){
 					e.cancelBubble = true;
-					self.getItemsList()[this.menuIndex].callback && self.getItemsList()[this.menuIndex].callback();
+                    var item = self.getItemsList()[this.menuIndex];
+					item.callback && item.callback.call(item.target);
 				});
 
 				menuBg.on('mousedown', function(e){
