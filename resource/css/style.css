@@ -71,6 +71,15 @@ a:hover {
   margin: 0 !important;
 }
 /*game begin sence*/
+body {
+  background: url(../images/geometry.png);
+}
+.copyright {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  font-size: 12px;
+}
 button.btn_start {
   border-radius: 6px;
   background: #d16464;
@@ -99,8 +108,11 @@ button.btn_start:active {
   width: 960px;
   height: 640px;
   margin: 0 auto;
-  position: relative;
-  border: 1px solid #000;
+  position: absolute;
+  border: 10px solid rgba(0, 0, 0, 0.2);
+  top: 50%;
+  left: 50%;
+  margin: -330px 0 0 -490px;
 }
 .sence {
   width: 960px;
