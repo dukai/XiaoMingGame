@@ -89,7 +89,7 @@ define(function(require, exports, module){
 	StatusMoved.prototype = {
 		_initStatusMoved: function(){},
 		enter: function(target){
-			//TODO:显示菜单
+			//显示菜单
 			target.showMenu();
 		},
 		execute: function(target, event){
@@ -113,7 +113,7 @@ define(function(require, exports, module){
 
 		},
 		exit: function(target){
-			//TODO:隐藏菜单
+			//隐藏菜单
 			target.hideMenu();
 		}
 	};
@@ -160,8 +160,7 @@ define(function(require, exports, module){
 	StatusWaiting.prototype = {
 		_initStatusWaiting: function(){},
 		enter: function(target){
-            console.log('waiting');
-			//TODO: 进入等待状态
+			// 进入等待状态
             target.await();
 		},
 		execute: function(target, event){

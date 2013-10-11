@@ -97,18 +97,17 @@ define(function(require, exports, module){
                 });
 			});
 		},
-
+        //根据像素获取坐标
 		getCoordinate: function(x, y, offsetX, offsetY){
 			var posInLayer = {
 				x: x - offsetX,
 				y: y - offsetY
-			}
-			var coordinate = {
+			};
+			return {
 				x: ~~(posInLayer.x / 32),
 				y: ~~(posInLayer.y / 32)
 			};
 
-			return coordinate;
 		},
 		//显示移动范围
         showMoveRange: function(rangeList){
@@ -138,14 +137,14 @@ define(function(require, exports, module){
             this.attackRange.hide();
         },
 
-
+        //当显示菜单时
 		onShowMenu:function(event){
 			this.popMenu.setX(event.x * 32);
 			this.popMenu.setY(event.y * 32);
 			this.popMenu.setItemsList(event.itemsList);
 			this.popMenu.show();
 		},
-
+        //隐藏菜单事件
 		onHideMenu: function(event){
 			this.popMenu.hide();
 		}

@@ -487,7 +487,7 @@ define(function(require, exports, module){
             this.getEventManager().trigger(CharEvent.HIDE_ATTACK_RANGE, {
             });
         },
-
+        //进入待机状态
         await: function(){
             this.origCoordinate = null;
             this.eventManager.trigger(CharEvent.STATUS_WAITING, {});
