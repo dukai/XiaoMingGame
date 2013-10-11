@@ -7,6 +7,7 @@ define(function(require, exports, module){
 	
 	var TiledMap = require('app/components/tiled-map');
     var RangeGrid = require('app/components/range-grid');
+	var PopMenu = require('app/components/pop-menu');
 
 
 	var GameMainView = function(options){
@@ -64,13 +65,39 @@ define(function(require, exports, module){
             });
 			this.layer.add(map);
             this.layer.add(this.moveRange);
+			this.popMenu = new PopMenu({
+				x: 32,
+				y: 32,
+				itemsList: [
+					{
+						text: '攻击',
+						callback: function(){
+							console.log("POP MENU CLICKED ATTACK");
+						}
+					},
+					{
+						text: '待机',
+						callback: function(){
+							console.log("POP MENU CLICKED WAITING");
+						}
+					},
+					{
+						text: '取消',
+						callback: function(){
+							console.log("POP MENU CLICKED CANCEL");
+						}
+					}
+				]
+			});
+			//this.popMenu.hide();
+			this.layer.add(this.popMenu);
+
 			stage.add(this.layer);
 			var btnAtk = $c('div', null, 'atk');
 			btnAtk.innerHTML = '攻击';
 			this.container.appendChild(btnAtk);
 			$(btnAtk).click(function(){
-				self.getEventManager().trigger(GameMainView.EVENT_ATK_CLICK, {
-				});
+				self.getEventManager().trigger(GameMainView.EVENT_ATK_CLICK, {	});
 			});
 
 			this._initEvents();
@@ -100,20 +127,32 @@ define(function(require, exports, module){
 
 			return coordinate;
 		},
-
+		//显示移动范围
         showMoveRange: function(rangeList){
             this.moveRange.setRangeList(rangeList);
         },
+		//隐藏移动范围
         hideMoveRange: function(){
             this.moveRange.setRangeList([]);
         },
-
+		//显示移动范围事件
 		onShowMoveRange: function(event){
 			this.showMoveRange(event.rangeList);
 		},
-
+		//隐藏移动范围事件
 		onHideMoveRange: function(event){
 			this.hideMoveRange();
+		},
+
+		onShowMenu:function(event){
+			this.popMenu.setX(event.x * 32);
+			this.popMenu.setY(event.y * 32);
+			this.popMenu.setItemsList(event.itemsList);
+			this.popMenu.show();
+		},
+
+		onHideMenu: function(event){
+			this.popMenu.hide();
 		}
 	};
 	

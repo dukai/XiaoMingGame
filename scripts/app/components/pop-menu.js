@@ -24,6 +24,7 @@ define(function(require, exports, module){
 
 		initItems: function(){
 			var self = this;
+			self.destroyChildren();
 			var list = this.getItemsList();
 			for(var i = 0, len = list.length; i < len; i++){
 				var n = list[i];
@@ -68,11 +69,16 @@ define(function(require, exports, module){
 				this.add(menuBg);
 				this.add(word);
 			}
+		},
+
+		setItemsList: function(items){
+			this.attrs.itemsList = items;
+			this.initItems();
 		}
 	};
 
 	Kinetic.Util.extend(PopMenu, Kinetic.Group);
-	Kinetic.Factory.addGetterSetter(PopMenu, 'itemsList');
+	Kinetic.Factory.addGetter(PopMenu, 'itemsList');
 
 	module.exports = PopMenu;
 });

@@ -370,11 +370,33 @@ define(function(require, exports, module){
 		},
 		//显示菜单
 		showMenu: function(){
-
+			this.getEventManager().trigger(CharEvent.SHOW_MENU, {
+				x: this.cx + 1,
+				y: this.cy,
+				itemsList: [
+					{
+						text: '攻击',
+						callback: function(){
+							console.log("POP MENU CLICKED ATTACK");
+						}
+					},
+					{
+						text: '待机',
+						callback: function(){
+							console.log("POP MENU CLICKED WAITING");
+						}
+					},
+					{
+						text: '取消',
+						callback: function(){
+							console.log("POP MENU CLICKED CANCEL");
+						}
+					}]
+			});
 		},
 		//隐藏菜单
 		hideMenu: function(){
-
+			this.getEventManager().trigger(CharEvent.HIDE_MENU, {});
 		},
 
 		changeStatus: function(status){
