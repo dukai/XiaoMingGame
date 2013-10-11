@@ -98,13 +98,9 @@ define(function(require, exports, module){
 
 		onAtkClick: function(e){
 			//this.cptPlayer1.attack();
-            delete this.gameModel.charsHashMap[this.gameModel.chars[0].getHashCode()];
-            delete this.gameModel.charsHashMap[this.gameModel.chars[1].getHashCode()];
-            this.gameModel.chars[0].setCoordinate(14, 8);
-            this.gameModel.chars[1].setCoordinate(13, 6);
-
-            this.gameModel.charsHashMap[this.gameModel.chars[0].getHashCode()] = this.gameModel.chars[0];
-            this.gameModel.charsHashMap[this.gameModel.chars[1].getHashCode()] = this.gameModel.chars[1];
+            for(var i = 0, len = this.gameModel.chars.length; i < len; i++){
+                this.gameModel.chars[i].resetStatusNormal();
+            }
 		},
         //有角色的位置发生了改变
         onCoordinateChange: function(event){

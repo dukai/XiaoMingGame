@@ -77,8 +77,8 @@ define(function(require, exports, module){
 
 			stage.add(this.layer);
 			var btnAtk = $c('div', null, 'atk');
-			btnAtk.innerHTML = '攻击';
-			//this.container.appendChild(btnAtk);
+			btnAtk.innerHTML = '结束回合';
+			this.container.appendChild(btnAtk);
 			$(btnAtk).click(function(){
 				self.getEventManager().trigger(GameMainView.EVENT_ATK_CLICK, {	});
 			});

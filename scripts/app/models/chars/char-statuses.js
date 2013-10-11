@@ -162,7 +162,7 @@ define(function(require, exports, module){
 		enter: function(target){
             console.log('waiting');
 			//TODO: 进入等待状态
-			target.eventManager.trigger(CharEvent.STATUS_WAITING, {});
+            target.await();
 		},
 		execute: function(target, event){
 			//切换到正常状态

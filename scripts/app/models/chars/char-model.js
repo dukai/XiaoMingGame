@@ -488,11 +488,20 @@ define(function(require, exports, module){
             });
         },
 
+        await: function(){
+            this.origCoordinate = null;
+            this.eventManager.trigger(CharEvent.STATUS_WAITING, {});
+        },
+
 		changeStatus: function(status){
 			this.status.exit(this);
 			this.status = status;
 			this.status.enter(this);
-		}
+		},
+
+        resetStatusNormal: function(){
+            this.changeStatus(new CharStatus.StatusNormal);
+        }
 	};
 	module.exports = PlayerModel;
 });
