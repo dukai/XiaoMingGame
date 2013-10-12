@@ -56,4 +56,48 @@ define(function(require, exports, module){
 
 	var cptSwordman = require('app/components/chars/swordman');
 	console.log(new cptSwordman());
+
+
+	console.log('======测试PathRange 1======');
+
+	var PathRange = require('xiaoming/map/path-range');
+	var HitMap = require('xiaoming/map/hit-map');
+	var printMap = function(map){
+		for(var i = 0, len = map.length; i < len; i++){
+			console.log(map[i].join(', '));
+		}
+	}
+
+	var setRange = function(range, map){
+		for(var i = 0, len = range.length; i < len; i++){
+			map[range[i].y][range[i].x] = 8;
+		}
+	}
+
+	var map = [
+		[0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 1, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0]
+	];
+
+
+
+	var hitMap = new HitMap(map);
+	var center = new PathRange.Node(3, 3, 1);
+	var pr = new PathRange.PathRange();
+	console.log(pr.getRange(center, hitMap).length == 4);
+	console.log('======测试PathRange 2======');
+	var center = new PathRange.Node(3, 3, 3);
+	var pr = new PathRange.PathRange();
+	var range2 = pr.getRange(center, hitMap);
+	console.log(range2.length == 11);
+	setRange(range2, map);
+
+
+	printMap(map);
 });
