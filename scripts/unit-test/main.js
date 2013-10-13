@@ -16,7 +16,11 @@ define(function(require, exports, module){
 			}
 			
 			this.name = 'ClassA';
-		}
+		},
+
+        showMsg: function(event){
+            console.log(event);
+        }
 	};
 	var ClassB = function(options){
 		this._initClassB(options);
@@ -45,6 +49,8 @@ define(function(require, exports, module){
 	var sword = WeaponFactory.create(Equipment.weaponType.sword);
 	var pm = new Swordman();
 	var pm2 = new Swordman();
+    pm.setCoordinate(1, 1);
+    pm2.setCoordinate(2,2);
 	console.log(pm.name);
 	console.log(pm2.name);
 
@@ -57,6 +63,12 @@ define(function(require, exports, module){
 	var cptSwordman = require('app/components/chars/swordman');
 	console.log(new cptSwordman());
 
+    console.log('=====测试数组Index======');
+    var chars = [];
+    chars.push(pm);
+    chars.push(pm2);
+    console.log(chars.indexOf(pm) === 0);
+    console.log(chars.indexOf(pm2) === 1);
 
 	console.log('======测试PathRange 1======');
 
@@ -96,7 +108,25 @@ define(function(require, exports, module){
 	var range2 = pr.getRange(center, hitMap);
 	console.log(range2.length == 11);
 	setRange(range2, map);
-
-
 	printMap(map);
+
+    console.log('======测试Team======');
+
+    var Team = require('app/models/team');
+    var team = new Team;
+    team.add(pm);
+    team.add(pm);
+    team.add(pm2);
+    console.log(team);
+    pm.setCoordinate(3,3);
+    console.log(team);
+
+    console.log('=====测试EventManager======');
+    var CharEvent = require('app/models/chars/char-event');
+    var classa = new ClassA();
+    pm.eventManager.addEventListener(CharEvent.COORDINATE_CHANGE, classa.showMsg, classa);
+    pm.setCoordinate(10, 20, true);
+    pm.eventManager.removeEventListener(CharEvent.COORDINATE_CHANGE, classa.showMsg);
+    pm.setCoordinate(11, 21, true);
+    console.log(pm);
 });
