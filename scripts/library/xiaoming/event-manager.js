@@ -1,4 +1,6 @@
 define(function(require, exports, module){
+    var Util = require('xiaoming/util');
+
 	var EventManager = function(){
 		this._initEventManager();
 	};
@@ -13,7 +15,7 @@ define(function(require, exports, module){
 		
 		
 		removeEventListener: function(eventName, foo){
-			this._removeEventObject(eventName);
+			this._removeEventObject(eventName, foo);
 		},
 		
 		trigger: function(eventName, event){
@@ -42,8 +44,20 @@ define(function(require, exports, module){
 			});
 		},
 		
-		_removeEventObject: function(eventName){
-			delete this.events[eventName];
+		_removeEventObject: function(eventName, foo){
+            if(foo){
+                for(var i = 0, len = this.events[eventName].length; i < len;){
+                    if(this.events[eventName].foo === foo){
+                        this.events[eventName].splice(i, 1);
+                        len--;
+                    }else{
+                        i++;
+                    }
+                }
+            }else{
+                delete this.events[eventName];
+            }
+
 		}
 	};
 	
