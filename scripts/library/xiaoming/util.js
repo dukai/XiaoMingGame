@@ -278,5 +278,19 @@ define(function(require, exports, module){
 	util.posHashCode = function(x, y){
 		return '{x:' + x + ',y:' + y + '}';
 	}
+
+    util.indexOf = function(array, piece){
+        if(array.indexOf){
+            return array.indexOf(piece);
+        }
+        for(var i = 0, len = array.length; i < len; i++){
+            if(array[i] === piece){
+                return i;
+            }
+        }
+
+        return -1;
+    };
+
 	module.exports = util;
 });
