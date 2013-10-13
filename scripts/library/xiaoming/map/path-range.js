@@ -4,7 +4,7 @@ define(function(require, exports, module){
 		this.x = x;
 		this.y = y;
 		this.capacity = capacity;
-	}
+	};
 
 	var PathRange = function(){
 		this._initPathRange();
@@ -21,6 +21,9 @@ define(function(require, exports, module){
 		offsetY: [0, 1, 0, -1],
 		//center {x, y}
 		getRange: function(center, hitMap){
+            this.nodeHashTable = {};
+            this.allNodeList = [];
+            this.current = 0;
 			this.hitMap = hitMap;
 			this.allNodeList.push(center);
 			this.nodeHashTable[Util.posHashCode(center.x, center.y)] = center;

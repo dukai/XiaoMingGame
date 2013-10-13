@@ -92,8 +92,7 @@ define(function(require, exports, module){
 	var pr = new PathRange.PathRange();
 	console.log(pr.getRange(center, hitMap).length == 4);
 	console.log('======测试PathRange 2======');
-	var center = new PathRange.Node(3, 3, 3);
-	var pr = new PathRange.PathRange();
+	var center = new PathRange.Node(3, 3, 2);
 	var range2 = pr.getRange(center, hitMap);
 	console.log(range2.length == 11);
 	setRange(range2, map);
