@@ -46,9 +46,10 @@ define(function(require, exports, module){
 		
 		_removeEventObject: function(eventName, foo){
             if(foo){
-                for(var i = 0, len = this.events[eventName].length; i < len;){
-                    if(this.events[eventName].foo === foo){
-                        this.events[eventName].splice(i, 1);
+                var events = this.events[eventName];
+                for(var i = 0, len = events.length; i < len;){
+                    if(events[i].foo === foo){
+                        events.splice(i, 1);
                         len--;
                     }else{
                         i++;
