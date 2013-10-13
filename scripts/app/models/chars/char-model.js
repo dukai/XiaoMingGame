@@ -7,7 +7,7 @@ define(function(require, exports, module){
     var EventManager = require('xiaoming/event-manager');
     var CharEvent = require('app/models/chars/char-event');
     var CharStatus = require('app/models/chars/char-statuses');
-
+    var PathRange = require('xiaoming/map/path-range');
 	/**
 	 * 用户属性信息
 	 * @constructor
@@ -169,6 +169,7 @@ define(function(require, exports, module){
             //可移动范围,只有在active状态有效
             this.moveRange = [];
             this.attackRange = [];
+            this.pathRange = new PathRange.PathRange();
 		},
 		/**
 		 * 攻击

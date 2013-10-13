@@ -20,7 +20,9 @@ define(function(require, exports, module){
 		_initGameMainController: function(options){
 			AbstractController.call(this, options);
 			this.gameModel = new GameModel();
-
+            var tmxMapParser = new TmxMapParser({
+                mapData: resourceLoader.get('v2_map')
+            });
             this.player1 = CharFactory.createCharacter(CharType.roleType.swordman);
             this.player1.setCoordinate(16, 8);
             this.player2 = CharFactory.createCharacter(CharType.roleType.swordman);
@@ -31,9 +33,7 @@ define(function(require, exports, module){
             this.gameModel.addEnemies(this.player2);
 
             this.addViewData({
-                tmxMapParser: new TmxMapParser({
-                    mapData: resourceLoader.get('v2_map')
-                })
+                tmxMapParser: tmxMapParser
             })
 		},
 		
