@@ -26,7 +26,7 @@ define(function(require, exports, module){
             this.current = 0;
 			this.hitMap = hitMap;
 			this.allNodeList.push(center);
-			this.nodeHashTable[Util.posHashCode(center.x, center.y)] = center;
+			this.nodeHashTable[Util.pos2HashCode(center.x, center.y)] = center;
 			while(this.current < this.allNodeList.length){
 				this.getSurround(this.allNodeList[this.current]);
 				this.current++;
@@ -40,8 +40,8 @@ define(function(require, exports, module){
 				var y = node.y + this.offsetY[i];
 				var newNode = new Node(x, y, node.capacity - 1);
 				//如果尚未访问则添加
-				if(!this.nodeHashTable[Util.posHashCode(x, y)] && newNode.capacity >= 0 && this.hitMap.getPassable(x, y)){
-					this.nodeHashTable[Util.posHashCode(x, y)] = newNode;
+				if(!this.nodeHashTable[Util.pos2HashCode(x, y)] && newNode.capacity >= 0 && this.hitMap.getPassable(x, y)){
+					this.nodeHashTable[Util.pos2HashCode(x, y)] = newNode;
 					this.allNodeList.push(newNode);
 				}
 			}

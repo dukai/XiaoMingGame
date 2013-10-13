@@ -79,7 +79,7 @@ define(function(require, exports, module){
             //console.log(e);
             //如果不存在activedChar判断点击位置
             if(!this.gameModel.activedChar){
-                var hashKey = Util.posHashCode(e.coordinate.x, e.coordinate.y);
+                var hashKey = Util.pos2HashCode(e.coordinate.x, e.coordinate.y);
                 if(this.gameModel.charsHashMap[hashKey] && this.gameModel.charsHashMap[hashKey].status != CharStatus.WAITING){
                     this.gameModel.activedChar = this.gameModel.charsHashMap[hashKey];
                 }else{
@@ -104,7 +104,7 @@ define(function(require, exports, module){
 		},
         //有角色的位置发生了改变
         onCoordinateChange: function(event){
-            delete this.gameModel.charsHashMap[Util.posHashCode(event.ocx, event.ocy)];
+            delete this.gameModel.charsHashMap[Util.pos2HashCode(event.ocx, event.ocy)];
             this.gameModel.charsHashMap[event.target.getHashCode()] = event.target;
         }
 		

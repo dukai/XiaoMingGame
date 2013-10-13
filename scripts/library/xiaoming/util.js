@@ -274,10 +274,28 @@ define(function(require, exports, module){
 	
 	util.dash2Camel = dash2Camel;
 	util.camel2Dash = camel2Dash;
-
-	util.posHashCode = function(x, y){
+    /**
+     * 根据坐标返回坐标哈希码
+     * @param x
+     * @param y
+     * @returns {string}
+     */
+	util.pos2HashCode = function(x, y){
 		return '{x:' + x + ',y:' + y + '}';
-	}
+	};
+    /**
+     * 根据坐标哈希码返回坐标对象
+     * @param hashCode
+     * @returns {{x: *, y: *}}
+     */
+    util.hashCode2Pos = function(hashCode){
+        var match = /{x:(\d+),y:(\d+)}/.exec(hashCode);
+        return {
+            x: match[1],
+            y: match[2]
+        }
+    };
+
 
     util.indexOf = function(array, piece){
         if(array.indexOf){

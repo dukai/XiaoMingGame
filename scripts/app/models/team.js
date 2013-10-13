@@ -37,7 +37,7 @@ define(function(require, exports, module){
         },
 
         onCoordinateChange: function(event){
-            delete this.charsHashMap[Util.posHashCode(event.ocx, event.ocy)];
+            delete this.charsHashMap[Util.pos2HashCode(event.ocx, event.ocy)];
             this.charsHashMap[event.target.getHashCode()] = event.target;
         }
     };

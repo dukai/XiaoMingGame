@@ -352,7 +352,7 @@ define(function(require, exports, module){
         },
 
         getHashCode: function(){
-	        return util.posHashCode(this.cx, this.cy);
+	        return util.pos2HashCode(this.cx, this.cy);
         },
 
         isInRange: function(x, y, range){
