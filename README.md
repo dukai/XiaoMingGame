@@ -5,7 +5,7 @@ It should be a SLG game, maybe with some RPG elements, and it's name is XiaoMing
 主要目的是实现一套JavaScript的游戏MVC框架，顺便实现一个我想了很久的游戏。
 
 #游戏的目录结构
-
+```
 root + resource  
      + scripts  
           + app  
@@ -22,7 +22,7 @@ root + resource
               - kinetic  
           + unit-test //测试  
      + index.html  
-
+```
 #DEMO 
 
 http://www.ideaplus.co
