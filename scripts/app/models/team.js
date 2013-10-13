@@ -32,11 +32,13 @@ define(function(require, exports, module){
             var index = Util.indexOf(this.chars, char);
             if(index > 0){
                 this.chars.splice(index, 1);
+                char.eventManager.removeEventListener(CharEvent.COORDINATE_CHANGE, this.onCoordinateChange);
             }
         },
 
         onCoordinateChange: function(event){
-
+            delete this.charsHashMap[Util.posHashCode(event.ocx, event.ocy)];
+            this.charsHashMap[event.target.getHashCode()] = event.target;
         }
     };
 
