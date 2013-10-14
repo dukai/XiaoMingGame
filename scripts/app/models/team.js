@@ -11,7 +11,7 @@ define(function(require, exports, module){
     Team.prototype = {
         _initTeam: function(options){
             this.options = oo.mix({
-	            map: []
+
             }, this.options);
             this.options = oo.mix(this.options, options);
             this.chars = [];
@@ -39,18 +39,7 @@ define(function(require, exports, module){
         onCoordinateChange: function(event){
             delete this.charsHashMap[Util.pos2HashCode(event.ocx, event.ocy)];
             this.charsHashMap[event.target.getHashCode()] = event.target;
-        },
-
-	    getHitMap:function(){
-		    var mapCopy = this.options.map.clone();
-		    var hitMap = new HitMap(mapCopy);
-		    for(var key in this.charsHashMap){
-			    var coordinate = Util.hashCode2Pos(key);
-			    hitMap.set(coordinate.x, coordinate.y, 1);
-		    }
-
-		    return hitMap;
-	    }
+        }
     };
 
     module.exports = Team;

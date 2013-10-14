@@ -170,6 +170,9 @@ define(function(require, exports, module){
             this.moveRange = [];
             this.attackRange = [];
             this.pathRange = new PathRange.PathRange();
+			//队伍信息
+			this.team = null;
+			this.gameModel = null;
 		},
 		/**
 		 * 攻击
@@ -370,6 +373,7 @@ define(function(require, exports, module){
          * @returns {Array}
          */
         getMoveRange: function(){
+	        /*
             var range = this.actualProperties.mobility;
             var preColumn = this.cx - range;
             var nextColumn = this.cx + range;
@@ -391,8 +395,9 @@ define(function(require, exports, module){
                     }
                 }
             }
-            this.moveRange = list;
-            return list;
+            */
+            this.moveRange = this.pathRange.getRange(new PathRange.Node(this.cx, this.cy, this.actualProperties.mobility), this.gameModel.getHitMap());
+            return this.moveRange;
         },
 
         isInMoveRange: function(x, y){

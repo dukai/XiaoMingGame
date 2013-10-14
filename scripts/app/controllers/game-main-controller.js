@@ -20,22 +20,26 @@ define(function(require, exports, module){
 	GameMainController.prototype = {
 		_initGameMainController: function(options){
 			AbstractController.call(this, options);
-			this.gameModel = new GameModel();
+
             var tmxMapParser = new TmxMapParser({
                 mapData: resourceLoader.get('v2_map')
             });
-
-			this.ourTeam = new Team();
-			this.enemyTeam = new Team();
+			this.gameModel = new GameModel({
+				mapData: tmxMapParser.getHitMap()
+			});
+			this.gameModel.ourTeam = new Team();
+			this.gameModel.enemyTeam = new Team();
 
             this.player1 = CharFactory.createCharacter(CharType.roleType.swordman);
             this.player1.setCoordinate(16, 8);
+			this.player1.gameModel = this.gameModel;
             this.player2 = CharFactory.createCharacter(CharType.roleType.swordman);
             this.player2.setCoordinate(17, 9);
+			this.player2.gameModel = this.gameModel;
             this.player2.idColor = CharType.idColorType.red;
 
-			this.ourTeam.add(this.player1);
-			this.enemyTeam.add(this.player2);
+			this.gameModel.ourTeam.add(this.player1);
+			this.gameModel.enemyTeam.add(this.player2);
 
             this.addViewData({
                 tmxMapParser: tmxMapParser
@@ -58,15 +62,14 @@ define(function(require, exports, module){
             });
             this.get('view').layer.add(image);
             */
-            for(var i = 0, len = this.ourTeam.chars.length; i< len; i++){
-                var char = this.ourTeam.chars[i];
+            for(var i = 0, len = this.gameModel.ourTeam.chars.length; i< len; i++){
+                var char = this.gameModel.ourTeam.chars[i];
                 var ctpPlayer = CPTCharFactory.createCharacter(char.charType);
                 this.get('view').layer.add(ctpPlayer);
                 ctpPlayer.changeIdColor(char.idColor);
                 ctpPlayer.start();
                 ctpPlayer.setCoordinate(char.cx, char.cy);
                 char.eventManager.addEventListener(CharEvent.COORDINATE_CHANGE, ctpPlayer.onCoordinateChange, ctpPlayer);
-                char.eventManager.addEventListener(CharEvent.COORDINATE_CHANGE, this.onCoordinateChange, this);
 	            char.eventManager.addEventListener(CharEvent.STATUS_WAITING, ctpPlayer.onWaiting, ctpPlayer);
                 char.eventManager.addEventListener(CharEvent.STATUS_NORMAL, ctpPlayer.onNormal, ctpPlayer);
                 char.eventManager.addEventListener(CharEvent.ATTACK_OTHER_CHAR, ctpPlayer.onAttack, ctpPlayer);
@@ -79,8 +82,8 @@ define(function(require, exports, module){
             }
 
 
-			for(var i = 0, len = this.enemyTeam.chars.length; i< len; i++){
-				var char = this.enemyTeam.chars[i];
+			for(var i = 0, len = this.gameModel.enemyTeam.chars.length; i< len; i++){
+				var char = this.gameModel.enemyTeam.chars[i];
 				var ctpPlayer = CPTCharFactory.createCharacter(char.charType);
 				this.get('view').layer.add(ctpPlayer);
 				ctpPlayer.changeIdColor(char.idColor);
@@ -95,8 +98,8 @@ define(function(require, exports, module){
             //如果不存在activedChar判断点击位置
             if(!this.gameModel.activedChar){
                 var hashKey = Util.pos2HashCode(e.coordinate.x, e.coordinate.y);
-                if(this.ourTeam.charsHashMap[hashKey]){
-                    this.gameModel.activedChar = this.ourTeam.charsHashMap[hashKey];
+                if(this.gameModel.ourTeam.charsHashMap[hashKey]){
+                    this.gameModel.activedChar = this.gameModel.ourTeam.charsHashMap[hashKey];
                 }else{
                     //如果点击为空白位置，退出
                     return;
@@ -116,12 +119,7 @@ define(function(require, exports, module){
             for(var i = 0, len = this.gameModel.chars.length; i < len; i++){
                 this.gameModel.chars[i].resetStatusNormal();
             }
-		},
-        //有角色的位置发生了改变
-        onCoordinateChange: function(event){
-            delete this.gameModel.charsHashMap[Util.pos2HashCode(event.ocx, event.ocy)];
-            this.gameModel.charsHashMap[event.target.getHashCode()] = event.target;
-        }
+		}
 		
 	};
 	oo.extend(GameMainController, AbstractController);
