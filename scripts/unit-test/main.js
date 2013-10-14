@@ -113,13 +113,16 @@ define(function(require, exports, module){
     console.log('======测试Team======');
 
     var Team = require('app/models/team');
-    var team = new Team;
+    var team = new Team({
+	    map: map
+    });
     team.add(pm);
     team.add(pm);
     team.add(pm2);
     console.log(team);
     pm.setCoordinate(3,3);
     console.log(team);
+	printMap(team.getHitMap().map);
 
     console.log('=====测试EventManager======');
     var CharEvent = require('app/models/chars/char-event');
