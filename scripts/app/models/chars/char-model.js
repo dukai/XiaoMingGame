@@ -216,7 +216,7 @@ define(function(require, exports, module){
 			
 			if(otherPerson.hitPointActual <= 0){
 				debug && console.log(otherPerson.units + otherPerson.name + '已经死亡');
-				
+				//TODO: 触发死亡事件
 				otherPerson.hitPointActual = 0;
 				
 				var gains = this.exp.getFightExp(this.level, otherPerson.level);
