@@ -33,7 +33,11 @@ define(function(require, exports, module){
 			}
 
 			return hitMap;
-		}
+		},
+
+        onAttack: function(event){
+            event.target.attack(this.enemyTeam.charsHashMap[Util.pos2HashCode(event.coordinate.x, event.coordinate.y)]);
+        }
 	};
 
 	module.exports = GameModel;

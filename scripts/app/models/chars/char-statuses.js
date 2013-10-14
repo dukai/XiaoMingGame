@@ -136,7 +136,7 @@ define(function(require, exports, module){
             }
 
             if(target.isInAttackRange(event.coordinate.x, event.coordinate.y)){
-                target.getEventManager().trigger(CharEvent.ATTACK_OTHER_CHAR, {coordinate: event.coordinate});
+                target.getEventManager().trigger(CharEvent.ATTACK_OTHER_CHAR, {coordinate: event.coordinate, target: target});
                 setTimeout(function(){
                     target.changeStatus(new StatusWaiting);
                 }, 1000);

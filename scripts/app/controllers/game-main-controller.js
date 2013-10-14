@@ -73,6 +73,7 @@ define(function(require, exports, module){
 	            char.eventManager.addEventListener(CharEvent.STATUS_WAITING, ctpPlayer.onWaiting, ctpPlayer);
                 char.eventManager.addEventListener(CharEvent.STATUS_NORMAL, ctpPlayer.onNormal, ctpPlayer);
                 char.eventManager.addEventListener(CharEvent.ATTACK_OTHER_CHAR, ctpPlayer.onAttack, ctpPlayer);
+                char.eventManager.addEventListener(CharEvent.ATTACK_OTHER_CHAR, this.gameModel.onAttack, this.gameModel);
 	            char.eventManager.addEventListener(CharEvent.SHOW_MOVE_RANGE, this.get('view').onShowMoveRange, this.get('view'));
 	            char.eventManager.addEventListener(CharEvent.HIDE_MOVE_RANGE, this.get('view').onHideMoveRange, this.get('view'));
                 char.eventManager.addEventListener(CharEvent.SHOW_ATTACK_RANGE, this.get('view').onShowAttackRange, this.get('view'));
@@ -116,8 +117,8 @@ define(function(require, exports, module){
 
 		onAtkClick: function(e){
 			//this.cptPlayer1.attack();
-            for(var i = 0, len = this.gameModel.chars.length; i < len; i++){
-                this.gameModel.chars[i].resetStatusNormal();
+            for(var i = 0, len = this.gameModel.ourTeam.chars.length; i < len; i++){
+                this.gameModel.ourTeam.chars[i].resetStatusNormal();
             }
 		}
 		

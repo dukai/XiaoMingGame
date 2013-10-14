@@ -39,6 +39,14 @@ define(function(require, exports, module){
         onCoordinateChange: function(event){
             delete this.charsHashMap[Util.pos2HashCode(event.ocx, event.ocy)];
             this.charsHashMap[event.target.getHashCode()] = event.target;
+        },
+
+        inTeam: function(x, y){
+            if(this.charsHashMap[Util.pos2HashCode(x, y)]){
+                return true;
+            }
+
+            return false;
         }
     };
 

@@ -1,6 +1,6 @@
 define(function(require, exports, module){
 	var oo = require('xiaoming/oo');
-	var util = require('xiaoming/util');
+	var Util = require('xiaoming/util');
 	var EquipmentsManager = require('../equipments/equipment-manager');
     var Experience = require('app/models/chars/experience');
     var CharType = require('app/models/chars/char-type');
@@ -99,7 +99,7 @@ define(function(require, exports, module){
 			this.options = oo.mix(this.options, options);
 			
 			if(!this.options.name){
-				this.options.name = util.getName(this.options.gender);
+				this.options.name = Util.getName(this.options.gender);
 			}
 			this.name = this.options.name;
 			//性别
@@ -180,6 +180,7 @@ define(function(require, exports, module){
 		 * @param attackBack : bool
 		 */
 		attack : function(otherPerson, attackBack){
+            var debug = true;
 			if(this.hitPointActual === 0){
 				debug && console.log('你已经阵亡了，节哀顺便');
 				return;
@@ -242,6 +243,7 @@ define(function(require, exports, module){
 		 * @param {Person} 治疗目标 
 		 */
 		heal: function(otherPerson){
+            var debug = true;
 			if(otherPerson.hitPointActual === 0){
 				debug && console.log("人已往矣，无力回天，徒呼奈何，节哀顺变！");
 				return;
@@ -355,7 +357,7 @@ define(function(require, exports, module){
         },
 
         getHashCode: function(){
-	        return util.pos2HashCode(this.cx, this.cy);
+	        return Util.pos2HashCode(this.cx, this.cy);
         },
 
         isInRange: function(x, y, range){
@@ -392,37 +394,62 @@ define(function(require, exports, module){
 		},
 		//显示菜单
 		showMenu: function(){
-			this.getEventManager().trigger(CharEvent.SHOW_MENU, {
-				x: this.cx + 1,
-				y: this.cy,
-				itemsList: [
-					{
-						text: '攻击',
-						callback: function(){
-							this.status.execute(this, {
+            var itemsList = [];
+            if(this.isEnemyInAttackRange()){
+                itemsList = [
+                    {
+                        text: '攻击',
+                        callback: function(){
+                            this.status.execute(this, {
                                 action: 'attack'
                             });
-						},
+                        },
                         target: this
-					},
-					{
-						text: '待机',
-						callback: function(){
+                    },
+                    {
+                        text: '待机',
+                        callback: function(){
                             this.status.execute(this, {
                                 action: 'waiting'
                             });
-						},
+                        },
                         target: this
-					},
-					{
-						text: '取消',
-						callback: function(){
+                    },
+                    {
+                        text: '取消',
+                        callback: function(){
                             this.status.execute(this, {
                                 action: 'cancel'
                             });
-						},
+                        },
                         target: this
-					}]
+                    }];
+            }else{
+                itemsList = [
+                    {
+                        text: '待机',
+                        callback: function(){
+                            this.status.execute(this, {
+                                action: 'waiting'
+                            });
+                        },
+                        target: this
+                    },
+                    {
+                        text: '取消',
+                        callback: function(){
+                            this.status.execute(this, {
+                                action: 'cancel'
+                            });
+                        },
+                        target: this
+                    }];
+            }
+
+			this.getEventManager().trigger(CharEvent.SHOW_MENU, {
+				x: this.cx + 1,
+				y: this.cy,
+				itemsList: itemsList
 			});
 		},
 		//隐藏菜单
@@ -445,15 +472,20 @@ define(function(require, exports, module){
                     if(dx + dy <= range){
 
                         if(x !== this.cx || y !== this.cy){
-                            //if(hitmap.getPassable(x, y) && enemyCoordinates[x.toString() + y.toString()]){
+                            if(this.gameModel.enemyTeam.inTeam(x, y)){
                                 list.push({x: x, y: y});
-                            //}
+                            }
                         }
                     }
                 }
             }
             this.attackRange = list;
             return list;
+        },
+
+        isEnemyInAttackRange: function(){
+            var list = this.getAttackRange();
+            return list.length > 0;
         },
 
         isInAttackRange: function(x, y){
