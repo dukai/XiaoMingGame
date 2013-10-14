@@ -1,4 +1,4 @@
-XiaoMingGame
+XiaoMing Game
 ============
 It should be a SLG game, maybe with some RPG elements, and it's name is XiaoMing
 
@@ -23,10 +23,10 @@ root + resource
           + unit-test //测试  
      + index.html  
 ```
-#DEMO 
+#演示地址 
 
 http://www.ideaplus.co
 
-#Blog
+#个人博客
 
 http://www.dklogs.net
