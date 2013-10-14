@@ -310,5 +310,17 @@ define(function(require, exports, module){
         return -1;
     };
 
+	/**
+	 * clone method for Array
+	 */
+	Array.prototype.clone = function(){
+		var t = [];
+		for(var i = 0, len = this.length; i < len; i++){
+			var tt = this[i].clone ? this[i].clone() : this[i];
+			t.push(tt);
+		}
+		return t;
+	};
+
 	module.exports = util;
 });
