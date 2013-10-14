@@ -373,29 +373,6 @@ define(function(require, exports, module){
          * @returns {Array}
          */
         getMoveRange: function(){
-	        /*
-            var range = this.actualProperties.mobility;
-            var preColumn = this.cx - range;
-            var nextColumn = this.cx + range;
-            var preRow = this.cy - range;
-            var nextRow = this.cy + range;
-            var list = [];
-            for(var x = preColumn; x <= nextColumn; x++){
-                for(var y = preRow; y <= nextRow; y++){
-                    var dx = Math.abs(x - this.cx);
-                    var dy = Math.abs(y - this.cy);
-
-                    if(dx + dy <= range){
-
-                        if(x !== this.cx || y !== this.cy){
-                            //if(hitmap.getPassable(x, y) && !enemyCoordinates[x.toString() + y.toString()]){
-                            list.push({x: x, y: y});
-                            //}
-                        }
-                    }
-                }
-            }
-            */
             this.moveRange = this.pathRange.getRange(new PathRange.Node(this.cx, this.cy, this.actualProperties.mobility), this.gameModel.getHitMap());
             return this.moveRange;
         },
