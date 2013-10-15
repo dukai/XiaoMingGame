@@ -56,6 +56,7 @@ define(function(require, exports, module){
 		_initStatusActive: function(){},
 		enter: function(target){
 			//show move range
+            target.eventManager.trigger(CharEvent.STATUS_ACTIVE, {});
 			target.showMoveRange();
 		},
 		execute: function(target, event){

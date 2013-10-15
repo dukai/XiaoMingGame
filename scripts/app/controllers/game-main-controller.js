@@ -70,7 +70,8 @@ define(function(require, exports, module){
                 ctpPlayer.start();
                 ctpPlayer.setCoordinate(char.cx, char.cy);
                 char.eventManager.addEventListener(CharEvent.COORDINATE_CHANGE, ctpPlayer.onCoordinateChange, ctpPlayer);
-	            char.eventManager.addEventListener(CharEvent.STATUS_WAITING, ctpPlayer.onWaiting, ctpPlayer);
+                char.eventManager.addEventListener(CharEvent.STATUS_ACTIVE, ctpPlayer.onActive, ctpPlayer);
+                char.eventManager.addEventListener(CharEvent.STATUS_WAITING, ctpPlayer.onWaiting, ctpPlayer);
                 char.eventManager.addEventListener(CharEvent.STATUS_NORMAL, ctpPlayer.onNormal, ctpPlayer);
                 char.eventManager.addEventListener(CharEvent.ATTACK_OTHER_CHAR, ctpPlayer.onAttack, ctpPlayer);
                 char.eventManager.addEventListener(CharEvent.ATTACK_OTHER_CHAR, this.gameModel.onAttack, this.gameModel);

@@ -1,5 +1,6 @@
 define({
     COORDINATE_CHANGE: 'char-mode-coordinate-change',
+    STATUS_ACTIVE: 'char-mode-status-change-active',
 	STATUS_WAITING: 'char-mode-status-change-waiting',
 	STATUS_ATTACK: 'char-mode-status-change-attack',
     STATUS_NORMAL: 'char-model-status-change-normal',

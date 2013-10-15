@@ -68,6 +68,11 @@ define(function(require, exports, module){
 				}
 			});
 
+            this.star = new Kinetic.Sprite({
+                x: this.getFixX(),
+                y: this.getFixY()
+            });
+
 			this.add(this.body);
 		},
 
@@ -129,6 +134,10 @@ define(function(require, exports, module){
 
         onCoordinateChange: function(event){
             this.setCoordinate(event.cx, event.cy);
+        },
+
+        onActive: function(event){
+            this.moveToTop();
         },
 
 		onWaiting: function(event){
