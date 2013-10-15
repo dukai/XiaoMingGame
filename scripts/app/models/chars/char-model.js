@@ -8,6 +8,9 @@ define(function(require, exports, module){
     var CharEvent = require('app/models/chars/char-event');
     var CharStatus = require('app/models/chars/char-statuses');
     var PathRange = require('xiaoming/map/path-range');
+    var Attack = require('./actions/attack');
+
+
 	/**
 	 * 用户属性信息
 	 * @constructor
@@ -164,6 +167,8 @@ define(function(require, exports, module){
 					code: 'await'
 				}
 			};
+
+            this.action = new Attack();
 			this.updateActualProperties();
             this.eventManager = new EventManager();
             //可移动范围,只有在active状态有效
@@ -173,98 +178,6 @@ define(function(require, exports, module){
 			//队伍信息
 			this.team = null;
 			this.gameModel = null;
-		},
-		/**
-		 * 攻击
-		 * @param otherPerson : PlayerModel
-		 * @param attackBack : Boolean
-		 */
-		attack : function(otherPerson, attackBack){
-            var debug = true;
-			if(this.hitPointActual === 0){
-				debug && console.log('你已经阵亡了，节哀顺便');
-				return;
-			}
-			if(otherPerson.hitPointActual === 0){
-				debug && console.log("鞭尸不是好习惯，道德点减10");
-				return;
-			}
-			var attackMsg = !!attackBack ? '发动了回击：' : '发动了攻击：';
-			debug && console.log(this.units + this.name + '对' + otherPerson.units + otherPerson.name + attackMsg);
-			var damagePercent = 1;
-			var dodgeTurn = Math.ceil(Math.random() * 100);
-			var criticalStrikeTurn = Math.ceil(Math.random() * 100);
-			//是否暴击
-			if(criticalStrikeTurn <= this.actualProperties.criticalStrike * (1 + this.actualProperties.lucky) * 100){
-				damagePercent = this.actualProperties.criticalStrikeDamage;
-				debug && console.log(this.units + this.name + '暴击了');
-			}
-			//计算实际伤害
-			var actualDamage = Math.ceil(((this.actualProperties.attackPower * damagePercent) - otherPerson.actualProperties.physicalArmor) * (((this.actualProperties.hitPoint - this.hitPointActual) / this.actualProperties.hitPoint) + 1));
-			//是否躲避
-			if(dodgeTurn <= otherPerson.actualProperties.dodge * 100){
-				actualDamage = 0;
-				debug && console.log(otherPerson.name + '躲闪了此次攻击');
-			}
-			if(actualDamage < 0){
-				actualDamage = 1;
-			}
-			debug && console.log('造成了' + actualDamage + '点伤害'); 
-			
-			//计算伤害结果
-			otherPerson.hitPointActual -= actualDamage;
-			
-			if(otherPerson.hitPointActual <= 0){
-				debug && console.log(otherPerson.units + otherPerson.name + '已经死亡');
-				//TODO: 触发死亡事件
-				otherPerson.hitPointActual = 0;
-				
-				var gains = this.exp.getFightExp(this.level, otherPerson.level);
-				
-				debug && console.log(this.name + '获取了' + gains + '点经验');
-				if(this.exp.updateExp(gains, this.level)){
-					this.levelUpgrade();
-					debug && console.log(this.name + '升级了！当前等级：' + this.level);
-				}
-				debug && console.log('-------------');
-			}else{
-				debug && console.log(otherPerson.name + '剩余生命值' + otherPerson.hitPointActual);
-			}
-			//格挡几率
-			var blockTurn = Math.ceil(Math.random() * 100);
-			//格挡成功，发动回击
-			if(!attackBack && otherPerson.hitPointActual > 0 && blockTurn <= otherPerson.actualProperties.block * 100){
-				
-				otherPerson.attack(this, true);
-			}
-		},
-		/**
-		 * 治疗
-		 * @param otherPerson : PlayerModel
-		 */
-		heal: function(otherPerson){
-            var debug = true;
-			if(otherPerson.hitPointActual === 0){
-				debug && console.log("人已往矣，无力回天，徒呼奈何，节哀顺变！");
-				return;
-			}
-			debug && console.log(this.name + '对' + otherPerson.name + '开始了治疗：');
-			var healPercent = 1;
-			var criticalStrikeTurn = Math.ceil(Math.random() * 100);
-			//是否暴击
-			if(criticalStrikeTurn <= this.a.criticalStrike * 100){
-				healPercent = this.a.criticalStrikeDamage;
-			}
-			
-			var actualHeal = (this.a.healPower * healPercent);
-			otherPerson.hitPointActual += actualHeal;
-			if(otherPerson.hitPointActual >= otherPerson.a.hitPoint){
-				debug && console.log('血量满');
-				otherPerson.hitPointActual = otherPerson.a.hitPoint;
-			}else{
-				debug && console.log(this.name + '为' + otherPerson.name + '治疗了' + actualHeal + '点生命');			
-			}
-			debug && console.log(otherPerson.units + otherPerson.name + '当前生命为' + otherPerson.hitPointActual);
 		},
 		/**
 		 * 装备装备
