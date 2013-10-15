@@ -14,6 +14,7 @@ define(function(require, exports, module){
 			CharAction.call(this, options);
 		},
 		execute: function(pChar, nChar){
+            pChar.eventManager.trigger(CharEvent.ATTACK, {});
 			var attackBack = false;
 			var debug = true;
 			if(pChar.hitPointActual === 0){
@@ -73,8 +74,9 @@ define(function(require, exports, module){
 			var blockTurn = Math.ceil(Math.random() * 100);
 			//格挡成功，发动回击
 			if(!attackBack && nChar.hitPointActual > 0 && blockTurn <= nChar.actualProperties.block * 100){
-
-				nChar.action.execute(nChar, pChar);
+                setTimeout(function(){
+                    nChar.action.execute(nChar, pChar);
+                }, 750);
 			}
 		}
 	};

@@ -94,6 +94,7 @@ define(function(require, exports, module){
 				ctpPlayer.start();
 				ctpPlayer.setCoordinate(char.cx, char.cy);
 				char.eventManager.addEventListener(CharEvent.COORDINATE_CHANGE, ctpPlayer.onCoordinateChange, ctpPlayer);
+                char.eventManager.addEventListener(CharEvent.ATTACK, ctpPlayer.onAttack, ctpPlayer);
                 //注册减血事件
                 char.eventManager.addEventListener(CharEvent.HIT_POINT_DECREASE, ctpPlayer.onHipPointDecrease, ctpPlayer);
 			}

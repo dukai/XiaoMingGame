@@ -146,7 +146,7 @@ define(function(require, exports, module){
 			var self = this;
 			this.body.setAnimation('atk');
 			this.body.afterFrame(6, function() {
-				self.body.setAnimation('disable');
+				self.body.setAnimation('idle');
 			});
 		},
 		/**
@@ -209,6 +209,8 @@ define(function(require, exports, module){
             }
             this.decreaseHitPoint.setText('-' + event.hitPoint);
             this.decreaseHitPoint.show();
+            this.decreaseHitPoint.setOpacity(1);
+            this.decreaseHitPoint.setY(0);
 
             var tween = new Kinetic.Tween({
                 node: this.decreaseHitPoint,
