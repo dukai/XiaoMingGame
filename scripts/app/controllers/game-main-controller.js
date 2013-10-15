@@ -65,7 +65,7 @@ define(function(require, exports, module){
             for(var i = 0, len = this.gameModel.ourTeam.chars.length; i< len; i++){
                 var char = this.gameModel.ourTeam.chars[i];
                 var ctpPlayer = CPTCharFactory.createCharacter(char.charType);
-                this.get('view').layer.add(ctpPlayer);
+                this.get('view').charsGroup.add(ctpPlayer);
                 ctpPlayer.changeIdColor(char.idColor);
                 ctpPlayer.start();
                 ctpPlayer.setCoordinate(char.cx, char.cy);
@@ -86,7 +86,7 @@ define(function(require, exports, module){
 			for(var i = 0, len = this.gameModel.enemyTeam.chars.length; i< len; i++){
 				var char = this.gameModel.enemyTeam.chars[i];
 				var ctpPlayer = CPTCharFactory.createCharacter(char.charType);
-				this.get('view').layer.add(ctpPlayer);
+				this.get('view').charsGroup.add(ctpPlayer);
 				ctpPlayer.changeIdColor(char.idColor);
 				ctpPlayer.start();
 				ctpPlayer.setCoordinate(char.cx, char.cy);

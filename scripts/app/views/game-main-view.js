@@ -63,10 +63,11 @@ define(function(require, exports, module){
                 rangeList: [],
                 fill: RangeGrid.colorType.red
             });
-
+			this.charsGroup = new Kinetic.Group();
 			this.layer.add(map);
-            this.layer.add(this.moveRange);
-            this.layer.add(this.attackRange);
+			this.layer.add(this.moveRange);
+			this.layer.add(this.attackRange);
+			this.layer.add(this.charsGroup);
 			this.popMenu = new PopMenu({
 				x: 32,
 				y: 32,
