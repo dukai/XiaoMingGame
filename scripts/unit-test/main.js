@@ -122,7 +122,7 @@ define(function(require, exports, module){
     console.log(team);
     pm.setCoordinate(3,3);
     console.log(team);
-	printMap(team.getHitMap().map);
+	//printMap(team.getHitMap().map);
 
     console.log('=====测试EventManager======');
     var CharEvent = require('app/models/chars/char-event');
@@ -132,4 +132,12 @@ define(function(require, exports, module){
     pm.eventManager.removeEventListener(CharEvent.COORDINATE_CHANGE, classa.showMsg);
     pm.setCoordinate(11, 21, true);
     console.log(pm);
+	console.log('======测试Char Action======');
+	var Attack = require('app/models/chars/actions/attack');
+	var Heal = require('app/models/chars/actions/heal');
+	var attackAction = new Attack();
+	var healAction = new Heal();
+	attackAction.execute(pm, pm2);
+
+	healAction.execute(pm, pm2);
 });
