@@ -13,7 +13,7 @@ define(function(require, exports, module){
 			AbstractController.call(this, options);
 			
 			this.resources = [
-				{'name': 'comres', type: 'image', src: 'resource/images/bg.png'},
+				{'name': 'com_res', type: 'image', src: 'resource/images/bg.png'},
 				{'name': 'newworld', type: 'image', src: 'resource/images/newworld.png'},
 				{'name': 'hit', type: 'image', src: 'resource/images/metatiles32x32.png'},
 				{'name': 'map1', type: 'tmx', 'src': 'resource/maps/map1.tmx'},
@@ -31,7 +31,8 @@ define(function(require, exports, module){
 				{name: 'demo_map', type: 'json', src: 'resource/maps/demo_map.json'},
 				{name: 'v2_map', type: 'json', src: 'resource/maps/v2.json'},
 				{name: 'v2', type: 'image', src: 'resource/images/v2.png'},
-				{name: 'info_bg', type: 'image', src: 'resource/images/info_bg.png'}
+				{name: 'info_bg', type: 'image', src: 'resource/images/info_bg.png'},
+                {name: 'stars', type: 'image', src: 'resource/images/stars.png'}
 			];
 		},
 		
