@@ -78,11 +78,11 @@ define(function(require, exports, module){
 		'dodge', 'block', 'criticalStrike',
 		'criticalStrikeDamage', 'luck', 'mobility',
 		'attackRange', 'rage', 'consume'
-	]
+	];
 	/**
-	 *人物角色.
-	 * @param {string} 人物名字
-	 * @param {bool} 性别，男性为true， 女性为false
+	 * 人物角色
+	 * @param options
+	 * @constructor
 	 */
 	var PlayerModel = function(options){
 		this._initPlayerModel(options);
@@ -177,7 +177,7 @@ define(function(require, exports, module){
 		/**
 		 * 攻击
 		 * @param otherPerson : PlayerModel
-		 * @param attackBack : bool
+		 * @param attackBack : Boolean
 		 */
 		attack : function(otherPerson, attackBack){
             var debug = true;
@@ -239,8 +239,8 @@ define(function(require, exports, module){
 			}
 		},
 		/**
-		 *治疗
-		 * @param {Person} 治疗目标 
+		 * 治疗
+		 * @param otherPerson : PlayerModel
 		 */
 		heal: function(otherPerson){
             var debug = true;
