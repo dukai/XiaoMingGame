@@ -9,7 +9,7 @@ seajs.config({
 		'kinetic': {
 			src: '/scripts/library/kinetic-v4.7.1.min.js',
 			exports: 'Kinetic'
-		},
+		}
 	},
 	
 	paths: {
