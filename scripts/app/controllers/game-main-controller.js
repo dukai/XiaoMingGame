@@ -73,7 +73,7 @@ define(function(require, exports, module){
                 char.eventManager.addEventListener(CharEvent.STATUS_ACTIVE, ctpPlayer.onActive, ctpPlayer);
                 char.eventManager.addEventListener(CharEvent.STATUS_WAITING, ctpPlayer.onWaiting, ctpPlayer);
                 char.eventManager.addEventListener(CharEvent.STATUS_NORMAL, ctpPlayer.onNormal, ctpPlayer);
-                char.eventManager.addEventListener(CharEvent.ATTACK_OTHER_CHAR, ctpPlayer.onAttack, ctpPlayer);
+                char.eventManager.addEventListener(CharEvent.ATTACK, ctpPlayer.onAttack, ctpPlayer);
                 char.eventManager.addEventListener(CharEvent.ATTACK_OTHER_CHAR, this.gameModel.onAttack, this.gameModel);
 	            char.eventManager.addEventListener(CharEvent.SHOW_MOVE_RANGE, this.get('view').onShowMoveRange, this.get('view'));
 	            char.eventManager.addEventListener(CharEvent.HIDE_MOVE_RANGE, this.get('view').onHideMoveRange, this.get('view'));
@@ -81,6 +81,8 @@ define(function(require, exports, module){
                 char.eventManager.addEventListener(CharEvent.HIDE_ATTACK_RANGE, this.get('view').onHideAttackRange, this.get('view'));
 	            char.eventManager.addEventListener(CharEvent.SHOW_MENU, this.get('view').onShowMenu, this.get('view'));
 	            char.eventManager.addEventListener(CharEvent.HIDE_MENU, this.get('view').onHideMenu, this.get('view'));
+                //注册减血事件
+                char.eventManager.addEventListener(CharEvent.HIT_POINT_DECREASE, ctpPlayer.onHipPointDecrease, ctpPlayer);
             }
 
 
@@ -92,6 +94,8 @@ define(function(require, exports, module){
 				ctpPlayer.start();
 				ctpPlayer.setCoordinate(char.cx, char.cy);
 				char.eventManager.addEventListener(CharEvent.COORDINATE_CHANGE, ctpPlayer.onCoordinateChange, ctpPlayer);
+                //注册减血事件
+                char.eventManager.addEventListener(CharEvent.HIT_POINT_DECREASE, ctpPlayer.onHipPointDecrease, ctpPlayer);
 			}
 		},
 

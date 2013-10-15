@@ -18,7 +18,7 @@ define(function(require, exports, module){
 					dodge : .08,
 					criticalStrike : .2,
 					lucky : .3,
-					block : .3,
+					block : .5,
 					mobility : 4,
 					attackRange : {min: 1, max: 1}
 				}

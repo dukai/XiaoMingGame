@@ -68,12 +68,45 @@ define(function(require, exports, module){
 				}
 			});
 
-            this.star = new Kinetic.Sprite({
+            this.stars = new Kinetic.Sprite({
+                x: 30,
+                y: 0,
+                image: resourceLoader.get('stars'),
+                animation: 'flicker',
+                animations: {
+                    flicker: [
+                        {x: 0, y: 0, width: 48, height: 48},
+                        {x: 0, y: 48, width: 48, height: 48},
+                        {x: 0, y: 96, width: 48, height: 48},
+                        {x: 0, y: 144, width: 48, height: 48},
+                        {x: 0, y: 192, width: 48, height: 48},
+                        {x: 0, y: 240, width: 48, height: 48}
+                    ]
+                },
+                frameRate: this.getFrameRate(),
+                visible: false
+            });
+
+            this.decreaseHitPoint = new Kinetic.Text({
                 x: this.getFixX(),
-                y: this.getFixY()
+                y: this.getFixY(),
+                text : '-300',
+                fontSize: 24,
+                fontFamily: "Microsoft YaHei",
+                fontStyle: 'bold',
+                shadowColor: '#000000',
+                shadowOffsetX: 2,
+                shadowOffsetY: 2,
+                width:50,
+                fill: '#f00',
+                align : 'center',
+                listening : false,
+                visible: false
             });
 
 			this.add(this.body);
+            this.add(this.stars);
+            this.add(this.decreaseHitPoint);
 		},
 
 		getRealPos: function(c, offset){
@@ -150,6 +183,42 @@ define(function(require, exports, module){
 
         onAttack: function(event){
             this.attack();
+            var self = this;
+            setTimeout(function(){
+                self.showStars();
+            }, 600);
+
+        },
+        //攻击效果
+        showStars: function(){
+            var self = this;
+            this.stars.show();
+            this.stars.start();
+            this.stars.afterFrame(5, function() {
+                self.stars.stop();
+                self.stars.hide();
+            });
+        },
+
+        onHipPointDecrease: function(event){
+            console.log(event.direction);
+            if(event.direction.x == -1){
+                this.flip('left');
+            }else if(event.direction.x == 1){
+                this.flip('right');
+            }
+            this.decreaseHitPoint.setText('-' + event.hitPoint);
+            this.decreaseHitPoint.show();
+
+            var tween = new Kinetic.Tween({
+                node: this.decreaseHitPoint,
+                y: -40,
+                opacity: 0,
+                fontSize: 24,
+                duration: 1,
+                easing: Kinetic.Easings.EaseInOut
+            });
+            tween.play();
         }
 	};
 

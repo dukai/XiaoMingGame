@@ -2,6 +2,7 @@ define(function(require, exports, module){
 
 	var oo = require('xiaoming/oo');
 	var CharAction = require('app/models/chars/actions/char-action');
+    var CharEvent = require('app/models/chars/char-event');
 
 	var Attack = function(options){
 		this._initAttack(options);
@@ -44,7 +45,11 @@ define(function(require, exports, module){
 				actualDamage = 1;
 			}
 			debug && console.log('造成了' + actualDamage + '点伤害');
+            nChar.eventManager.trigger(CharEvent.HIT_POINT_DECREASE, {
+                hitPoint: actualDamage,
 
+                direction: {x: pChar.cx - nChar.cx, y: pChar.cy - nChar.cy}
+            });
 			//计算伤害结果
 			nChar.hitPointActual -= actualDamage;
 
@@ -69,7 +74,7 @@ define(function(require, exports, module){
 			//格挡成功，发动回击
 			if(!attackBack && nChar.hitPointActual > 0 && blockTurn <= nChar.actualProperties.block * 100){
 
-				nChar.attack(pChar, true);
+				nChar.action.execute(nChar, pChar);
 			}
 		}
 	};
