@@ -75,17 +75,77 @@ define(function(require, exports, module){
 			});
 			//this.popMenu.hide();
 			this.layer.add(this.popMenu);
-
+            this.roundOverBg = new Kinetic.Rect({
+                x: 0,
+                y: 300,
+                width:960,
+                height:0,
+                fill: 'rgba(0,0,0,.5)',
+                visible: false
+            });
+            this.layer.add(this.roundOverBg);
+            this.roundOverText = new Kinetic.Text({
+                x: 0,
+                y: 280,
+                width:960,
+                height:200,
+                text : '回合结束',
+                fontSize: 36,
+                fontFamily: "Microsoft YaHei",
+                fontStyle: 'bold',
+                shadowColor: '#000000',
+                shadowOffsetX: 2,
+                shadowOffsetY: 2,
+                fill: '#fff',
+                align : 'center',
+                listening : false,
+                visible: false,
+                opacity:0
+            });
+            this.layer.add(this.roundOverText);
 			stage.add(this.layer);
 			var btnAtk = $c('div', null, 'atk');
 			btnAtk.innerHTML = '结束回合';
 			this.container.appendChild(btnAtk);
 			$(btnAtk).click(function(){
 				self.getEventManager().trigger(GameMainView.EVENT_ATK_CLICK, {	});
+                self.roundOverEffect();
 			});
 
 			this._initEvents();
 		},
+
+        roundOverEffect: function(){
+            var self = this;
+            this.roundOverBg.show();
+            this.roundOverText.show();
+            var tween = new Kinetic.Tween({
+                node: this.roundOverBg,
+                height: 200,
+                y:200,
+                duration:.5,
+                easing: Kinetic.Easings.EaseOut
+            });
+            tween.play();
+
+
+            var textTween = new Kinetic.Tween({
+                node: this.roundOverText,
+                opacity: 1,
+                duration: .5,
+                easing: Kinetic.Easings.EaseOut
+            });
+            textTween.play();
+
+            setTimeout(function(){
+                tween.reverse();
+                textTween.reverse();
+                setTimeout(function(){
+                    self.roundOverBg.hide();
+                    self.roundOverText.hide();
+                }, 1500);
+            }, 1500);
+        },
 
 		_initEvents: function(){
 			var self = this;
