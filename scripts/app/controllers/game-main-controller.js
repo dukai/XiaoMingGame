@@ -31,7 +31,7 @@ define(function(require, exports, module){
 			this.gameModel.enemyTeam = new Team();
 
             this.player1 = CharFactory.createCharacter(CharType.roleType.swordman);
-            this.player1.setCoordinate(16, 8);
+            this.player1.setCoordinate(14, 8);
 			this.player1.gameModel = this.gameModel;
             this.player2 = CharFactory.createCharacter(CharType.roleType.swordman);
             this.player2.setCoordinate(17, 9);

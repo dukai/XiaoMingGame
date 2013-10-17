@@ -32,6 +32,13 @@ define(function(require, exports, module){
                 tmxMapParser: this.options.data.tmxMapParser,
 				resourceLoade: resourceLoader
 			});
+			this.uiLayer = new Kinetic.Layer({
+				x:0,
+				y:0,
+				width:960,
+				height:640
+			});
+			//初始化地图图层
 			this.layer = new  Kinetic.Layer({
 				draggable: true,
 				dragBoundFunc: function(pos){
@@ -83,7 +90,7 @@ define(function(require, exports, module){
                 fill: 'rgba(0,0,0,.5)',
                 visible: false
             });
-            this.layer.add(this.roundOverBg);
+            this.uiLayer.add(this.roundOverBg);
             this.roundOverText = new Kinetic.Text({
                 x: 0,
                 y: 280,
@@ -102,11 +109,13 @@ define(function(require, exports, module){
                 visible: false,
                 opacity:0
             });
-            this.layer.add(this.roundOverText);
+            this.uiLayer.add(this.roundOverText);
 			stage.add(this.layer);
+			stage.add(this.uiLayer);
 			var btnAtk = $c('div', null, 'atk');
 			btnAtk.innerHTML = '结束回合';
 			this.container.appendChild(btnAtk);
+
 			$(btnAtk).click(function(){
 				self.getEventManager().trigger(GameMainView.EVENT_ATK_CLICK, {	});
                 self.roundOverEffect();
