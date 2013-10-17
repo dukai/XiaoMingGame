@@ -16,6 +16,17 @@ define(function(require, exports, module){
                     {
                         content: '大爷啊，大爷！就是大爷！\n快来玩吧小伙伴！'
                     }
+                    ,
+                    {
+                        content: '对，我还没叨叨完！\n快来玩吧小伙伴！'
+                    },
+                    {
+                        content: '很快就完了！\n快来玩吧小伙伴！'
+                    },
+                    {
+                        content: '这次是真的说完了！\n快来玩吧小伙伴！'
+                    }
+
                 ]
             }, options);
 
@@ -31,16 +42,7 @@ define(function(require, exports, module){
                 y:640-160
             });
             var self = this;
-            this.bg.on('click', function(){
-                if(self.options.messages.length == 0){
-                    self.hide();
-                    this.getLayer().draw();
-                    return;
-                }
-                var message = self.options.messages.shift();
-                self.text.setText(message.content);
-                self.text.getLayer().draw();
-            });
+
             var avatarImg = resourceLoader.get('helper');
             this.avatar = new Kinetic.Image({
                 image: avatarImg,
@@ -71,14 +73,39 @@ define(function(require, exports, module){
                 lineHeight: 1.5
             });
 
-            this.skip.on('click', function(){
-                this.hide();
-                this.getLayer().draw();
-            });
+            this.add(new Kinetic.Rect({
+                x:0,
+                y:0,
+                width:960,
+                height:640,
+                fill: 'rgba(0,0,0,.2)'
+            }));
             this.add(this.bg);
             this.add(this.avatar);
             this.add(this.skip);
             this.add(this.text);
+
+            this.initEvents();
+        },
+
+        initEvents: function(){
+            var self = this;
+
+            this.bg.on('click', function(){
+                if(self.options.messages.length == 0){
+                    self.hide();
+                    self.getLayer().draw();
+                    return;
+                }
+                var message = self.options.messages.shift();
+                self.text.setText(message.content);
+                self.text.getLayer().draw();
+            });
+
+            this.skip.on('click', function(){
+                self.hide();
+                self.getLayer().draw();
+            });
         }
     };
 
