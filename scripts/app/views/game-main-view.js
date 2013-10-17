@@ -8,7 +8,7 @@ define(function(require, exports, module){
 	var TiledMap = require('app/components/tiled-map');
     var RangeGrid = require('app/components/range-grid');
 	var PopMenu = require('app/components/pop-menu');
-
+    var DialogFix =require('app/components/dialog-fix');
 
 	var GameMainView = function(options){
 		this._initGameMainView(options);
@@ -110,6 +110,13 @@ define(function(require, exports, module){
                 opacity:0
             });
             this.uiLayer.add(this.roundOverText);
+
+            var dialog = new DialogFix();
+            this.uiLayer.add(dialog);
+
+
+
+
 			stage.add(this.layer);
 			stage.add(this.uiLayer);
 			var btnAtk = $c('div', null, 'atk');
