@@ -32,7 +32,8 @@ define(function(require, exports, module){
 				{name: 'v2_map', type: 'json', src: 'resource/maps/v2.json'},
 				{name: 'v2', type: 'image', src: 'resource/images/v2.png'},
 				{name: 'info_bg', type: 'image', src: 'resource/images/info_bg.png'},
-                {name: 'stars', type: 'image', src: 'resource/images/stars.png'}
+                {name: 'stars', type: 'image', src: 'resource/images/stars.png'},
+				{name: 'helper', type: 'image', src: 'resource/images/helper.png'}
 			];
 		},
 		
