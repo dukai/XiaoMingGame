@@ -111,7 +111,28 @@ define(function(require, exports, module){
             });
             this.uiLayer.add(this.roundOverText);
 
-            var dialog = new DialogFix();
+            var dialog = new DialogFix({
+                messages:[
+                    {
+                        content: '这个游戏的名字叫小明，讲的是一个小明的故事。'
+                    },
+                    {
+                        content: '大叔你好，我是你大爷！\n快来玩吧小伙伴！'
+                    },
+                    {
+                        content: '大爷啊，大爷！就是大爷！\n快来玩吧小伙伴！'
+                    },
+                    {
+                        content: '对，我还没叨叨完！\n快来玩吧小伙伴！'
+                    },
+                    {
+                        content: '很快就完了！\n快来玩吧小伙伴！'
+                    },
+                    {
+                        content: '这次是真的说完了！\n快来玩吧小伙伴！'
+                    }
+                ]
+            });
             this.uiLayer.add(dialog);
 
 

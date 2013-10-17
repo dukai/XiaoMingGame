@@ -9,25 +9,7 @@ define(function(require, exports, module){
     DialogFix.prototype = {
         _initDialogFix: function(options){
             this.options = oo.mix({
-                messages: [
-                    {
-                        content: '大叔你好，我是你大爷！\n快来玩吧小伙伴！'
-                    },
-                    {
-                        content: '大爷啊，大爷！就是大爷！\n快来玩吧小伙伴！'
-                    }
-                    ,
-                    {
-                        content: '对，我还没叨叨完！\n快来玩吧小伙伴！'
-                    },
-                    {
-                        content: '很快就完了！\n快来玩吧小伙伴！'
-                    },
-                    {
-                        content: '这次是真的说完了！\n快来玩吧小伙伴！'
-                    }
-
-                ]
+                messages: []
             }, options);
 
             Kinetic.Group.call(this, options);
