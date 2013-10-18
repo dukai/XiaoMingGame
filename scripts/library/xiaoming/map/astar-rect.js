@@ -1,34 +1,5 @@
 define(function(require, exports, module){
 
-    var HitMap = function(map){
-        this.map = map;
-    };
-
-    HitMap.prototype = {
-        getWidth: function(){
-            return this.map[0].length;
-        },
-        getHeight: function(){
-            return this.map.length;
-        },
-        getPassable: function(x, y){
-            if(this.getReachable(x, y)){
-                return this.map[y][x] !== 1;
-            }
-            return true;
-        },
-
-        getReachable: function(x, y){
-            return x >= 0 && y >= 0 && x < this.getWidth() && y < this.getHeight();
-        },
-        get: function(x, y){
-            return this.map[y][x];
-        },
-        set: function(x, y, value){
-            this.map[y][x] = value;
-        }
-    };
-
     var Node = function(x, y){
         this.F = null;
         this.G = null;
@@ -91,35 +62,29 @@ define(function(require, exports, module){
         },
         getSurroundNodes: function(map){
 
-            var mapWidth = map.getWidth();
-            var mapHeight = map.getHeight();
-            var nextColumn = this.x + 1;
-            var preColumn = this.x - 1;
-            var nextRow = this.y + 1;
-            var preRow = this.y - 1;
-            var nodelist = [];
+            var nodeList = [], x, y, n;
             if((this.x & 1) == 0 && (this.y & 1) == 0 || (this.x & 1) == 1 && (this.y & 1) == 1){
                 for(var i = 0; i < 4; i++){
-                    var x = this.x + this.offsetX[i];
-                    var y = this.y + this.offsetY[i];
-                    var n = new Node(x, y);
+                    x = this.x + this.offsetX[i];
+                    y = this.y + this.offsetY[i];
+                    n = new Node(x, y);
                     if(n.checkReachable(map) && n.passable && !this.equal(n)){
-                        nodelist.push(n);
+                        nodeList.push(n);
                     }
                 }
             }else{
                 for(var i = 3; i > 0; i--){
-                    var x = this.x + this.offsetX[i];
-                    var y = this.y + this.offsetY[i];
-                    var n = new Node(x, y);
+                    x = this.x + this.offsetX[i];
+                    y = this.y + this.offsetY[i];
+                    n = new Node(x, y);
                     if(n.checkReachable(map) && n.passable && !this.equal(n)){
-                        nodelist.push(n);
+                        nodeList.push(n);
                     }
                 }
             }
 
 
-            return nodelist;
+            return nodeList;
         },
         print: function(){}
     };
@@ -143,17 +108,17 @@ define(function(require, exports, module){
         },
 
         getMinPoint : function(){
-            var nodelist = this.nodelist;
-            var minF = nodelist[0].getF();
+            var nodeList = this.nodelist;
+            var minF = nodeList[0].getF();
             var currIndex = 0;
-            for(var i = 0, len = nodelist.length; i < len; i++){
-                if(minF > nodelist[i].getF()){
-                    minF = nodelist[i].getF();
+            for(var i = 0, len = nodeList.length; i < len; i++){
+                if(minF > nodeList[i].getF()){
+                    minF = nodeList[i].getF();
                     currIndex = i;
                 }
             }
 
-            return nodelist.splice(currIndex, 1)[0];
+            return nodeList.splice(currIndex, 1)[0];
         },
 
         getCount : function(){
@@ -213,12 +178,13 @@ define(function(require, exports, module){
         }
     };
 
-    /**
-     * AStar 寻路
-     * @param {HitMap} map
-     * @param {Node} startNode
-     * @param {Node} endNode
-     */
+	/**
+	 *  AStar 寻路工具
+	 * @param map
+	 * @param startNode
+	 * @param endNode
+	 * @constructor
+	 */
     var AStar = function(map, startNode, endNode){
         this.map = map;
         this.startNode = startNode;
@@ -235,7 +201,7 @@ define(function(require, exports, module){
     AStar.prototype = {
         getPath : function(){
             var map = this.map;
-            var isFinded = false;
+            var isFound = false;
             var startTime = new Date().getTime();
             var openList = this.openList;
             //var closeList = this.closeList;
@@ -275,7 +241,7 @@ define(function(require, exports, module){
                 }
 
                 if(openList.exists(this.endNode)){
-                    isFinded = true;
+                    isFound = true;
                     break;
                 }
             }
@@ -283,7 +249,7 @@ define(function(require, exports, module){
             var endTime = new Date().getTime();
             this.diffTime = endTime - startTime;
 
-            if(isFinded){
+            if(isFound){
                 return this.endNode;
             }else{
                 return false;
@@ -304,6 +270,5 @@ define(function(require, exports, module){
     exports.AStar = AStar;
     exports.Node = Node;
     exports.NodeList = NodeList;
-    exports.HitMap = HitMap;
 
 })
