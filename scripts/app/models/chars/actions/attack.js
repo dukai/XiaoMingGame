@@ -14,7 +14,9 @@ define(function(require, exports, module){
 			CharAction.call(this, options);
 		},
 		execute: function(pChar, nChar){
-            pChar.eventManager.trigger(CharEvent.ATTACK, {});
+            pChar.eventManager.trigger(CharEvent.ATTACK, {
+                direction: {x: pChar.cx - nChar.cx, y: pChar.cy - nChar.cy}
+            });
 			var attackBack = false;
 			var debug = true;
 			if(pChar.hitPointActual === 0){

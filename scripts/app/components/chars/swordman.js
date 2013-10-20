@@ -182,6 +182,11 @@ define(function(require, exports, module){
         },
 
         onAttack: function(event){
+            if(event.direction.x == -1){
+                this.flip('right');
+            }else if(event.direction.x == 1){
+                this.flip('left');
+            }
             this.attack();
             var self = this;
             setTimeout(function(){
@@ -201,7 +206,6 @@ define(function(require, exports, module){
         },
 
         onHipPointDecrease: function(event){
-            console.log(event.direction);
             if(event.direction.x == -1){
                 this.flip('left');
             }else if(event.direction.x == 1){
