@@ -12,6 +12,7 @@ define(function(require, exports, module){
     var CharStatus = require('app/models/chars/char-status');
     var TmxMapParser = require('xiaoming/tmx-map-parser');
 	var Team = require('app/models/team');
+    var AI = require('xiaoming/ai');
 
 	var GameMainController = function(options){
 		this._initGameMainController(options);
@@ -40,7 +41,9 @@ define(function(require, exports, module){
 
 			this.gameModel.ourTeam.add(this.player1);
 			this.gameModel.enemyTeam.add(this.player2);
-
+            this.AI = AI;
+            this.AI.setEnemyTeam(this.gameModel.enemyTeam);
+            this.AI.setOurTeam(this.gameModel.ourTeam);
             this.addViewData({
                 tmxMapParser: tmxMapParser
             })
@@ -94,7 +97,15 @@ define(function(require, exports, module){
 				ctpPlayer.start();
 				ctpPlayer.setCoordinate(char.cx, char.cy);
 				char.eventManager.addEventListener(CharEvent.COORDINATE_CHANGE, ctpPlayer.onCoordinateChange, ctpPlayer);
+                char.eventManager.addEventListener(CharEvent.STATUS_ACTIVE, ctpPlayer.onActive, ctpPlayer);
+                char.eventManager.addEventListener(CharEvent.STATUS_WAITING, ctpPlayer.onWaiting, ctpPlayer);
+                char.eventManager.addEventListener(CharEvent.STATUS_NORMAL, ctpPlayer.onNormal, ctpPlayer);
                 char.eventManager.addEventListener(CharEvent.ATTACK, ctpPlayer.onAttack, ctpPlayer);
+                char.eventManager.addEventListener(CharEvent.ATTACK_OTHER_CHAR, this.gameModel.onAttack, this.gameModel);
+                char.eventManager.addEventListener(CharEvent.SHOW_MOVE_RANGE, this.get('view').onShowMoveRange, this.get('view'));
+                char.eventManager.addEventListener(CharEvent.HIDE_MOVE_RANGE, this.get('view').onHideMoveRange, this.get('view'));
+                char.eventManager.addEventListener(CharEvent.SHOW_ATTACK_RANGE, this.get('view').onShowAttackRange, this.get('view'));
+                char.eventManager.addEventListener(CharEvent.HIDE_ATTACK_RANGE, this.get('view').onHideAttackRange, this.get('view'));
                 //注册减血事件
                 char.eventManager.addEventListener(CharEvent.HIT_POINT_DECREASE, ctpPlayer.onHipPointDecrease, ctpPlayer);
 			}
@@ -123,9 +134,12 @@ define(function(require, exports, module){
 
 		onAtkClick: function(e){
 			//this.cptPlayer1.attack();
+            this.AI.run();
+            /*
             for(var i = 0, len = this.gameModel.ourTeam.chars.length; i < len; i++){
                 this.gameModel.ourTeam.chars[i].resetStatusNormal();
             }
+            */
 		}
 		
 	};

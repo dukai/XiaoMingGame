@@ -385,7 +385,7 @@ define(function(require, exports, module){
                     if(dx + dy <= range){
 
                         if(x !== this.cx || y !== this.cy){
-                            if(this.gameModel.enemyTeam.inTeam(x, y)){
+                            if(this.gameModel.getEnemyTeam(this.team).inTeam(x, y)){
                                 list.push({x: x, y: y});
                             }
                         }
