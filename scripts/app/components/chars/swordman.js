@@ -155,13 +155,13 @@ define(function(require, exports, module){
 		 */
 		flip: function(value){
 			if(value == 'right'){
-				this.body.setScale(1, 1);
-				this.body.setOffset(0, 0);
+				this.setScale(1, 1);
+				this.setOffset(0, 0);
 			}
 
 			if(value == 'left'){
-				this.body.setScale(-1, 1);
-				this.body.setOffset(48, 0);
+				this.setScale(-1, 1);
+				this.setOffset(32, 0);
 			}
 		},
 
