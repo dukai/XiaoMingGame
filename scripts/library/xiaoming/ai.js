@@ -29,11 +29,12 @@ define(function(require, exports, module){
 		    this.gameModel = gameModel;
 	    },
 
-        run: function(){
+        run: function(callback){
             var char = this.getNext();
             var target = this.getTarget();
 	        var pathFinder = new AStar.AStar(this.gameModel.getHitMap(), new AStar.Node(char.cx, char.cy), new AStar.Node(target.cx, target.cy));
             var i = 0;
+            char.resetStatusNormal();
             var timer = setInterval(function(){
                 switch (i){
                     case 0:
@@ -49,8 +50,23 @@ define(function(require, exports, module){
 	                    if(endNode){
 		                    var path = pathFinder.getNodePath(endNode);
 	                    }
+                        var coordinate = null;
+                        if(path.length > 1){
+                            char.getMoveRange();
+                            var v = 1;
+                            while(char.isInMoveRange(path[v].x, path[v].y)){
+                                coordinate = path[v];
+                                v++;
+                            }
+                        }else{
+                            coordinate = {
+                                x: char.cx,
+                                y: char.cy
+                            };
+                        }
+
                         char.status.execute(char, {
-                            coordinate: path[char.actualProperties.mobility]
+                            coordinate: coordinate
                         });
                         break;
                     case 2:
@@ -65,6 +81,7 @@ define(function(require, exports, module){
 		                    });
 		                    i = 0;
 		                    clearInterval(timer);
+                            callback();
 	                    }
 
                         break;
@@ -77,6 +94,7 @@ define(function(require, exports, module){
                         });
 	                    i = 0;
 	                    clearInterval(timer);
+                        callback();
                         break;
                 }
 

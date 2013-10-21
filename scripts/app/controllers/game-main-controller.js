@@ -135,11 +135,14 @@ define(function(require, exports, module){
 
 		onAtkClick: function(e){
 			//this.cptPlayer1.attack();
-            this.AI.run();
+            var self = this;
+            this.AI.run(function(){
+                for(var i = 0, len = self.gameModel.ourTeam.chars.length; i < len; i++){
+                    self.gameModel.ourTeam.chars[i].resetStatusNormal();
+                }
+            });
             /*
-            for(var i = 0, len = this.gameModel.ourTeam.chars.length; i < len; i++){
-                this.gameModel.ourTeam.chars[i].resetStatusNormal();
-            }
+
             */
 		}
 		
