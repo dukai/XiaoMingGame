@@ -11,6 +11,7 @@ define(function(require, exports, module){
 		_initSwordman: function(options){
 			options = oo.mix({
 				image: resourceLoader.get('solider'),
+				darkImage: resourceLoader.get('solider_dark'),
 				fixX: -8,
 				fixY: -16,
 				defaultAnimation: 'idle',
@@ -117,9 +118,13 @@ define(function(require, exports, module){
             switch (idColorType){
                 case CharType.idColorType.blue:
                     this.body.setImage(resourceLoader.get('solider'));
+	                this.setImage(resourceLoader.get('solider'));
+	                this.setDarkImage(resourceLoader.get('solider_dark'));
                     break;
                 case CharType.idColorType.red:
                     this.body.setImage(resourceLoader.get('solider_red'));
+	                this.setImage(resourceLoader.get('solider_red'));
+	                this.setDarkImage(resourceLoader.get('solider_red_dark'));
                     break;
                 default :
                     this.body.setImage(resourceLoader.get('solider'));
@@ -174,10 +179,12 @@ define(function(require, exports, module){
         },
 
 		onWaiting: function(event){
-            this.body.setAnimation('disable');
+			this.body.setImage(this.getDarkImage());
+            this.body.setAnimation('idle');
 		},
 
         onNormal: function(event){
+	        this.body.setImage(this.getImage());
             this.body.setAnimation('idle');
         },
 
@@ -230,6 +237,7 @@ define(function(require, exports, module){
 
     Kinetic.Util.extend(Swordman, Kinetic.Group);
     Kinetic.Factory.addGetterSetter(Swordman, 'image');
+	Kinetic.Factory.addGetterSetter(Swordman, 'darkImage');
 	Kinetic.Factory.addGetterSetter(Swordman, 'fixX');
 	Kinetic.Factory.addGetterSetter(Swordman, 'fixY');
 	Kinetic.Factory.addGetterSetter(Swordman, 'cx');

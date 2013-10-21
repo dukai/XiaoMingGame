@@ -293,6 +293,7 @@ define(function(require, exports, module){
         },
 
         isInMoveRange: function(x, y){
+	        this.getMoveRange();
             return this.isInRange(x, y, this.moveRange);
         },
 		//显示移动范围

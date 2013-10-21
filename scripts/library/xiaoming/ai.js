@@ -1,4 +1,6 @@
 define(function(require, exports, module){
+	var AStar = require('xiaoming/map/astar-rect');
+
     var AI = {
         enemyTeam: null,
         ourTeam: null,
@@ -23,11 +25,16 @@ define(function(require, exports, module){
             this.ourTeam = team;
         },
 
+	    setGameModel: function(gameModel){
+		    this.gameModel = gameModel;
+	    },
+
         run: function(){
             var char = this.getNext();
             var target = this.getTarget();
+	        var pathFinder = new AStar.AStar(this.gameModel.getHitMap(), new AStar.Node(char.cx, char.cy), new AStar.Node(target.cx, target.cy));
             var i = 0;
-            setInterval(function(){
+            var timer = setInterval(function(){
                 switch (i){
                     case 0:
                         char.status.execute(char, {
@@ -38,27 +45,38 @@ define(function(require, exports, module){
                         });
                         break;
                     case 1:
+	                    var endNode = pathFinder.getPath();
+	                    if(endNode){
+		                    var path = pathFinder.getNodePath(endNode);
+	                    }
                         char.status.execute(char, {
-                            coordinate: {
-                                x: 15,
-                                y: 8
-                            }
+                            coordinate: path[char.actualProperties.mobility]
                         });
                         break;
                     case 2:
-                        char.status.execute(char, {
-                            action: 'attack'
-                        });
+	                    char.getAttackRange();
+	                    if(char.isInAttackRange(target.cx, target.cy)){
+		                    char.status.execute(char, {
+			                    action: 'attack'
+		                    });
+	                    }else{
+		                    char.status.execute(char, {
+			                    action: 'waiting'
+		                    });
+		                    i = 0;
+		                    clearInterval(timer);
+	                    }
+
                         break;
                     case 3:
                         char.status.execute(char, {
                             coordinate: {
-                                x: 14,
-                                y: 8
+                                x: target.cx,
+                                y: target.cy
                             }
                         });
-                        break;
-                    case 4:
+	                    i = 0;
+	                    clearInterval(timer);
                         break;
                 }
 

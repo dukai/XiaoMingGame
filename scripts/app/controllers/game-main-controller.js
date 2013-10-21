@@ -44,6 +44,7 @@ define(function(require, exports, module){
             this.AI = AI;
             this.AI.setEnemyTeam(this.gameModel.enemyTeam);
             this.AI.setOurTeam(this.gameModel.ourTeam);
+			this.AI.setGameModel(this.gameModel);
             this.addViewData({
                 tmxMapParser: tmxMapParser
             })
