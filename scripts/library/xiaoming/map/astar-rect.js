@@ -60,7 +60,7 @@ define(function(require, exports, module){
         setParent: function(node){
             this.parentNode = node;
         },
-        getSurroundNodes: function(map){
+        getSurroundNodes: function(map, node){
 
             var nodeList = [], x, y, n;
             if((this.x & 1) == 0 && (this.y & 1) == 0 || (this.x & 1) == 1 && (this.y & 1) == 1){
@@ -68,7 +68,7 @@ define(function(require, exports, module){
                     x = this.x + this.offsetX[i];
                     y = this.y + this.offsetY[i];
                     n = new Node(x, y);
-                    if(n.checkReachable(map) && n.passable && !this.equal(n)){
+                    if(node.equal(n) || n.checkReachable(map) && n.passable && !this.equal(n)){
                         nodeList.push(n);
                     }
                 }
@@ -77,7 +77,7 @@ define(function(require, exports, module){
                     x = this.x + this.offsetX[i];
                     y = this.y + this.offsetY[i];
                     n = new Node(x, y);
-                    if(n.checkReachable(map) && n.passable && !this.equal(n)){
+                    if(node.equal(n) || n.checkReachable(map) && n.passable && !this.equal(n)){
                         nodeList.push(n);
                     }
                 }
@@ -209,7 +209,7 @@ define(function(require, exports, module){
                 var minPoint = openList.getMinNode();
                 minPoint.hasExplored = true;
                 //closeList.add(minPoint);
-                var surroundPoints = minPoint.getSurroundNodes(map);
+                var surroundPoints = minPoint.getSurroundNodes(map, this.endNode);
 
                 for(var i = 0, len = surroundPoints.length; i < len; i++){
                     var tempNode = surroundPoints[i];
@@ -255,15 +255,19 @@ define(function(require, exports, module){
                 return false;
             }
         },
-
+	    /**
+	     * 从开始目标到结束目标的坐标序列
+	     * @param node
+	     * @returns {Array}
+	     */
         getNodePath: function(node){
             var a = [];
             while(node.parentNode){
-                a.push(node);
+                a.push({x: node.x, y: node.y});
                 node = node.parentNode;
             }
 
-            return a;
+            return a.reverse();
         }
     };
 
