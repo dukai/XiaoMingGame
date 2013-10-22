@@ -115,10 +115,19 @@ define(function(require, exports, module){
 		},
 
         onLayerClick: function(e){
-            //console.log(e);
-            //如果不存在activedChar判断点击位置
+
+	        var hashKey = Util.pos2HashCode(e.coordinate.x, e.coordinate.y);
+	        //判断点击内容，显示InfoBoard
+	        if(this.gameModel.ourTeam.charsHashMap[hashKey]){
+		        this.get('view').updateInfoBoard(this.gameModel.ourTeam.charsHashMap[hashKey])
+	        }else if(this.gameModel.enemyTeam.charsHashMap[hashKey]){
+		        this.get('view').updateInfoBoard(this.gameModel.enemyTeam.charsHashMap[hashKey])
+	        }else{
+		        this.get('view').updateInfoBoard(null);
+	        }
+
+	        //如果不存在activedChar判断点击位置
             if(!this.gameModel.activedChar){
-                var hashKey = Util.pos2HashCode(e.coordinate.x, e.coordinate.y);
                 if(this.gameModel.ourTeam.charsHashMap[hashKey]){
                     this.gameModel.activedChar = this.gameModel.ourTeam.charsHashMap[hashKey];
                 }else{
@@ -133,6 +142,7 @@ define(function(require, exports, module){
 	                this.gameModel.activedChar = null;
                 }
             }
+
         },
 
 		onAtkClick: function(e){

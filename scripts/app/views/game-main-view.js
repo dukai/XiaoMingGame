@@ -9,6 +9,7 @@ define(function(require, exports, module){
     var RangeGrid = require('app/components/range-grid');
 	var PopMenu = require('app/components/pop-menu');
     var DialogFix =require('app/components/dialog-fix');
+	var InfoBoard = require('app/components/info-board');
 
 	var GameMainView = function(options){
 		this._initGameMainView(options);
@@ -30,7 +31,7 @@ define(function(require, exports, module){
 				x:0,
 				y:0,
                 tmxMapParser: this.options.data.tmxMapParser,
-				resourceLoade: resourceLoader
+				resourceLoader: resourceLoader
 			});
 			this.uiLayer = new Kinetic.Layer({
 				x:0,
@@ -134,7 +135,11 @@ define(function(require, exports, module){
                 ]
             });
             //this.uiLayer.add(dialog);
-
+			this.infoBoard = new InfoBoard({
+				y: 520,
+				visible: false
+			});
+			this.uiLayer.add(this.infoBoard);
 
 
 
@@ -150,6 +155,20 @@ define(function(require, exports, module){
 			});
 
 			this._initEvents();
+		},
+		//更新信息提示板
+		updateInfoBoard: function(char){
+			if(char == null){
+				this.infoBoard.hide();
+			}else{
+				this.infoBoard.setName(char.name);
+				this.infoBoard.setHP(char.hitPointActual, char.actualProperties.hitPoint);
+				this.infoBoard.setEXP(char.exp.currentLevelExp, char.exp.getLevelExp(char.level, true));
+				this.infoBoard.setAttact(char.actualProperties.attackPower);
+				this.infoBoard.setArmor(char.actualProperties.physicalArmor);
+				this.infoBoard.show();
+			}
+			this.uiLayer.batchDraw();
 		},
 
         roundOverEffect: function(){
