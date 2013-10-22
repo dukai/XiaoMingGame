@@ -3,6 +3,7 @@ define(function(require, exports, module){
 	var Kinetic = require('kinetic');
 	var resourceLoader = require('xiaoming/resource-loader');
 	var ProgressBar = require('./progress-bar');
+	var CharType = require('app/models/chars/char-type');
 
 	var InfoBoard = function(options){
 		this._initInfoBoard(options);
@@ -11,7 +12,7 @@ define(function(require, exports, module){
 	InfoBoard.prototype = {
 		_initInfoBoard: function(options){
 			Kinetic.Group.call(this, options);
-			var menuBg = new Kinetic.Rect({
+			var menuBg = this.bg = new Kinetic.Rect({
 				x: 0,
 				y: 0,
 				width: 180,
@@ -169,6 +170,19 @@ define(function(require, exports, module){
 		 */
 		setArmor: function(armor){
 			this.armor.setText('护甲 ' + armor);
+		},
+
+		setColor: function(idColorType){
+			switch (idColorType){
+				case CharType.idColorType.blue:
+					this.bg.setFill('#06c');
+					break;
+				case CharType.idColorType.red:
+					this.bg.setFill("#900");
+					break;
+				default :
+					break;
+			}
 		}
 	};
 

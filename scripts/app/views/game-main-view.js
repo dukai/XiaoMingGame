@@ -166,6 +166,7 @@ define(function(require, exports, module){
 				this.infoBoard.setEXP(char.exp.currentLevelExp, char.exp.getLevelExp(char.level, true));
 				this.infoBoard.setAttact(char.actualProperties.attackPower);
 				this.infoBoard.setArmor(char.actualProperties.physicalArmor);
+				this.infoBoard.setColor(char.idColor);
 				this.infoBoard.show();
 			}
 			this.uiLayer.batchDraw();
