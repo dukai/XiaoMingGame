@@ -99,7 +99,7 @@ define(function(require, exports, module){
                 }
 
                 i++;
-            }, 1000);
+            }, 200);
 
         }
     };
