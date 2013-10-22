@@ -25,7 +25,7 @@ root + resource
 ```
 #演示地址 
 
-http://www.ideaplus.co
+http://www.ideaplus.co/xiaoming/
 
 #个人博客
 
