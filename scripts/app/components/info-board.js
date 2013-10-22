@@ -34,7 +34,7 @@ define(function(require, exports, module){
 
 			var hp = new Kinetic.Text({
 				x: 10,
-				y: 30,
+				y: 35,
 				text : 'HP',
 				fontSize: 10,
 				fontFamily: "Arial",
@@ -47,7 +47,7 @@ define(function(require, exports, module){
 
 			var exp = new Kinetic.Text({
 				x: 10,
-				y: 50,
+				y: 55,
 				text : 'EXP',
 				fontSize: 10,
 				fontFamily: "Arial",
@@ -59,19 +59,19 @@ define(function(require, exports, module){
 
 			var hpPBV = this.hpPBV = new ProgressBar({
 				x: 40,
-				y: 30,
+				y: 35,
 				fill: '#fff'
 			});
 
 			var expPBV = this.expPBV = new ProgressBar({
 				x: 40,
-				y: 50,
+				y: 55,
 				fill: '#fff'
 			});
 
 			var hpDetail = this.hpDetail = new Kinetic.Text({
 				x: 0,
-				y: 20,
+				y: 25,
 				text : '480/1000',
 				fontSize: 10,
 				fontFamily: "Arial",
@@ -84,7 +84,7 @@ define(function(require, exports, module){
 
 			var expDetail = this.expDetail = new Kinetic.Text({
 				x: 0,
-				y: 40,
+				y: 45,
 				text : '480/1000',
 				fontSize: 10,
 				fontFamily: "Arial",
@@ -97,7 +97,7 @@ define(function(require, exports, module){
 
 			var attack = this.attack = new Kinetic.Text({
 				x: 15,
-				y: 65,
+				y: 70,
 				text : '攻击 100',
 				fontSize: 10,
 				fontFamily: "Microsoft YaHei",
@@ -110,7 +110,7 @@ define(function(require, exports, module){
 
 			var armor = this.armor = new Kinetic.Text({
 				x: 80,
-				y: 65,
+				y: 70,
 				text : '护甲 100',
 				fontSize: 10,
 				fontFamily: "Microsoft YaHei",

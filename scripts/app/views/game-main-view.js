@@ -161,7 +161,7 @@ define(function(require, exports, module){
 			if(char == null){
 				this.infoBoard.hide();
 			}else{
-				this.infoBoard.setName(char.name);
+				this.infoBoard.setName(char.name + ' Lv' + char.level);
 				this.infoBoard.setHP(char.hitPointActual, char.actualProperties.hitPoint);
 				this.infoBoard.setEXP(char.exp.currentLevelExp, char.exp.getLevelExp(char.level, true));
 				this.infoBoard.setAttact(char.actualProperties.attackPower);
