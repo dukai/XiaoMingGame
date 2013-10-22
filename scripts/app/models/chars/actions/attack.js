@@ -71,14 +71,15 @@ define(function(require, exports, module){
 				debug && console.log('-------------');
 			}else{
 				debug && console.log(nChar.name + '剩余生命值' + nChar.hitPointActual);
-			}
-			//格挡几率
-			var blockTurn = Math.ceil(Math.random() * 100);
-			//格挡成功，发动回击
-			if(!attackBack && nChar.hitPointActual > 0 && blockTurn <= nChar.actualProperties.block * 100){
-                setTimeout(function(){
-                    nChar.action.execute(nChar, pChar);
-                }, 750);
+
+				//格挡几率
+				var blockTurn = Math.ceil(Math.random() * 100);
+				//格挡成功，发动回击
+				if(!attackBack && nChar.hitPointActual > 0 && blockTurn <= nChar.actualProperties.block * 100){
+					setTimeout(function(){
+						nChar.action.execute(nChar, pChar);
+					}, 750);
+				}
 			}
 		}
 	};
