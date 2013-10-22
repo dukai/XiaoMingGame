@@ -133,7 +133,7 @@ define(function(require, exports, module){
                     }
                 ]
             });
-            this.uiLayer.add(dialog);
+            //this.uiLayer.add(dialog);
 
 
 

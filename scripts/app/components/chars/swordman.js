@@ -212,6 +212,18 @@ define(function(require, exports, module){
             });
         },
 
+		//死亡事件
+		onDead: function(e){
+			var self = this;
+			setTimeout(function(){
+				self.body.setAnimation('dead');
+				self.body.afterFrame(4, function() {
+					self.body.stop();
+					self.destroy();
+				});
+			}, 500);
+		},
+
         onHipPointDecrease: function(event){
             if(event.direction.x == -1){
                 this.flip('left');

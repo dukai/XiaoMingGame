@@ -24,6 +24,7 @@ define(function(require, exports, module){
                 this.chars.push(char);
                 this.charsHashMap[char.getHashCode()] = char;
                 char.eventManager.addEventListener(CharEvent.COORDINATE_CHANGE, this.onCoordinateChange, this);
+	            char.eventManager.addEventListener(CharEvent.DEAD, this.onDead, this);
             }
         },
 
@@ -40,6 +41,10 @@ define(function(require, exports, module){
             delete this.charsHashMap[Util.pos2HashCode(event.ocx, event.ocy)];
             this.charsHashMap[event.target.getHashCode()] = event.target;
         },
+
+	    onDead: function(e){
+		    this.remove(e.target);
+	    },
 
         inTeam: function(x, y){
             if(this.charsHashMap[Util.pos2HashCode(x, y)]){

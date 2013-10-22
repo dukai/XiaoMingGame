@@ -18,5 +18,7 @@ define({
 	HIDE_MENU: 'char-model-hide-menu',
 
     HIT_POINT_DECREASE: 'char-model-hit-point-decrease',
-    HIT_POINT_INCREASE: 'char-model-hit-point-increase'
+    HIT_POINT_INCREASE: 'char-model-hit-point-increase',
+	//死亡事件
+	DEAD: 'char-model-dead'
 });

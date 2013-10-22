@@ -60,7 +60,7 @@ define(function(require, exports, module){
 				debug && console.log(nChar.units + nChar.name + '已经死亡');
 				//TODO: 触发死亡事件
 				nChar.hitPointActual = 0;
-
+				nChar.eventManager.trigger(CharEvent.DEAD, {target: nChar});
 				var gains = pChar.exp.getFightExp(pChar.level, nChar.level);
 
 				debug && console.log(pChar.name + '获取了' + gains + '点经验');
