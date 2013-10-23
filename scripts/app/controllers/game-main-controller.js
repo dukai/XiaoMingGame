@@ -39,8 +39,14 @@ define(function(require, exports, module){
 			this.player2.gameModel = this.gameModel;
             this.player2.idColor = CharType.idColorType.red;
 
+			this.player3 = CharFactory.createCharacter(CharType.roleType.swordman);
+			this.player3.setCoordinate(18, 10);
+			this.player3.gameModel = this.gameModel;
+			this.player3.idColor = CharType.idColorType.red;
+
 			this.gameModel.ourTeam.add(this.player1);
 			this.gameModel.enemyTeam.add(this.player2);
+			this.gameModel.enemyTeam.add(this.player3);
             this.AI = AI;
             this.AI.setEnemyTeam(this.gameModel.enemyTeam);
             this.AI.setOurTeam(this.gameModel.ourTeam);
