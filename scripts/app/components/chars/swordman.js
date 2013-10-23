@@ -171,6 +171,11 @@ define(function(require, exports, module){
 		},
 
         onCoordinateChange: function(event){
+	        if(event.direction.x < 0){
+		        this.flip('left');
+	        }else if(event.direction.x > 0){
+		        this.flip('right');
+	        }
             this.setCoordinate(event.cx, event.cy);
         },
 
