@@ -187,6 +187,7 @@ define(function(require, exports, module){
                 cy: y,
                 ocx: oc.x,
                 ocy: oc.y,
+	            direction: {x: x - oc.x, y: y - oc.y},
                 target: this
             })
         },
@@ -301,28 +302,6 @@ define(function(require, exports, module){
 		},
 
         getAttackRange: function(){
-	        /*
-            var range = this.actualProperties.attackRange.max;
-            var preColumn = this.cx - range;
-            var nextColumn = this.cx + range;
-            var preRow = this.cy - range;
-            var nextRow = this.cy + range;
-            var list = [];
-            for(var x = preColumn; x <= nextColumn; x++){
-                for(var y = preRow; y <= nextRow; y++){
-                    var dx = Math.abs(x - this.cx);
-                    var dy = Math.abs(y - this.cy);
-
-                    if(dx + dy <= range){
-
-                        if(x !== this.cx || y !== this.cy){
-                            if(this.gameModel.getEnemyTeam(this.team).inTeam(x, y)){
-                                list.push({x: x, y: y});
-                            }
-                        }
-                    }
-                }
-            }*/
 	        var center = new PathRange.Node(this.cx, this.cy, this.actualProperties.attackRange);
 	        var list = this.pathRange.getAttackRange(center, this.gameModel.getEnemyTeam(this.team));
             this.attackRange = list;
