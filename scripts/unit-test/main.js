@@ -102,10 +102,10 @@ define(function(require, exports, module){
 	var hitMap = new HitMap(map);
 	var center = new PathRange.Node(3, 3, 1);
 	var pr = new PathRange.PathRange();
-	console.log(pr.getRange(center, hitMap).length == 4);
+	console.log(pr.getMoveRange(center, hitMap).length == 4);
 	console.log('======测试PathRange 2======');
 	var center = new PathRange.Node(3, 3, 2);
-	var range2 = pr.getRange(center, hitMap);
+	var range2 = pr.getMoveRange(center, hitMap);
 	console.log(range2.length == 11);
 	setRange(range2, map);
 	printMap(map);
