@@ -9,79 +9,7 @@ define(function(require, exports, module){
     var CharStatus = require('app/models/chars/char-statuses');
     var PathRange = require('xiaoming/map/path-range');
     var Attack = require('./actions/attack');
-
-
-	/**
-	 * 用户属性信息
-	 * @constructor
-	 */
-	var PlayerProperties = function(options){
-		//生命值
-		this.hitPoint = 0;
-		//体能值
-		this.stamina = 0;
-		//攻击力
-		this.attackPower = 0;
-		//加血能力
-		this.healPower = 0;
-		//物理防御
-		this.physicalArmor = 0;
-		//魔法防御
-		this.magicArmor = 0;
-		//躲闪几率
-		this.dodge = 0;
-		//格挡
-		this.block = 0;
-		//暴击
-		this.criticalStrike = 0;
-		//暴击伤害倍率
-		this.criticalStrikeDamage = 2;
-		//幸运值
-		this.luck = 0;
-		//移动能力
-		this.mobility = 1;
-		//攻击范围
-		this.attackRange = {min: 0, max: 0};
-		//怒气值
-		this.rage = 0;
-		//消耗
-		this.consume = 0;
-
-		this._initPlayerProperties(options);
-	};
-
-	PlayerProperties.prototype = {
-		_initPlayerProperties: function(options){
-			this.setProperties(options);
-		},
-
-		setProperties: function(options){
-			for(var key in options){
-				if(this[key] !== undefined){
-					this[key] = options[key];
-				}
-			}
-		},
-
-        add: function(key, playerProperties, extra){
-            if(key !== 'attackRange'){
-                extra || (extra = 0);
-                this[key] = playerProperties[key] + extra;
-            }else{
-                extra || (extra = {min: 0, max: 0});
-                this[key].max = playerProperties[key].max + extra.max;
-                this[key].min = playerProperties[key].min + extra.min;
-            }
-        }
-	};
-
-	PlayerProperties.filedsNameList = [
-		'hitPoint', 'stamina', 'attackPower',
-		'healPower', 'physicalArmor', 'magicArmor',
-		'dodge', 'block', 'criticalStrike',
-		'criticalStrikeDamage', 'luck', 'mobility',
-		'attackRange', 'rage', 'consume'
-	];
+	var PlayerProperties = require('./player-properties');
 	/**
 	 * 人物角色
 	 * @param options
@@ -288,7 +216,8 @@ define(function(require, exports, module){
          * @returns {Array}
          */
         getMoveRange: function(){
-            this.moveRange = this.pathRange.getRange(new PathRange.Node(this.cx, this.cy, this.actualProperties.mobility), this.gameModel.getHitMap());
+	        var center = new PathRange.Node(this.cx, this.cy, {max: this.actualProperties.mobility});
+            this.moveRange = this.pathRange.getMoveRange(center, this.gameModel.getHitMap());
             return this.moveRange;
         },
 
@@ -372,6 +301,7 @@ define(function(require, exports, module){
 		},
 
         getAttackRange: function(){
+	        /*
             var range = this.actualProperties.attackRange.max;
             var preColumn = this.cx - range;
             var nextColumn = this.cx + range;
@@ -392,7 +322,9 @@ define(function(require, exports, module){
                         }
                     }
                 }
-            }
+            }*/
+	        var center = new PathRange.Node(this.cx, this.cy, this.actualProperties.attackRange);
+	        var list = this.pathRange.getAttackRange(center, this.gameModel.getEnemyTeam(this.team));
             this.attackRange = list;
             return list;
         },
