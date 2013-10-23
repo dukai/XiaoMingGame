@@ -28,23 +28,31 @@ define(function(require, exports, module){
 			this.gameModel = new GameModel({
 				mapData: tmxMapParser.getHitMap()
 			});
-			this.gameModel.ourTeam = new Team();
-			this.gameModel.enemyTeam = new Team();
+			this.gameModel.ourTeam = new Team({
+				idColor: CharType.idColorType.blue
+			});
+			this.gameModel.enemyTeam = new Team({
+				idColor: CharType.idColorType.red
+			});
 
             this.player1 = CharFactory.createCharacter(CharType.roleType.swordman);
             this.player1.setCoordinate(10, 5);
 			this.player1.gameModel = this.gameModel;
+
+			this.player4 = CharFactory.createCharacter(CharType.roleType.swordman);
+			this.player4.setCoordinate(10, 6);
+			this.player4.gameModel = this.gameModel;
+
             this.player2 = CharFactory.createCharacter(CharType.roleType.swordman);
             this.player2.setCoordinate(17, 9);
 			this.player2.gameModel = this.gameModel;
-            this.player2.idColor = CharType.idColorType.red;
 
 			this.player3 = CharFactory.createCharacter(CharType.roleType.swordman);
 			this.player3.setCoordinate(18, 10);
 			this.player3.gameModel = this.gameModel;
-			this.player3.idColor = CharType.idColorType.red;
 
 			this.gameModel.ourTeam.add(this.player1);
+			this.gameModel.ourTeam.add(this.player4);
 			this.gameModel.enemyTeam.add(this.player2);
 			this.gameModel.enemyTeam.add(this.player3);
             this.AI = AI;

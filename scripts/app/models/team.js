@@ -3,6 +3,7 @@ define(function(require, exports, module){
     var Util = require('xiaoming/util');
 	var HitMap = require('xiaoming/map/hit-map');
     var CharEvent = require('app/models/chars/char-event');
+	var CharType = require('app/models/chars/char-type');
 
     var Team =function(options){
         this._initTeam(options);
@@ -11,7 +12,7 @@ define(function(require, exports, module){
     Team.prototype = {
         _initTeam: function(options){
             this.options = oo.mix({
-
+	            idColor: CharType.idColorType.blue
             }, this.options);
             this.options = oo.mix(this.options, options);
             this.chars = [];
@@ -21,6 +22,7 @@ define(function(require, exports, module){
         add: function(char){
             if(Util.indexOf(this.chars, char) < 0){
 	            char.team = this;
+	            char.idColor = this.options.idColor;
                 this.chars.push(char);
                 this.charsHashMap[char.getHashCode()] = char;
                 char.eventManager.addEventListener(CharEvent.COORDINATE_CHANGE, this.onCoordinateChange, this);
