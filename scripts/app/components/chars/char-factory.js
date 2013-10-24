@@ -1,6 +1,7 @@
 define(function(require, exports, module){
     var CharType = require('app/models/chars/char-type');
     var Swordman = require('./swordman');
+	var Archer = require('./archer');
 
     var CharFactory = {
 
@@ -18,6 +19,7 @@ define(function(require, exports, module){
     };
 
     CharFactory.registClass(CharType.roleType.swordman, Swordman);
+	CharFactory.registClass(CharType.roleType.archer, Archer);
 
 
 

@@ -39,7 +39,7 @@ define(function(require, exports, module){
             this.player1.setCoordinate(10, 5);
 			this.player1.gameModel = this.gameModel;
 
-			this.player4 = CharFactory.createCharacter(CharType.roleType.swordman);
+			this.player4 = CharFactory.createCharacter(CharType.roleType.archer);
 			this.player4.setCoordinate(10, 6);
 			this.player4.gameModel = this.gameModel;
 

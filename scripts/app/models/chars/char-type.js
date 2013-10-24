@@ -1,6 +1,7 @@
 define({
     roleType: {
-        swordman: 1
+        swordman: 1,
+	    archer: 2
     },
 
     idColorType: {
