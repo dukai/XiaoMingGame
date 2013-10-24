@@ -329,6 +329,7 @@ define(function(require, exports, module){
         },
         //进入待机状态
         await: function(){
+	        this.gameModel.activedChar = null;
             this.origCoordinate = null;
             this.eventManager.trigger(CharEvent.STATUS_WAITING, {});
         },

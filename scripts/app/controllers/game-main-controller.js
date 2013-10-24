@@ -166,6 +166,7 @@ define(function(require, exports, module){
                 for(var i = 0, len = self.gameModel.ourTeam.chars.length; i < len; i++){
                     self.gameModel.ourTeam.chars[i].resetStatusNormal();
                 }
+	            self.gameModel.activedChar = null;
             });
             /*
 
