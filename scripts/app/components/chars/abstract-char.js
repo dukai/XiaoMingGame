@@ -267,4 +267,6 @@ define(function(require, exports, module){
 	Kinetic.Factory.addGetterSetter(AbstractChar, 'frameRate');
 	Kinetic.Factory.addGetterSetter(AbstractChar, 'index');
 	Kinetic.Factory.addGetterSetter(AbstractChar, 'animation');
+
+	module.exports = AbstractChar;
 });
