@@ -34,14 +34,28 @@ define(function(require, exports, module){
 			this.gameModel.enemyTeam = new Team({
 				idColor: CharType.idColorType.red
 			});
+			var ourTeamData = [
+				{
+					type: CharType.roleType.swordman,
+					coordinate: {x: 10, y: 5}
+				},
+				{
+					type: CharType.roleType.archer,
+					coordinate: {x: 10, y: 6}
+				},
+				{
+					type: CharType.roleType.swordman,
+					coordinate: {x: 10, y: 7}
+				}
+			];
+			var enemyTeamData = [];
 
-            this.player1 = CharFactory.createCharacter(CharType.roleType.swordman);
-            this.player1.setCoordinate(10, 5);
-			this.player1.gameModel = this.gameModel;
-
-			this.player4 = CharFactory.createCharacter(CharType.roleType.archer);
-			this.player4.setCoordinate(10, 6);
-			this.player4.gameModel = this.gameModel;
+			for(var i = 0, len = ourTeamData.length; i < len; i++){
+				var p = CharFactory.createCharacter(ourTeamData[i].type);
+				p.setCoordinate(ourTeamData[i].coordinate.x, ourTeamData[i].coordinate.y);
+				p.gameModel = this.gameModel;
+				this.gameModel.ourTeam.add(p);
+			}
 
             this.player2 = CharFactory.createCharacter(CharType.roleType.swordman);
             this.player2.setCoordinate(17, 9);
@@ -51,8 +65,6 @@ define(function(require, exports, module){
 			this.player3.setCoordinate(18, 10);
 			this.player3.gameModel = this.gameModel;
 
-			this.gameModel.ourTeam.add(this.player1);
-			this.gameModel.ourTeam.add(this.player4);
 			this.gameModel.enemyTeam.add(this.player2);
 			this.gameModel.enemyTeam.add(this.player3);
             this.AI = AI;
