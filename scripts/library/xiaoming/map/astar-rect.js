@@ -63,7 +63,7 @@ define(function(require, exports, module){
         getSurroundNodes: function(map, node){
 
             var nodeList = [], x, y, n;
-            if((this.x & 1) == 0 && (this.y & 1) == 0 || (this.x & 1) == 1 && (this.y & 1) == 1){
+            //if((this.x & 1) == 0 && (this.y & 1) == 0 || (this.x & 1) == 1 && (this.y & 1) == 1){
                 for(var i = 0; i < 4; i++){
                     x = this.x + this.offsetX[i];
                     y = this.y + this.offsetY[i];
@@ -72,7 +72,7 @@ define(function(require, exports, module){
                         nodeList.push(n);
                     }
                 }
-            }else{
+          /*  }else{
                 for(var i = 3; i > 0; i--){
                     x = this.x + this.offsetX[i];
                     y = this.y + this.offsetY[i];
@@ -82,6 +82,7 @@ define(function(require, exports, module){
                     }
                 }
             }
+		*/
 
 
             return nodeList;

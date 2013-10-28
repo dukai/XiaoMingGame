@@ -5,7 +5,7 @@ define(function(require, exports, module){
         enemyTeam: null,
 	    enemyIndex: 0,
         ourTeam: null,
-	    ourIndex: 0,
+	    ourIndex: 1,
         //获取下一个操作对象
         getNext: function(){
 	        if(this.enemyIndex < this.enemyTeam.chars.length){
