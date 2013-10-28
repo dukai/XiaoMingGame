@@ -26,7 +26,7 @@ define(function(require, exports, module){
 				healPercent = pChar.actualProperties.criticalStrikeDamage;
 			}
 
-			var actualHeal = (pChar.actualProperties.healPower * healPercent);
+			var actualHeal = (pChar.actualProperties.attackPower * healPercent);
 			nChar.hitPointActual += actualHeal;
 			if(nChar.hitPointActual >= nChar.actualProperties.hitPoint){
 				debug && console.log('血量满');
