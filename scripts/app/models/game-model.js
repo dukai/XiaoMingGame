@@ -36,7 +36,12 @@ define(function(require, exports, module){
 		},
 
         onAttack: function(event){
-            event.target.action.execute(event.target, this.getEnemyTeam(event.target.team).charsHashMap[Util.pos2HashCode(event.coordinate.x, event.coordinate.y)]);
+            var hashCode = Util.pos2HashCode(event.coordinate.x, event.coordinate.y);
+            var attackTarget = this.getEnemyTeam(event.target.team).charsHashMap[hashCode];
+            if(!attackTarget){
+                attackTarget = event.target.team.charsHashMap[hashCode];
+            }
+            event.target.action.execute(event.target, attackTarget);
             //event.target.attack(this.enemyTeam.charsHashMap[Util.pos2HashCode(event.coordinate.x, event.coordinate.y)]);
         },
 

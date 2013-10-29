@@ -4,6 +4,7 @@ define(function(require, exports, module){
 	var Equipment = require('../equipments/equipment');
     var CharType = require('./char-type');
     var PathRange = require('xiaoming/map/path-range');
+    var Heal = require('./actions/heal');
 
 	var Pastor = function(options){
 		this._initPastor(options);
@@ -30,8 +31,10 @@ define(function(require, exports, module){
 			//设置装备类型
 			this.armorType = Equipment.armorType.cloth;
 			this.weaponType = Equipment.weaponType.book;
-			this.units = '弓箭手';
-            this.charType = CharType.roleType.archer;
+			this.units = '牧师';
+            this.charType = CharType.roleType.pastor;
+            this.action = new Heal();
+            this.actionList.attack.name = "治疗";
 		},
 
         getAttackRange: function(){

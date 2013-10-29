@@ -1,7 +1,8 @@
 define({
     roleType: {
         swordman: 1,
-	    archer: 2
+	    archer: 2,
+        pastor: 3
     },
 
     idColorType: {

@@ -242,7 +242,7 @@ define(function(require, exports, module){
             if(this.isEnemyInAttackRange()){
                 itemsList = [
                     {
-                        text: '攻击',
+                        text: this.actionList.attack.name,
                         callback: function(){
                             this.status.execute(this, {
                                 action: 'attack'

@@ -46,7 +46,11 @@ define(function(require, exports, module){
 				{
 					type: CharType.roleType.swordman,
 					coordinate: {x: 10, y: 7}
-				}
+				},
+                {
+                    type: CharType.roleType.pastor,
+                    coordinate: {x: 9, y: 6}
+                }
 			];
 			var enemyTeamData = [];
 

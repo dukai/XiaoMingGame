@@ -26,6 +26,8 @@ define(function(require, exports, module){
 				{'name': 'archer_red', type:'image', src: 'resource/images/archer_red.png'},
 				{'name': 'archer_red_dark', type:'image', src: 'resource/images/archer_red_dark.png'},
 				{'name': 'knight', type:'image', src: 'resource/images/knight.png'},
+                {'name': 'pastor', type:'image', src: 'resource/images/priest.png'},
+                {'name': 'pastor_dark', type:'image', src: 'resource/images/priest_dark.png'},
 				{'name': 'lotus', type:'image', src: 'resource/images/lotus.png'},
 				{name: 'round_btn', type: 'image', src: 'resource/images/round_btn.png'},
 				{name: 'btn_bg', type: 'image', src: 'resource/images/btn_bg.png'},

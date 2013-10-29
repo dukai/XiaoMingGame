@@ -84,7 +84,7 @@ define(function(require, exports, module){
                 this.setScale(-1, 1);
                 this.setOffset(32, 0);
             }
-        },
+        }
 	};
 
     Kinetic.Util.extend(Archer, AbstractChar);

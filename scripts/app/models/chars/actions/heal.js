@@ -1,6 +1,7 @@
 define(function(require, exports, module){
 	var oo = require('xiaoming/oo');
 	var CharAction = require('app/models/chars/actions/char-action');
+    var CharEvent = require('app/models/chars/char-event');
 
 	var Heal = function(options){
 		this._initHeal(options);
@@ -13,6 +14,9 @@ define(function(require, exports, module){
 		},
 
 		execute: function(pChar, nChar){
+            pChar.eventManager.trigger(CharEvent.ATTACK, {
+                direction: {x: pChar.cx - nChar.cx, y: pChar.cy - nChar.cy}
+            });
 			var debug = true;
 			if(nChar.hitPointActual === 0){
 				debug && console.log("人已往矣，无力回天，徒呼奈何，节哀顺变！");
@@ -27,6 +31,10 @@ define(function(require, exports, module){
 			}
 
 			var actualHeal = (pChar.actualProperties.attackPower * healPercent);
+            nChar.eventManager.trigger(CharEvent.HIT_POINT_DECREASE, {
+                hitPoint: actualHeal,
+                direction: {x: pChar.cx - nChar.cx, y: pChar.cy - nChar.cy}
+            });
 			nChar.hitPointActual += actualHeal;
 			if(nChar.hitPointActual >= nChar.actualProperties.hitPoint){
 				debug && console.log('血量满');
