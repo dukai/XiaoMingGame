@@ -14,7 +14,7 @@ define(function(require, exports, module){
 		_initPastor: function(options){
 			this.options = oo.mix({
 				iPropertiesData: {
-					hitPoint : 60,
+					hitPoint : 80,
 					attackPower : 50,
 					physicalArmor : 20,
 					magicArmor : 10,

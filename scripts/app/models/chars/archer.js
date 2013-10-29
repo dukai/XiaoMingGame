@@ -12,7 +12,7 @@ define(function(require, exports, module){
 		_initArcher: function(options){
 			this.options = oo.mix({
 				iPropertiesData: {
-					hitPoint : 60,
+					hitPoint : 80,
 					attackPower : 60,
 					physicalArmor : 20,
 					magicArmor : 10,

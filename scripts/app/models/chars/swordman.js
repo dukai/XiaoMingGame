@@ -11,7 +11,7 @@ define(function(require, exports, module){
 		_initSwordman: function(options){
 			this.options = oo.mix({
 				iPropertiesData: {
-					hitPoint : 80,
+					hitPoint : 120,
 					attackPower : 50,
 					physicalArmor : 25,
 					magicArmor : 10,
