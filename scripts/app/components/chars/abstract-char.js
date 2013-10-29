@@ -108,9 +108,13 @@ define(function(require, exports, module){
 				listening : false,
 				visible: false
 			});
-
-			this.add(this.body);
-			this.add(this.stars);
+            this.bodyGroup = new Kinetic.Group({
+                x:0,
+                y:0
+            });
+			this.bodyGroup.add(this.body);
+			this.bodyGroup.add(this.stars);
+            this.add(this.bodyGroup);
 			this.add(this.decreaseHitPoint);
 		},
 
@@ -164,13 +168,13 @@ define(function(require, exports, module){
 		 */
 		flip: function(value){
 			if(value == 'right'){
-				this.setScale(1, 1);
-				this.setOffset(0, 0);
+				this.bodyGroup.setScale(1, 1);
+				this.bodyGroup.setOffset(0, 0);
 			}
 
 			if(value == 'left'){
-				this.setScale(-1, 1);
-				this.setOffset(32, 0);
+				this.bodyGroup.setScale(-1, 1);
+				this.bodyGroup.setOffset(32, 0);
 			}
 		},
 

@@ -72,18 +72,6 @@ define(function(require, exports, module){
                     break;
             }
 
-        },
-
-        flip: function(value){
-            if(value == 'left'){
-                this.setScale(1, 1);
-                this.setOffset(0, 0);
-            }
-
-            if(value == 'right'){
-                this.setScale(-1, 1);
-                this.setOffset(32, 0);
-            }
         }
 	};
 

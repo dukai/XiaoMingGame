@@ -15,7 +15,7 @@ define(function(require, exports, module){
 				image: resourceLoader.get('pastor'),
 				darkImage: resourceLoader.get('pastor_dark'),
 				fixX: -0,
-				fixY: -16,
+				fixY: -10,
 				defaultAnimation: 'idle',
 				frameRate: 8,
 				index: 0,
