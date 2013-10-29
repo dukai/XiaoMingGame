@@ -49,7 +49,7 @@ define(function(require, exports, module){
 			}
 			debug && console.log('造成了' + actualDamage + '点伤害');
             nChar.eventManager.trigger(CharEvent.HIT_POINT_DECREASE, {
-                hitPoint: actualDamage,
+                hitPoint: - actualDamage,
 
                 direction: {x: pChar.cx - nChar.cx, y: pChar.cy - nChar.cy}
             });

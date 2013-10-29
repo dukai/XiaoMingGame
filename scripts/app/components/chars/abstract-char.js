@@ -243,7 +243,12 @@ define(function(require, exports, module){
 			}else if(event.direction.x == 1){
 				this.flip('right');
 			}
-			this.decreaseHitPoint.setText('-' + event.hitPoint);
+            if(event.hitPoint > 0){
+                this.decreaseHitPoint.setFill('#0f0');
+            }else{
+                this.decreaseHitPoint.setFill('#f00');
+            }
+			this.decreaseHitPoint.setText(event.hitPoint);
 			this.decreaseHitPoint.show();
 			this.decreaseHitPoint.setOpacity(1);
 			this.decreaseHitPoint.setY(0);
