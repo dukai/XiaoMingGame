@@ -1,4 +1,5 @@
 define(function(require, exports, module){
+	var $ = require('jquery');
 	var $c = require('xiaoming/elements');
 	var oo = require('xiaoming/oo');
 	var Kinetic = require('kinetic');
@@ -213,6 +214,11 @@ define(function(require, exports, module){
 				self.getEventManager().trigger(GameMainView.EVENT_LAYER_CLICK, {
                     coordinate : self.getCoordinate(mpos.x, mpos.y, offsetX, offsetY)
                 });
+			});
+
+			$(this.container).contextmenu(function(e){
+
+				return false;
 			});
 		},
         //根据像素获取坐标
