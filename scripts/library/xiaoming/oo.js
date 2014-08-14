@@ -25,18 +25,31 @@ define(function(require, exports, module){
 	};
 
 	exports.extend = extend;
+	
+	var isPlainObject = function(obj){
+		if(!obj.hasOwnProperty('constructor') && typeof obj == 'object' && obj.constructor == Object){
+			return true;
+		}
+		
+		return false;
+	}
+
 	/**
 	 * mix js object 
 	 * @param {Object} base
 	 * @param {Object} child
 	 */
-	var mix = function(base, child){
+	var mix = function(base, child, deep){
 		var o = new Object();
 		for(var key in base){
 			o[key] = base[key];
 		}
 		for(var key in child){
-			o[key] = child[key];
+			if(deep && isPlainObject(o[key])){
+				o[key] = mix(o[key], child[key]);
+			}else{
+				o[key] = child[key];
+			}
 		}
 		return o;
 	};
