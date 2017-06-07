@@ -25,7 +25,7 @@ root + resource
 ```
 #演示地址 
 
-http://www.ideaplus.co/xiaoming/
+http://www.dklogs.net/xiaoming/
 
 #个人博客
 
